@@ -19,6 +19,7 @@ module.exports = {
   resolve: {
     alias: {
       'flocs-visual-components': __dirname + '/src',
+      'images': __dirname + '/assets/images',
     },
     extensions: ['', '.js', '.jsx']
   },
@@ -31,6 +32,10 @@ module.exports = {
         query: {
           presets: ['es2015', 'react', 'react-hmre']
         }
+      },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'url?limit=8000',
       }
     ]
   },

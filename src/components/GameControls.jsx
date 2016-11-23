@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function SpaceControls({ controls, onNewCommand }) {
+export default function GameControls({ controls, onClick }) {
   const GROUP = {
     'left': 'commands',
     'right': 'commands',
@@ -22,7 +22,7 @@ export default function SpaceControls({ controls, onNewCommand }) {
   function conditionallyRenderControlButton(name, label) {
     const controlGroup = GROUP[name];
     if (visible(controlGroup)) {
-      return <button disabled={disabled(controlGroup)} onClick={onNewCommand.bind(this, name)}>{label}</button>
+      return <button disabled={disabled(controlGroup)} onClick={onClick.bind(this, name)}>{label}</button>
     }
   }
 

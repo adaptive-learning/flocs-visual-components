@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TaskStatus({ solved, dead }) {
+export default function GameStatus({ solved, dead }) {
 
   return (
     <div>

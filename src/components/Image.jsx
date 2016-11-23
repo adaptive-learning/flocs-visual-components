@@ -7,9 +7,7 @@ export default function Image({ imageId, width, height, position }) {
     height: height + 'px',
     position: position || 'relative',
   };
-
-  const sourcePath = `/img/${imageId}.png`
-
+  const sourcePath = require(`images/${imageId}.png`);
   return (
     <img src={sourcePath} style={imageStyle} />
   );
