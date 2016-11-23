@@ -1,10 +1,10 @@
 import React from 'react';
-import TaskStatus from '../components/TaskStatus';
-import SpaceWorldWithControls from '../components/SpaceWorldWithControls';
-import CodeEditor from '../components/CodeEditor';
+import TaskStatus from './TaskStatus';
+import SpaceWorldWithControls from './SpaceWorldWithControls';
+import CodeEditor from './CodeEditor';
 
 
-export default class TaskPreview extends React.Component {
+export default class SpaceGame extends React.Component {
   render() {
     const { fields, initial, solved, dead, handleCommand, code, handleCodeChange } = this.props;
     const controls = {
