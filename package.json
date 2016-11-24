@@ -43,7 +43,11 @@
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
+  "napa": {
+    "js-interpreter": "NeilFraser/JS-Interpreter#76256b5e37e2ba35fe67a1c4caed68d56dfab314"
+  },
   "scripts": {
+    "install": "napa",
     "start": "webpack-dev-server --progress --inline --hot --content-base examples/",
     "lint": "eslint"
   }
