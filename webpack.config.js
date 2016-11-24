@@ -8,8 +8,9 @@ module.exports = {
       'webpack/hot/only-dev-server',
       './src/index.js',
     ],
-    'space-game-example':  './examples/space-game-example.js',
-    'code-editor-example': './examples/code-editor-example.js',
+    'space-game-example':   './examples/space-game-example.js',
+    'code-editor-example':  './examples/code-editor-example.js',
+    'task-session-example': './examples/task-session-example.js',
   },
   output: {
     path: __dirname + '/dist',
