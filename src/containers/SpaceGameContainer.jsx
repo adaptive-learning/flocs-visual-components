@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SpaceGame from '../components/SpaceGame';
+import { controlClicked } from '../actions/taskSessions';
 
 
 class SpaceGameContainer extends React.Component {
@@ -9,17 +10,21 @@ class SpaceGameContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <SpaceGame
         gameState={this.props.gameState}
         showCommandControls={false}
-        onControlClicked={s => console.log(s)}
+        onControlClicked={this.handleControlClicked.bind(this)}
       />
     );
   }
 
+  handleControlClicked(control) {
+    this.props.controlClicked(this.props.taskSessionId, control);
+  }
+
 }
+
 
 
 function mapStateToProps(state, props) {
@@ -31,8 +36,7 @@ function mapStateToProps(state, props) {
 
 
 function mapDispatchToProps(dispatch) {
-  //return bindActionCreators(tasksActions, dispatch);
-  return {};
+  return bindActionCreators({ controlClicked }, dispatch);
 };
 
 
