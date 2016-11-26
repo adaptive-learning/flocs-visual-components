@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-//import { CodeEditorContainer } from 'flocs-visual-components/containers';
+import { CodeEditorContainer } from 'flocs-visual-components/containers';
 import { SpaceGameContainer } from 'flocs-visual-components/containers';
 import { flocsComponentsReducer } from 'flocs-visual-components/reducers';
 //import Actions from 'flocs-visual-components/actions';
@@ -27,8 +27,8 @@ const store = createStore(reducers);
 const app = (
   <Provider store={store}>
     <div>
-      {/*<CodeEditorContainer taskSessionId="single"/>*/}
       <SpaceGameContainer taskSessionId="single"/>
+      <CodeEditorContainer taskSessionId="single"/>
     </div>
   </Provider>
 );
