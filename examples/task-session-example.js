@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 //import { CodeEditorContainer } from 'flocs-visual-components/containers';
-//import { SpaceGameContainer } from 'flocs-visual-components/containers';
-//import { taskSessionReducer } from 'flocs-visual-components/reducers';
+import { SpaceGameContainer } from 'flocs-visual-components/containers';
+import { flocsComponentsReducer } from 'flocs-visual-components/reducers';
 //import Actions from 'flocs-visual-components/actions';
 
 function myAppReducer(state={}, action) {
@@ -15,7 +15,7 @@ function myAppReducer(state={}, action) {
 // combine your app reducers with taskSessionReducers
 const reducers = combineReducers({
   myApp: myAppReducer,
-  //taskSessions: taskSessionsReducer
+  flocsComponents: flocsComponentsReducer
 });
 const store = createStore(reducers);
 
@@ -26,9 +26,10 @@ const store = createStore(reducers);
 //}
 const app = (
   <Provider store={store}>
-    <p>tba..</p>
-    {/*<CodeEditorContainer taskSessionId="main"/>*/}
-    {/*<SpaceGameContainer taskSessionId="main"/>*/}
+    <div>
+      {/*<CodeEditorContainer taskSessionId="single"/>*/}
+      <SpaceGameContainer taskSessionId="single"/>
+    </div>
   </Provider>
 );
 ReactDOM.render(app, document.getElementById('taskSessionExample'));

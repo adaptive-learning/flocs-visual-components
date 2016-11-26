@@ -9,11 +9,12 @@ class SpaceGameContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <SpaceGame
         gameState={this.props.gameState}
         showCommandControls={false}
-        onControlClicked={this.props.handleControlClicked}
+        onControlClicked={s => console.log(s)}
       />
     );
   }
@@ -22,17 +23,16 @@ class SpaceGameContainer extends React.Component {
 
 
 function mapStateToProps(state, props) {
-  const { taskSessionId } = props.params;
-  return { taskSessionId };
+  const { taskSessionId } = props;
+  const taskSession = state.flocsComponents.taskSessions[taskSessionId];
+  const gameState = taskSession.gameState;
+  return { taskSessionId, gameState };
 };
 
 
 function mapDispatchToProps(dispatch) {
   //return bindActionCreators(tasksActions, dispatch);
-  function demo(s) {
-    console.log(s);
-  }
-  return { handleControlClick: demo };
+  return {};
 };
 
 
