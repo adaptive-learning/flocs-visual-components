@@ -2,7 +2,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SpaceGame from '../components/SpaceGame';
-import { controlClicked } from '../actions/taskSessions';
+import { runProgram, resetGame, executeCommand } from '../actions/taskSessions';
+import getGameState from '../selectors/gameState';
 
 
 class SpaceGameContainer extends React.Component {
@@ -13,16 +14,30 @@ class SpaceGameContainer extends React.Component {
     return (
       <SpaceGame
         gameState={this.props.gameState}
-        showCommandControls={false}
+        showCommandControls={true}
         onControlClicked={this.handleControlClicked.bind(this)}
       />
     );
   }
 
   handleControlClicked(control) {
-    this.props.controlClicked(this.props.taskSessionId, control);
+    switch (control) {
+      case 'left':
+      case 'right':
+      case 'ahead':
+      case 'ahead+shot':
+        this.props.executeCommand(this.props.taskSessionId, control);
+        break;
+      case 'run':
+        this.props.runProgram(this.props.taskSessionId);
+        break;
+      case 'reset':
+        this.props.resetGame(this.props.taskSessionId);
+        break;
+      default:
+        throw 'Undefined control ' + commandName;
+    }
   }
-
 }
 
 
@@ -30,13 +45,13 @@ class SpaceGameContainer extends React.Component {
 function mapStateToProps(state, props) {
   const { taskSessionId } = props;
   const taskSession = state.flocsComponents.taskSessions[taskSessionId];
-  const gameState = taskSession.gameState;
+  const gameState = getGameState(taskSession);
   return { taskSessionId, gameState };
 };
 
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ controlClicked }, dispatch);
+  return bindActionCreators({ runProgram, resetGame, executeCommand }, dispatch);
 };
 
 

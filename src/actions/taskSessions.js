@@ -1,12 +1,3 @@
-export const CLICK_CONTROL = 'CLICK_CONTROL';
-export function controlClicked(taskSessionId, control) {
-  return {
-    type: CLICK_CONTROL,
-    payload: { taskSessionId, control }
-  };
-};
-
-
 export const CHANGE_CODE = 'CHANGE_CODE';
 export function changeCode(taskSessionId, code) {
   return {
@@ -16,3 +7,23 @@ export function changeCode(taskSessionId, code) {
 };
 
 
+export function runProgram(taskSessionId) {
+};
+
+
+export const EXECUTE_COMMAND = 'EXECUTE_COMMAND';
+export function executeCommand(taskSessionId, command) {
+  return {
+    type: EXECUTE_COMMAND,
+    payload: { taskSessionId, command }
+  };
+};
+
+
+export const RESET_GAME = 'RESET_GAME';
+export function resetGame(taskSessionId) {
+  return {
+    type: RESET_GAME,
+    payload: { taskSessionId }
+  };
+};
