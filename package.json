@@ -9,7 +9,7 @@
   "author": "Tomas Effenberger",
   "license": "GPL-3.0",
   "homepage": "https://github.com/reactjs/react-tabs",
-  "main": "src/index.js",
+  "main": "dist/flocs-visual-components.js",
   "dependencies": {
     "es6-promise": "^3.2.1",
     "immutable": "^3.8.1",
@@ -45,6 +45,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --progress --inline --hot --content-base examples/",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build": "webpack"
   }
 }
