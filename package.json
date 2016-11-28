@@ -44,7 +44,6 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "install": "napa",
     "start": "webpack-dev-server --progress --inline --hot --content-base examples/",
     "lint": "eslint"
   }
