@@ -27,11 +27,11 @@ module.exports = {
       },
       {
         test: /\.(jpg|png)$/,
-        loader: 'url?limit=8000&name=static/images/[name].[ext]',
+        loader: 'url?limit=8000&name=/static/images/[name].[ext]',
       },
       {
         test: /\.woff$/,
-        loader: 'file-loader?name=static/fonts/[name].[ext]'
+        loader: 'file-loader?name=/static/fonts/[name].[ext]'
       }
     ]
   },
