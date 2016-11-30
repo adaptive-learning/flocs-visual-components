@@ -4,9 +4,30 @@ React visual components for [Flocs project](https://github.com/adaptive-learning
 
 ## Install
 
+Install `flocs-visual-component` package from the npm registry:
+
 ```
-npm install --save adaptive-learning/flocs-visual-components
+npm install --save flocs-visual-components
 ```
+
+Copy library static assets (content of `lib/static`) to the place where you serve static assets.
+The assets need to be available under `/static/[images|fonts]/[name]` url.
+You can achieve this automatically using, for example, webpack with the following configuration.
+
+```javascript
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
+module.exports = {
+  // ...
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: 'node_modules/flocs-visual-components/lib/static/images'
+      , to: 'static/images'
+      },
+    ]),
+    // ...
+  ]
+};
 
 ## Usage
 
