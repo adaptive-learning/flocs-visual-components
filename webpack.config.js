@@ -1,29 +1,18 @@
 var webpack = require("webpack");
+var libraryName = 'flocs-visual-components';
 
 module.exports = {
+  entry: __dirname + '/src/index.js',
   devtool: "source-map",
-  entry: {
-    'flocs-visual-components': [
-      'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
-      'webpack/hot/only-dev-server',
-      './src/index.js',
-    ],
-    'space-game-example':   './examples/space-game-example.js',
-    'code-editor-example':  './examples/code-editor-example.js',
-    'task-session-example': './examples/task-session-example.js',
-  },
   output: {
-    path: __dirname + '/dist',
-    filename: '[name].js',
-    library: '[name]',
+    path: __dirname + '/lib',
+    filename: libraryName + '.js',
+    library: libraryName,
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
   resolve: {
-    alias: {
-      'flocs-visual-components': __dirname + '/src',
-      'images': __dirname + '/assets/images',
-    },
+    root: __dirname + '/src',
     extensions: ['', '.js', '.jsx']
   },
   module: {
@@ -33,12 +22,8 @@ module.exports = {
         loader: 'babel',
         exclude: /node_modules/,
         query: {
-          presets: ['es2015', 'react', 'react-hmre']
+          presets: ['es2015', 'react']
         }
-      },
-      {
-        test: /\.(jpg|png)$/,
-        loader: 'url?limit=8000',
       }
     ]
   },
