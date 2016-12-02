@@ -2,13 +2,9 @@
   "name": "flocs-visual-components",
   "version": "1.0.4",
   "description": "React visual components for Flocs",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/adaptive-learning/flocs-visual-components.git"
-  },
   "author": "Tomas Effenberger",
   "license": "GPL-3.0",
-  "homepage": "https://github.com/reactjs/react-tabs",
+  "homepage": "https://github.com/adaptive-learning/flocs-visual-components",
   "main": "lib/flocs-visual-components.js",
   "dependencies": {
     "es6-promise": "^3.2.1",
@@ -44,10 +40,14 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run clean && npm run build",
     "start": "webpack-dev-server --progress --inline --hot --content-base examples/",
     "build": "webpack",
     "lint": "eslint",
     "clean": "rm -rf lib dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adaptive-learning/flocs-visual-components.git"
   }
 }
