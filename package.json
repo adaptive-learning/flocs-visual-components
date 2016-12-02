@@ -47,6 +47,7 @@
     "prepublish": "npm run build",
     "start": "webpack-dev-server --progress --inline --hot --content-base examples/",
     "build": "webpack",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean": "rm -rf lib dist"
   }
 }
