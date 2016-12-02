@@ -69,22 +69,16 @@ ReactDOM.render(component, mountElement);
 
 ### Redux Containers
 
-If you want more components to communicate with each other, the simplest way is to use provided containers and reducer.
-In addition to importing containers from `flocs-visual-components/containers`,
-you also need to import `flocsComponentsReducer` from `flocs-visual-components/reducers`
-and connect it to your root reducer on the `'flocsComponents'` key.
-
-If you want, you can make your app reducers to respond on actions dispatched by the containers (types are defined in `flocs-visual-components/actions`)
-and you can use data in the created substate (`state.flocsComponents`) and selectors defined in `flocs-visual-components/selectors`.
+If you want more components to communicate with each other, the simplest way is to use provided containers and reducer inside a redux app.
+The dedicated reducer is called `flocsComponentsReducer` and needs to be connected to your root reducer on the `'flocsComponents'` key.
 
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import { CodeEditorContainer } from 'flocs-visual-components/containers';
-import { SpaceGameContainer } from 'flocs-visual-components/containers';
-import { flocsComponentsReducer } from 'flocs-visual-components/reducers';
+import { CodeEditorContainer, SpaceGameContainer } from 'flocs-visual-components';
+import { flocsComponentsReducer } from 'flocs-visual-components';
 
 function myAppReducer(state={}, action) {
   console.log('myApp reducer listening to action:', action);
@@ -109,3 +103,7 @@ const app = (
 );
 ReactDOM.render(app, document.getElementById('taskSessionExample'));
 ```
+
+If you want, you can make your app reducers to respond on actions dispatched by the containers.
+You can also use data in the created substate (`state.flocsComponents`), preferably via provided selector functions.
+(TBA: examples)
