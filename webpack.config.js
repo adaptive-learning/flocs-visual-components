@@ -1,13 +1,12 @@
 var webpack = require("webpack");
-var libraryName = 'flocs-visual-components';
 
 module.exports = {
   entry: __dirname + '/src/index.js',
   devtool: "source-map",
   output: {
     path: __dirname + '/lib',
-    filename: libraryName + '.js',
-    library: libraryName,
+    filename: 'flocs-visual-components.js',
+    library: 'flocsVisualComponents',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
