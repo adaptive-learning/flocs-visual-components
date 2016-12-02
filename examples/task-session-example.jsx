@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import { CodeEditorContainer } from 'flocs-visual-components/containers';
-import { SpaceGameContainer } from 'flocs-visual-components/containers';
-import { flocsComponentsReducer } from 'flocs-visual-components/reducers';
-//import Actions from 'flocs-visual-components/actions';
+import { CodeEditorContainer, SpaceGameContainer } from 'flocs-visual-components';
+import { flocsComponentsReducer } from 'flocs-visual-components';
 
 function myAppReducer(state={}, action) {
   console.log('myApp reducer listening to action:', action);
@@ -32,4 +30,7 @@ const app = (
     </div>
   </Provider>
 );
-ReactDOM.render(app, document.getElementById('taskSessionExample'));
+const mountElement = document.getElementById('taskSessionExample');
+if (mountElement !== null) {
+  ReactDOM.render(app, mountElement);
+}

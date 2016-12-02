@@ -40,11 +40,11 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "prepublish": "npm run clean && npm run build",
-    "start": "webpack-dev-server --progress --inline --hot --content-base examples/",
-    "build": "webpack",
+    "prepublish": "npm run build",
+    "start": "webpack-dev-server --config webpack.config.development.js --progress --inline --hot --content-base examples/",
+    "build": "npm run clean && webpack --config webpack.config.build.js",
     "lint": "eslint",
-    "clean": "rm -rf lib dist"
+    "clean": "rm -rf lib"
   },
   "repository": {
     "type": "git",

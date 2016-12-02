@@ -14,4 +14,6 @@ const component = (
 );
 
 const mountElement = document.getElementById('codeEditorExample');
-ReactDOM.render(component, mountElement);
+if (mountElement !== null) {
+  ReactDOM.render(component, mountElement);
+}

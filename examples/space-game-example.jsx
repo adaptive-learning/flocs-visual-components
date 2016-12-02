@@ -19,4 +19,6 @@ const component = (
 );
 
 const mountElement = document.getElementById('spaceGameExample');
-ReactDOM.render(component, mountElement);
+if (mountElement !== null) {
+  ReactDOM.render(component, mountElement);
+}
