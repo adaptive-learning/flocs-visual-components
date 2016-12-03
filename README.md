@@ -70,12 +70,17 @@ ReactDOM.render(component, mountElement);
 ### Redux Containers
 
 If you want more components to communicate with each other, the simplest way is to use provided containers and reducer inside a redux app.
-The dedicated reducer is called `flocsComponentsReducer` and needs to be connected to your root reducer on the `'flocsComponents'` key.
+What you need to do:
+
+* Connect dedicated `flocsComponentsReducer` to your root reducer on the `'flocsComponents'` key.
+* Apply `thunk` middleware (if you haven't already).
+* Create desired container components and give them same `taskSessionId`.
 
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { CodeEditorContainer, SpaceGameContainer } from 'flocs-visual-components';
 import { flocsComponentsReducer } from 'flocs-visual-components';
@@ -90,7 +95,9 @@ const reducers = combineReducers({
   myApp: myAppReducer,
   flocsComponents: flocsComponentsReducer
 });
-const store = createStore(reducers);
+// add thunk into middleware layer
+const middleware = applyMiddleware(thunk);
+const store = createStore(rootReducer, middleware);
 
 // connect used containers by shared store (and common taskSessionId)
 const app = (

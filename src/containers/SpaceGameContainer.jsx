@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SpaceGame from '../components/SpaceGame';
 import { runProgram, resetGame, executeCommand } from '../actions/taskSessions';
-import getGameState from '../selectors/gameState';
+import { getGameState } from '../selectors/gameState';
 
 
 class SpaceGameContainer extends React.Component {

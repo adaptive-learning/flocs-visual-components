@@ -1,6 +1,25 @@
 import { getTaskSession } from './taskSession';
 
-function getGameState(state, taskSessionId) {
+export function getColor(state, taskSessionId) {
+  const gameState = getGameState(state, taskSessionId);
+  const { fields } = gameState;
+  const [y, x] = findSpaceshipPosition(fields);
+  const field = fields[y][x];
+  const color = field[0];  // TODO: more explicit way to get background
+  return color;
+}
+
+
+export function getPosition(state, taskSessionId) {
+  const gameState = getGameState(state, taskSessionId);
+  const { fields } = gameState;
+  const [y, x] = findSpaceshipPosition(fields);
+  const position = x + 1;
+  return position;
+}
+
+
+export function getGameState(state, taskSessionId) {
   const taskSession = state.flocsComponents.taskSessions[taskSessionId];
   const gameState = computeGameStateOfTaskSession(taskSession);
   return gameState;
@@ -161,6 +180,3 @@ function onRock(fields, position) {
   const objects = fields[y][x][1];
   return objects.some(object => rockObjects.has(object));
 }
-
-
-export default getGameState;

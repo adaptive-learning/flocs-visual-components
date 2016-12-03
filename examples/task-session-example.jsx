@@ -8,7 +8,7 @@ import { flocsComponentsReducer } from 'flocs-visual-components';
 
 
 function createAppComponent() {
-  // combine your app reducers with taskSessionReducers
+  // combine your app reducers with flocsComponentsReducer
   const rootReducer = combineReducers({
     myApp: myAppReducer,
     flocsComponents: flocsComponentsReducer

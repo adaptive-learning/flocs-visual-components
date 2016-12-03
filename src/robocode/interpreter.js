@@ -1,4 +1,3 @@
-//import { Interpreter } from 'js-interpreter/interpreter';
 import { Interpreter } from 'js-interpreter';
 import { parseRoboCode } from './parser'
 
@@ -8,10 +7,15 @@ const defaultSettings = {
 }
 
 
-export function interpretRoboCode(code, settings=defaultSettings) {
+/**
+ * Interpret given robo-code step by step.
+ * Input and output is given by :context: parameter, it must provide
+ * all robo-commands (move, position, color)
+ */
+export function interpretRoboCode(code, context, settings=defaultSettings) {
   const roboAst = parseRoboCode(code);
   const jsCode = roboAstToJS(roboAst);
-  stepJsCode(jsCode, settings.pauseLength);
+  stepJsCode(jsCode, context, settings.pauseLength);
 }
 
 
@@ -113,12 +117,31 @@ function encodeValue(arg) {
 }
 
 
-function stepJsCode(jsCode, delay) {
-  const jsInterpreter = new Interpreter(jsCode);
-  console.log('interpreter prepared:', jsInterpreter);
-  /*const jsInterpreter = new Interpreter(jsCode, initApi);
-
+function stepJsCode(jsCode, context, pauseLength) {
   let pause = false;
+
+  function initApi(interpreter, scope) {
+    // TODO: dry initApi function
+    interpreter.setProperty(scope, 'move',
+      interpreter.createNativeFunction(function(direction) {
+        direction = direction ? direction.toString() : 'ahead';
+        context.move(direction);
+        pause = true;
+        return interpreter.createPrimitive();
+    }));
+
+    interpreter.setProperty(scope, 'color',
+      interpreter.createNativeFunction(function() {
+        return interpreter.createPrimitive(context.color());
+    }));
+
+    interpreter.setProperty(scope, 'position',
+      interpreter.createNativeFunction(function() {
+        return interpreter.createPrimitive(context.position());
+    }));
+  }
+
+  const jsInterpreter = new Interpreter(jsCode, initApi);
   function nextStep() {
     let ok = true;
     while (ok && !pause) {
@@ -126,8 +149,8 @@ function stepJsCode(jsCode, delay) {
     }
     if (ok) {
       pause = false;
-      window.setTimeout(nextStep, PAUSE_LENGTH);
+      window.setTimeout(nextStep, pauseLength);
     }
   }
-  nextStep();*/
+  nextStep();
 }

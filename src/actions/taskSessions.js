@@ -1,4 +1,5 @@
 import { getCode } from '../selectors/taskSession';
+import { getColor, getPosition } from '../selectors/gameState';
 import { interpretRoboCode } from '../robocode/interpreter';
 
 export const CHANGE_CODE = 'CHANGE_CODE';
@@ -13,7 +14,12 @@ export function changeCode(taskSessionId, code) {
 export function runProgram(taskSessionId) {
   return function(dispatch, getState) {
     const code = getCode(getState(), taskSessionId);
-    interpretRoboCode(code);
+    const context = {
+      move: (command) => dispatch(executeCommand(taskSessionId, command)),
+      color: () => getColor(getState(), taskSessionId),
+      position: () => getPosition(getState(), taskSessionId),
+    }
+    interpretRoboCode(code, context);
   };
 };
 
