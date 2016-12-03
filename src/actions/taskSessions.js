@@ -1,3 +1,6 @@
+import { getCode } from '../selectors/taskSession';
+import { interpretRoboCode } from '../robocode/interpreter';
+
 export const CHANGE_CODE = 'CHANGE_CODE';
 export function changeCode(taskSessionId, code) {
   return {
@@ -8,6 +11,10 @@ export function changeCode(taskSessionId, code) {
 
 
 export function runProgram(taskSessionId) {
+  return function(dispatch, getState) {
+    const code = getCode(getState(), taskSessionId);
+    interpretRoboCode(code);
+  };
 };
 
 

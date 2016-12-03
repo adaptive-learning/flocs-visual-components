@@ -44,8 +44,7 @@ class SpaceGameContainer extends React.Component {
 
 function mapStateToProps(state, props) {
   const { taskSessionId } = props;
-  const taskSession = state.flocsComponents.taskSessions[taskSessionId];
-  const gameState = getGameState(taskSession);
+  const gameState = getGameState(state, taskSessionId);
   return { taskSessionId, gameState };
 };
 

@@ -1,4 +1,13 @@
-function getGameState(taskSession) {
+import { getTaskSession } from './taskSession';
+
+function getGameState(state, taskSessionId) {
+  const taskSession = state.flocsComponents.taskSessions[taskSessionId];
+  const gameState = computeGameStateOfTaskSession(taskSession);
+  return gameState;
+}
+
+
+function computeGameStateOfTaskSession(taskSession) {
   const fields = computeCurrentFields(taskSession);
   const spaceship = findSpaceshipPosition(fields);
   let stage = 'initial';
