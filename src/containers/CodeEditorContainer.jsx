@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CodeEditor from '../components/CodeEditor';
-import { changeCode } from '../actions/taskSessions';
+import { changeCode } from '../actions/taskEnvironment';
 
 
 class CodeEditorWrapper extends React.Component {
@@ -10,7 +10,7 @@ class CodeEditorWrapper extends React.Component {
     return (
       <CodeEditor
         code={this.props.code}
-        onChange={this.props.changeCode.bind(this, this.props.taskSessionId)}
+        onChange={this.props.changeCode.bind(this, this.props.taskEnvironmentId)}
       />
     );
   }
@@ -18,10 +18,10 @@ class CodeEditorWrapper extends React.Component {
 
 
 function mapStateToProps(state, props) {
-  const { taskSessionId } = props;
-  const taskSession = state.flocsComponents.taskSessions[taskSessionId];
-  const code = taskSession.code;
-  return { taskSessionId, code };
+  const { taskEnvironmentId } = props;
+  const taskEnvironment = state.flocsComponents.taskEnvironments[taskEnvironmentId];
+  const code = taskEnvironment.code;
+  return { taskEnvironmentId, code };
 }
 
 

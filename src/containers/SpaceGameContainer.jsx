@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SpaceGame from '../components/SpaceGame';
-import { runProgram, resetGame, executeCommand } from '../actions/taskSessions';
+import { runProgram, resetGame, executeCommand } from '../actions/taskEnvironment';
 import { getGameState } from '../selectors/gameState';
 
 
@@ -26,13 +26,13 @@ class SpaceGameContainer extends React.Component {
       case 'right':
       case 'ahead':
       case 'ahead+shot':
-        this.props.executeCommand(this.props.taskSessionId, control);
+        this.props.executeCommand(this.props.taskEnvironmentId, control);
         break;
       case 'run':
-        this.props.runProgram(this.props.taskSessionId);
+        this.props.runProgram(this.props.taskEnvironmentId);
         break;
       case 'reset':
-        this.props.resetGame(this.props.taskSessionId);
+        this.props.resetGame(this.props.taskEnvironmentId);
         break;
       default:
         throw 'Undefined control ' + commandName;
@@ -43,9 +43,9 @@ class SpaceGameContainer extends React.Component {
 
 
 function mapStateToProps(state, props) {
-  const { taskSessionId } = props;
-  const gameState = getGameState(state, taskSessionId);
-  return { taskSessionId, gameState };
+  const { taskEnvironmentId } = props;
+  const gameState = getGameState(state, taskEnvironmentId);
+  return { taskEnvironmentId, gameState };
 };
 
 

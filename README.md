@@ -74,43 +74,34 @@ What you need to do:
 
 * Connect dedicated `flocsComponentsReducer` to your root reducer on the `'flocsComponents'` key.
 * Apply `thunk` middleware (if you haven't already).
-* Create desired container components and give them same `taskSessionId`.
+* Create desired container components and give them same `taskEnvironmentId`.
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import { CodeEditorContainer, SpaceGameContainer } from 'flocs-visual-components';
-import { flocsComponentsReducer } from 'flocs-visual-components';
-
-function myAppReducer(state={}, action) {
-  console.log('myApp reducer listening to action:', action);
-  return state;
-}
-
 // combine your app reducers with flocsComponentsReducer
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   myApp: myAppReducer,
   flocsComponents: flocsComponentsReducer
 });
-// add thunk into middleware layer
+
+// create store with thunk middleware
 const middleware = applyMiddleware(thunk);
 const store = createStore(rootReducer, middleware);
 
-// connect used containers by shared store (and common taskSessionId)
-const app = (
+// set a task in a task environment
+const task = { /* ... */ }
+const taskEnvId = "single";
+store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
+
+// create your app component giving paired components same taskEnvironemntId
+const appComponent = (
   <Provider store={store}>
     <div>
-      <SpaceGameContainer taskSessionId="single"/>
-      <CodeEditorContainer taskSessionId="single"/>
+      <SpaceGameContainer taskEnvironmentId={taskEnvId}/>
+      <CodeEditorContainer taskEnvironmentId={taskEnvId}/>
     </div>
   </Provider>
 );
-ReactDOM.render(app, document.getElementById('taskSessionExample'));
 ```
 
 If you want, you can make your app reducers to respond on actions dispatched by the containers.
-You can also use data in the created substate (`state.flocsComponents`), preferably via provided selector functions.
-(TBA: examples)
+You can also use data in the created substate, preferably via provided selector functions.

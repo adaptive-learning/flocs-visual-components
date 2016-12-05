@@ -1,7 +1,7 @@
-import { getTaskSession } from './taskSession';
+import { getTaskEnvironment, getInitialFieldsFromTaskEnvironment } from './taskEnvironment';
 
-export function getColor(state, taskSessionId) {
-  const gameState = getGameState(state, taskSessionId);
+export function getColor(state, taskEnvironmentId) {
+  const gameState = getGameState(state, taskEnvironmentId);
   const { fields } = gameState;
   const [y, x] = findSpaceshipPosition(fields);
   const field = fields[y][x];
@@ -10,8 +10,8 @@ export function getColor(state, taskSessionId) {
 }
 
 
-export function getPosition(state, taskSessionId) {
-  const gameState = getGameState(state, taskSessionId);
+export function getPosition(state, taskEnvironmentId) {
+  const gameState = getGameState(state, taskEnvironmentId);
   const { fields } = gameState;
   const [y, x] = findSpaceshipPosition(fields);
   const position = x + 1;
@@ -19,30 +19,31 @@ export function getPosition(state, taskSessionId) {
 }
 
 
-export function getGameState(state, taskSessionId) {
-  const taskSession = state.flocsComponents.taskSessions[taskSessionId];
-  const gameState = computeGameStateOfTaskSession(taskSession);
+export function getGameState(state, taskEnvironmentId) {
+  const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
+  const gameState = computeGameStateOfTaskEnvironment(taskEnvironment);
   return gameState;
 }
 
 
-function computeGameStateOfTaskSession(taskSession) {
-  const fields = computeCurrentFields(taskSession);
+function computeGameStateOfTaskEnvironment(taskEnvironment) {
+  const fields = computeCurrentFields(taskEnvironment);
   const spaceship = findSpaceshipPosition(fields);
   let stage = 'initial';
   if (isSpaceshipDead(fields, spaceship)) {
     stage = 'dead';
   } else if (gameSolved(fields, spaceship)) {
     stage = 'solved';
-  } else if (taskSession.commands.length > 0) {
+  } else if (taskEnvironment.commands.length > 0) {
     stage = 'running'
   }
   return { fields, stage }
 }
 
 
-function computeCurrentFields(taskSession) {
-  const fields = runCommands(taskSession.setting.fields, taskSession.commands);
+function computeCurrentFields(taskEnvironment) {
+  const initialFields = getInitialFieldsFromTaskEnvironment(taskEnvironment);
+  const fields = runCommands(initialFields, taskEnvironment.commands);
   return fields;
 }
 

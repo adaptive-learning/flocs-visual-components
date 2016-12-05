@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import taskSessions from './taskSessions'
+import taskEnvironments from './taskEnvironments'
 
 const flocsComponentsReducer = combineReducers({
-  taskSessions,
+  taskEnvironments,
 });
 
 
