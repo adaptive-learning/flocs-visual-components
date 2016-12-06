@@ -9,13 +9,17 @@ const defaultSettings = {
 
 /**
  * Interpret given robo-code step by step.
+ *
  * Input and output is given by :context: parameter, it must provide
  * all robo-commands (move, position, color)
+ *
+ * Return a promise which will be fullfilled when the interpretting is finished
  */
 export function interpretRoboCode(code, context, settings=defaultSettings) {
   const roboAst = parseRoboCode(code);
   const jsCode = roboAstToJS(roboAst);
-  stepJsCode(jsCode, context, settings.pauseLength);
+  const interpretingFinishedPromise = steppingJsCode(jsCode, context, settings.pauseLength);
+  return interpretingFinishedPromise;
 }
 
 
@@ -117,7 +121,7 @@ function encodeValue(arg) {
 }
 
 
-function stepJsCode(jsCode, context, pauseLength) {
+function steppingJsCode(jsCode, context, pauseLength) {
   let pause = false;
 
   function initApi(interpreter, scope) {
@@ -142,15 +146,19 @@ function stepJsCode(jsCode, context, pauseLength) {
   }
 
   const jsInterpreter = new Interpreter(jsCode, initApi);
-  function nextStep() {
+
+  function nextStep(resolve, reject) {
     let ok = true;
     while (ok && !pause) {
       ok = jsInterpreter.step();
     }
     if (ok) {
       pause = false;
-      window.setTimeout(nextStep, pauseLength);
+      setTimeout(nextStep.bind(this, resolve, reject), pauseLength);
+    } else {
+      resolve('last step');
     }
   }
-  nextStep();
+
+  return new Promise(nextStep);
 }

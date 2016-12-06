@@ -3,10 +3,11 @@ import { getColor, getPosition } from '../selectors/gameState';
 import { interpretRoboCode } from '../robocode/interpreter';
 
 
-export const SET_TASK         = 'SET_TASK';
-export const CHANGE_CODE      = 'CHANGE_CODE';
-export const RESET_GAME       = 'RESET_GAME';
-export const EXECUTE_COMMAND  = 'EXECUTE_COMMAND';
+export const SET_TASK         = 'FLOCS.SET_TASK';
+export const CHANGE_CODE      = 'FLOCS.CHANGE_CODE';
+export const TASK_ATTEMPTED   = 'FLOCS.TASK_ATTEMPTED';
+export const RESET_GAME       = 'FLOCS.RESET_GAME';
+export const EXECUTE_COMMAND  = 'FLOCS.EXECUTE_COMMAND';
 
 
 export function setTask(taskEnvironmentId, task) {
@@ -25,6 +26,14 @@ export function changeCode(taskEnvironmentId, code) {
 };
 
 
+export function taskAttempted(taskEnvironmentId) {
+  return {
+    type: TASK_ATTEMPTED,
+    payload: { taskEnvironmentId }
+  };
+};
+
+
 export function runProgram(taskEnvironmentId) {
   return function(dispatch, getState) {
     const code = getCode(getState(), taskEnvironmentId);
@@ -33,7 +42,9 @@ export function runProgram(taskEnvironmentId) {
       color: () => getColor(getState(), taskEnvironmentId),
       position: () => getPosition(getState(), taskEnvironmentId),
     }
-    interpretRoboCode(code, context);
+    interpretRoboCode(code, context).then(
+      () => dispatch(taskAttempted(taskEnvironmentId))
+    );
   };
 };
 
