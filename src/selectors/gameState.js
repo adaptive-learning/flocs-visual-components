@@ -29,13 +29,17 @@ export function getGameState(state, taskEnvironmentId) {
 function computeGameStateOfTaskEnvironment(taskEnvironment) {
   const fields = computeCurrentFields(taskEnvironment);
   const spaceship = findSpaceshipPosition(fields);
-  let stage = 'initial';
-  if (isSpaceshipDead(fields, spaceship)) {
-    stage = 'dead';
-  } else if (gameSolved(fields, spaceship)) {
-    stage = 'solved';
-  } else if (taskEnvironment.commands.length > 0) {
-    stage = 'running'
+  let stage = 'preparing';
+  if (spaceship !== null) {
+    if (isSpaceshipDead(fields, spaceship)) {
+      stage = 'dead';
+    } else if (gameSolved(fields, spaceship)) {
+      stage = 'solved';
+    } else if (taskEnvironment.commands.length > 0) {
+      stage = 'running';
+    } else {
+      stage = 'initial';
+    }
   }
   return { fields, stage }
 }
@@ -148,6 +152,7 @@ function findSpaceshipPosition(fields) {
       }
     }
   }
+  return null;
 }
 
 

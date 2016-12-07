@@ -10,10 +10,11 @@ export default class SpaceGame extends React.Component {
     const { fields, stage } = gameState;
     const gameOver = (stage == 'solved' || stage == 'dead');
     const initialStage = (stage == 'initial');
+    const preparing = (stage == 'preparing');
     const controls = {
-      commands: (showCommandControls) ? ((!gameOver) ? 'active' : 'passive') : 'hidden',
+      commands: (showCommandControls && !preparing) ? ((!gameOver) ? 'active' : 'passive') : 'hidden',
       run: (initialStage) ? 'active' : 'hidden',
-      reset: (!initialStage) ? 'active' : 'hidden',
+      reset: (!initialStage && !preparing) ? 'active' : 'hidden',
     };
     return (
       <div>
