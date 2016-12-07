@@ -20,7 +20,7 @@ function taskEnvironments(state={}, action) {
 
 
 const emptyTask = {
-  settings: {
+  setting: {
     fields: [[]],
   },
 };
