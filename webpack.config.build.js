@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: __dirname + '/src/index.js',
@@ -11,9 +12,9 @@ module.exports = {
     umdNamedDefine: true
   },
   resolve: {
-    root: __dirname + '/src',
     extensions: ['', '.js', '.jsx']
   },
+  externals: [nodeExternals()],  // don't bundle modules in node_modules directory
   module: {
     loaders: [
       {
