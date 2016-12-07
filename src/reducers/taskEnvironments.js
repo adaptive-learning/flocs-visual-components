@@ -1,15 +1,17 @@
-import { SET_TASK, EXECUTE_COMMAND, CHANGE_CODE, RESET_GAME } from '../actions/taskEnvironment';
+import { flocsActions as actions } from '../actions';
 
 
 function taskEnvironments(state={}, action) {
   switch (action.type) {
-    case SET_TASK:
+    case actions.CREATE_TASK_ENVIRONMENT:
+      return createTaskEnvironment(state, action.payload.taskEnvironmentId);
+    case actions.SET_TASK:
       return updateTaskEnvironment(state, setTask, action.payload);
-    case EXECUTE_COMMAND:
+    case actions.EXECUTE_COMMAND:
       return updateTaskEnvironment(state, executeCommand, action.payload);
-    case RESET_GAME:
+    case actions.RESET_GAME:
       return updateTaskEnvironment(state, resetGame, action.payload);
-    case CHANGE_CODE:
+    case actions.CHANGE_CODE:
       return updateTaskEnvironment(state, changeCode, action.payload);
     default:
       return state;
@@ -28,6 +30,13 @@ const initialTaskEnvironment = {
   code: '',
   commands: [],
 };
+
+
+function createTaskEnvironment(taskEnvironments, taskEnvironmentId) {
+  return Object.assign({}, taskEnvironments, {
+    [taskEnvironmentId]: initialTaskEnvironment
+  });
+}
 
 
 function updateTaskEnvironment(taskEnvironments, updateFn, args) {

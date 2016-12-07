@@ -90,9 +90,10 @@ const store = createStore(rootReducer, middleware);
 // set a task in a task environment
 const task = { /* ... */ }
 const taskEnvId = "single";
+store.dispatch(flocsActionCreators.createTaskEnvironment(taskEnvId));
 store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
 
-// create your app component giving paired components same taskEnvironemntId
+// create your app component giving paired components same taskEnvironmentId
 const appComponent = (
   <Provider store={store}>
     <div>

@@ -24,6 +24,7 @@ function createAppComponent() {
     }
   };
   const taskEnvId = "single";
+  store.dispatch(flocsActionCreators.createTaskEnvironment(taskEnvId));
   store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
 
   const appComponent = (

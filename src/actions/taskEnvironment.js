@@ -3,11 +3,20 @@ import { getColor, getPosition } from '../selectors/gameState';
 import { interpretRoboCode } from '../robocode/interpreter';
 
 
-export const SET_TASK         = 'FLOCS.SET_TASK';
-export const CHANGE_CODE      = 'FLOCS.CHANGE_CODE';
-export const TASK_ATTEMPTED   = 'FLOCS.TASK_ATTEMPTED';
-export const RESET_GAME       = 'FLOCS.RESET_GAME';
-export const EXECUTE_COMMAND  = 'FLOCS.EXECUTE_COMMAND';
+export const CREATE_TASK_ENVIRONMENT  = 'FLOCS.CREATE_TASK_ENVIRONMENT';
+export const SET_TASK                 = 'FLOCS.SET_TASK';
+export const CHANGE_CODE              = 'FLOCS.CHANGE_CODE';
+export const TASK_ATTEMPTED           = 'FLOCS.TASK_ATTEMPTED';
+export const RESET_GAME               = 'FLOCS.RESET_GAME';
+export const EXECUTE_COMMAND          = 'FLOCS.EXECUTE_COMMAND';
+
+
+export function createTaskEnvironment(taskEnvironmentId) {
+  return {
+    type: CREATE_TASK_ENVIRONMENT,
+    payload: { taskEnvironmentId }
+  };
+};
 
 
 export function setTask(taskEnvironmentId, task) {

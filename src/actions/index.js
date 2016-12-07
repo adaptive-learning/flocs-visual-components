@@ -1,7 +1,8 @@
-import { setTask, changeCode, runProgram, taskAttempted, executeCommand, resetGame } from './taskEnvironment';
-import { SET_TASK, CHANGE_CODE, TASK_ATTEMPTED, RESET_GAME, EXECUTE_COMMAND } from './taskEnvironment';
+import { createTaskEnvironment, setTask, changeCode, runProgram, taskAttempted, executeCommand, resetGame } from './taskEnvironment';
+import { CREATE_TASK_ENVIRONMENT, SET_TASK, CHANGE_CODE, TASK_ATTEMPTED, RESET_GAME, EXECUTE_COMMAND } from './taskEnvironment';
 
 const flocsActionCreators = {
+  createTaskEnvironment,
   setTask,
   changeCode,
   runProgram,
@@ -11,6 +12,7 @@ const flocsActionCreators = {
 };
 
 const flocsActions = {
+  CREATE_TASK_ENVIRONMENT,
   SET_TASK,
   CHANGE_CODE,
   TASK_ATTEMPTED,
