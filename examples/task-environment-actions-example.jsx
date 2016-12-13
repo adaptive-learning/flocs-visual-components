@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { CodeEditorContainer, SpaceGameContainer } from 'flocs-visual-components';
 import { flocsComponentsReducer, flocsActionCreators } from 'flocs-visual-components';
 import { flocsActions } from 'flocs-visual-components';
+import { flocsSelector } from 'flocs-visual-components';
 
 
 function createAppComponent() {
@@ -26,6 +27,12 @@ function createAppComponent() {
   const taskEnvId = "single";
   store.dispatch(flocsActionCreators.createTaskEnvironment(taskEnvId));
   store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
+
+  // This is just a quick and dirty demo of selectors
+  // TODO: improve selectors demo (and make it separated from actions demo)
+  setTimeout(function() {
+    console.log('game state:', flocsSelector.getGameState(store.getState(), taskEnvId))
+  }, 2000);
 
   const appComponent = (
     <Provider store={store}>
