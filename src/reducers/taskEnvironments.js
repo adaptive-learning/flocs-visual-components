@@ -54,7 +54,7 @@ function updateEntity(entities, id, updateFn, args) {
 
 
 function setTask(taskEnvironment, { task }) {
-  return Object.assign({}, taskEnvironment, { task });
+  return Object.assign({}, taskEnvironment, { task, code: '', commands: [] });
 }
 
 
