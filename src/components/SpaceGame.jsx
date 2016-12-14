@@ -25,3 +25,7 @@ export default class SpaceGame extends React.Component {
     )
   }
 };
+
+SpaceGame.defaultProps = {
+  showCommandControls: false,
+};

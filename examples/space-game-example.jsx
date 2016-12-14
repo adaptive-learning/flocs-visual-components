@@ -13,7 +13,6 @@ const gameState= {
 const component = (
   <SpaceGame
     gameState={gameState}
-    showCommandControls={false}
     onControlClicked={handleControlClicked}
   />
 );

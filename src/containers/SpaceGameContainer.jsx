@@ -14,7 +14,7 @@ class SpaceGameContainer extends React.Component {
     return (
       <SpaceGame
         gameState={this.props.gameState}
-        showCommandControls={true}
+        showCommandControls={this.props.showCommandControls}
         onControlClicked={this.handleControlClicked.bind(this)}
       />
     );
@@ -43,9 +43,9 @@ class SpaceGameContainer extends React.Component {
 
 
 function mapStateToProps(state, props) {
-  const { taskEnvironmentId } = props;
+  const { taskEnvironmentId, showCommandControls } = props;
   const gameState = getGameState(state, taskEnvironmentId);
-  return { taskEnvironmentId, gameState };
+  return { taskEnvironmentId, gameState, showCommandControls };
 };
 
 
@@ -55,4 +55,7 @@ function mapDispatchToProps(dispatch) {
 
 
 const ConnectedSpaceGameContainer = connect(mapStateToProps, mapDispatchToProps)(SpaceGameContainer);
+ConnectedSpaceGameContainer.defaultProps = {
+  showCommandControls: false,
+};
 export default ConnectedSpaceGameContainer;
