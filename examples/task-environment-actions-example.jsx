@@ -51,7 +51,11 @@ function AppComponent() {
       <div>
         <SpaceGameContainer taskEnvironmentId={taskEnvId}/>
         <CodeEditorContainer taskEnvironmentId={taskEnvId}/>
-        {taskSolved && <button onClick={nextTask}>Next task</button>}
+        {taskSolved &&
+          <div>
+            <button onClick={nextTask}>Next task</button>
+          </div>
+        }
       </div>
     );
   }

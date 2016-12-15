@@ -17,11 +17,11 @@ export default class SpaceGame extends React.Component {
       reset: (!initialStage && !preparing) ? 'active' : 'hidden',
     };
     return (
-      <div>
+      <span style={{display: 'inline-block', verticalAlign: 'top'}}>
         <GameStatus solved={stage == 'solved'} dead={stage == 'dead'} />
         <SpaceWorld fields={fields} />
         <GameControls controls={controls} onClick={onControlClicked} />
-      </div>
+      </span>
     )
   }
 };

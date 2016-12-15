@@ -15,6 +15,7 @@ export default function CodeEditor({ code, onChange }) {
       theme="solarized_light"
       fontSize={16}
       editorProps={{$blockScrolling: true}}
+      style={{display: 'inline-block'}}
     />
   );
 }

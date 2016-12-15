@@ -27,13 +27,13 @@ export default function GameControls({ controls, onClick }) {
   }
 
   return (
-    <div>
+    <span style={{display: 'block', margin: '5px 0px'}}>
       {conditionallyRenderControlButton('left', 'Left')}
       {conditionallyRenderControlButton('ahead', 'Ahead')}
       {conditionallyRenderControlButton('ahead+shot', 'Ahead+Shot')}
       {conditionallyRenderControlButton('right', 'Right')}
       {conditionallyRenderControlButton('run', 'Run')}
       {conditionallyRenderControlButton('reset', 'Reset')}
-    </div>
+    </span>
   );
 }

@@ -3,7 +3,7 @@ import WorldBlock from './WorldBlock'
 
 export default function SpaceWorld({ fields }) {
   return (
-    <div>
+    <span style={{display: 'block'}}>
       {fields.map((fieldRow, index) =>
         <span style={{display: 'table-row'}} key={index}>
         {fieldRow.map((field, index) =>
@@ -11,6 +11,6 @@ export default function SpaceWorld({ fields }) {
         )}
         </span>
       )}
-    </div>
+    </span>
   );
 }
