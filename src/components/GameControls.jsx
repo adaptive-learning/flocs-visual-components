@@ -1,33 +1,34 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 
 export default function GameControls({ controls, onClick }) {
   const GROUP = {
-    'left': 'commands',
-    'right': 'commands',
-    'ahead': 'commands',
+    left: 'commands',
+    right: 'commands',
+    ahead: 'commands',
     'ahead+shot': 'commands',
-    'run': 'run',
-    'reset': 'reset'
-  }
+    run: 'run',
+    reset: 'reset',
+  };
 
   function visible(controlGroup) {
-    return controls[controlGroup] == 'active' || controls[controlGroup] == 'passive';
+    return controls[controlGroup] === 'active' || controls[controlGroup] === 'passive';
   }
 
   function disabled(controlGroup) {
-    return controls[controlGroup] == 'passive';
+    return controls[controlGroup] === 'passive';
   }
 
   function conditionallyRenderControlButton(name, label) {
     const controlGroup = GROUP[name];
-    if (visible(controlGroup)) {
-      return <button disabled={disabled(controlGroup)} onClick={onClick.bind(this, name)}>{label}</button>
+    if (!(visible(controlGroup))) {
+      return null;
     }
+    return <button disabled={disabled(controlGroup)} onClick={onClick.bind(this, name)}>{label}</button>;
   }
 
   return (
-    <span style={{display: 'block', margin: '5px 0px'}}>
+    <span style={{ display: 'block', margin: '5px 0px' }}>
       {conditionallyRenderControlButton('left', 'Left')}
       {conditionallyRenderControlButton('ahead', 'Ahead')}
       {conditionallyRenderControlButton('ahead+shot', 'Ahead+Shot')}
@@ -37,3 +38,13 @@ export default function GameControls({ controls, onClick }) {
     </span>
   );
 }
+
+GameControls.propTypes = {
+  controls: PropTypes.object,
+  onClick: PropTypes.func,
+};
+
+GameControls.defaultProps = {
+  controls: { commands: 'active', run: 'active', reset: 'hidden' },
+  onClick: null,
+};
