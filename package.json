@@ -23,6 +23,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "eslint": "^3.3.0",
     "eslint-config-airbnb": "^10.0.1",
+    "eslint-loader": "^1.6.1",
     "eslint-plugin-import": "^1.13.0",
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.0.0",
@@ -44,7 +45,7 @@
     "prepublish": "npm run build",
     "start": "webpack-dev-server --config webpack.config.development.js --progress --inline --hot --content-base examples/",
     "build": "npm run clean && webpack --config webpack.config.build.js",
-    "lint": "eslint",
+    "lint": "eslint src examples",
     "clean": "rm -rf lib"
   },
   "repository": {

@@ -29,6 +29,11 @@ module.exports = {
         }
       },
       {
+        test: /.jsx?$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
+      },
+      {
         test: /\.(jpg|png)$/,
         loader: 'url?limit=8000&name=/static/images/[name].[ext]',
       },

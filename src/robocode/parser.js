@@ -1,24 +1,24 @@
 export function parseRoboCode(text) {
-  let lines = textToNonemptyIndentedLines(text);
-  let program = parseNonemptyIndentedLines(lines);
+  const lines = textToNonemptyIndentedLines(text);
+  const program = parseNonemptyIndentedLines(lines);
   return program;
 }
 
 
 function textToNonemptyIndentedLines(text) {
-  let lines = text.split(/\n/);
-  let indentedLines = lines.map(function(line) {
-    let spacesCount = line.search(/\S|$/);
+  const lines = text.split(/\n/);
+  const indentedLines = lines.map((line) => {
+    const spacesCount = line.search(/\S|$/);
     return [spacesCount, line.trim()];
   });
-  let nonemptyIndentedLines = indentedLines.filter(indLine => indLine[1].length > 0);
+  const nonemptyIndentedLines = indentedLines.filter(indLine => indLine[1].length > 0);
   return nonemptyIndentedLines;
 }
 
 
 function parseNonemptyIndentedLines(lines) {
-  let nestedLines = nestIndentedLines(lines);
-  let program = parseSequence(nestedLines);
+  const nestedLines = nestIndentedLines(lines);
+  const program = parseSequence(nestedLines);
   return program;
 }
 
@@ -28,7 +28,7 @@ function parseSequence(nestedLines) {
 }
 
 
-function parseCommand({head, body}) {
+function parseCommand({ head, body }) {
   if (head.startsWith('move')) {
     // TODO: force empty body
     return parseMove(head);
@@ -38,38 +38,37 @@ function parseCommand({head, body}) {
     return ['repeat', parseNumber(head.slice(6)), parseSequence(body)];
   } else if (head.startsWith('if')) {
     return ['if', parseCondition(head.slice(3)), parseSequence(body)];
-  } else {
-    throw `Uknown command: ${head}`
   }
+  throw new Error(`Uknown command: ${head}`);
 }
 
 
 function parseNumber(text) {
   const numberRe = /(\d+)/;
   const match = numberRe.exec(text);
-  const number = parseInt(match[1]);
+  const number = parseInt(match[1], 10);
   return number;
 }
 
 
 function parseMove(line) {
-  var moveCmdRe = /^move\((['"](.*)['"])?\)$/;
-  var match = moveCmdRe.exec(line);
-  var direction = match[2] || 'ahead';
+  const moveCmdRe = /^move\((['"](.*)['"])?\)$/;
+  const match = moveCmdRe.exec(line);
+  const direction = match[2] || 'ahead';
   return ['move', direction];
 }
 
 
 function parseCondition(line) {
   // TODO: allow for nested conditions
-  //return alternatives(simpleCondition, andCondition, orCondition)(line);
+  // return alternatives(simpleCondition, andCondition, orCondition)(line);
   if (line.indexOf(' and ') >= 0) {
     return parseAndCondition(line);
-  } else if (line.indexOf(' or ') >= 0) {
-    return parseOrCondition(line);
-  } else {
-    return parseSimpleCondition(line);
   }
+  if (line.indexOf(' or ') >= 0) {
+    return parseOrCondition(line);
+  }
+  return parseSimpleCondition(line);
 }
 
 
@@ -100,7 +99,7 @@ function parseColorCondition(tokens) {
 
 function parsePositionCondition(tokens) {
   const op = tokens[1];
-  const position = parseInt(tokens[2]);
+  const position = parseInt(tokens[2], 10);
   // TODO: checks and error reports
   return ['position', op, position];
 }
@@ -119,21 +118,24 @@ function parseOrCondition(text) {
 
 
 function nestIndentedLines(lines) {
-  let nestedLines = [];
-  let openSequences = [nestedLines];
+  const nestedLines = [];
+  const openSequences = [nestedLines];
   for (const [indentation, line] of lines) {
-    if (indentation % 4 != 0) {
-      throw 'Expects indentation to be multiple of 4.';
+    if (indentation % 4 !== 0) {
+      throw new Error('Expects indentation to be multiple of 4.');
     }
     const level = indentation / 4;
     if (level <= openSequences.length) {
       openSequences.length = level + 1;
-      const newNode = {head: line, body: []}
+      const newNode = { head: line, body: [] };
       openSequences[level].push(newNode);
       openSequences.push(newNode.body);
     } else {
-      throw `Unexpectedly large indentation ${indentation}`;
+      throw new Error(`Unexpectedly large indentation ${indentation}`);
     }
   }
   return nestedLines;
 }
+
+
+export default parseRoboCode;
