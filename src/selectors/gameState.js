@@ -19,6 +19,20 @@ export function getPosition(state, taskEnvironmentId) {
 }
 
 
+export function isSolved(state, taskEnvironmentId) {
+  const gameState = getGameState(state, taskEnvironmentId);
+  const solved = gameState.stage == 'solved';
+  return solved;
+}
+
+
+export function isDead(state, taskEnvironmentId) {
+  const gameState = getGameState(state, taskEnvironmentId);
+  const solved = gameState.stage == 'dead';
+  return solved;
+}
+
+
 export function getGameState(state, taskEnvironmentId) {
   const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
   const gameState = computeGameStateOfTaskEnvironment(taskEnvironment);

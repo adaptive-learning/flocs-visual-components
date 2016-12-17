@@ -152,11 +152,15 @@ function steppingJsCode(jsCode, context, pauseLength) {
     while (ok && !pause) {
       ok = jsInterpreter.step();
     }
-    if (ok) {
+    if (context.isSolved()) {
+      resolve('solved');
+    } else if (context.isDead()) {
+      resolve('dead');
+    } else if (!ok) {
+      resolve('last step');
+    } else {
       pause = false;
       setTimeout(nextStep.bind(this, resolve, reject), pauseLength);
-    } else {
-      resolve('last step');
     }
   }
 

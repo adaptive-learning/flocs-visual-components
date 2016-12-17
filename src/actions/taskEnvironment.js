@@ -1,5 +1,5 @@
 import { getCode } from '../selectors/taskEnvironment';
-import { getColor, getPosition } from '../selectors/gameState';
+import { getColor, getPosition, isSolved, isDead } from '../selectors/gameState';
 import { interpretRoboCode } from '../robocode/interpreter';
 
 
@@ -50,6 +50,8 @@ export function runProgram(taskEnvironmentId) {
       move: (command) => dispatch(executeCommand(taskEnvironmentId, command)),
       color: () => getColor(getState(), taskEnvironmentId),
       position: () => getPosition(getState(), taskEnvironmentId),
+      isSolved: () => isSolved(getState(), taskEnvironmentId),
+      isDead: () => isDead(getState(), taskEnvironmentId),
     }
     interpretRoboCode(code, context).then(
       () => dispatch(taskAttempted(taskEnvironmentId))
