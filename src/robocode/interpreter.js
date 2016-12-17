@@ -1,10 +1,10 @@
 import { Interpreter } from 'js-interpreter';
-import { parseRoboCode } from './parser'
+import { parseRoboCode } from './parser';
 
 
 const defaultSettings = {
   pauseLength: 500,
-}
+};
 
 
 /**
@@ -15,7 +15,7 @@ const defaultSettings = {
  *
  * Return a promise which will be fullfilled when the interpretting is finished
  */
-export function interpretRoboCode(code, context, settings=defaultSettings) {
+export function interpretRoboCode(code, context, settings = defaultSettings) {
   const roboAst = parseRoboCode(code);
   const jsCode = roboAstToJS(roboAst);
   const interpretingFinishedPromise = steppingJsCode(jsCode, context, settings.pauseLength);
@@ -49,8 +49,8 @@ function generateStatement(node) {
     case 'if':
       return generateIfStatement(node);
     default:
-      throw `Unknown node head in roboAST <${head}> in node <${node}> for statement`
-  };
+      throw new Error(`Unknown node head in roboAST <${head}> in node <${node}> for statement`);
+  }
 }
 
 function generateCommand(node) {
@@ -94,8 +94,8 @@ function generateCondition(node) {
     case 'or':
       return generateComplexCondition('||', node[1], node[2]);
     default:
-      throw `Unknown node head in roboAST <${head}> in node <${node}> for condition`
-  };
+      throw new Error(`Unknown node head in roboAST <${head}> in node <${node}> for condition`);
+  }
 }
 
 
@@ -113,11 +113,10 @@ function generateComplexCondition(operator, leftConditionNode, rightConditionNod
 
 
 function encodeValue(arg) {
-  if (typeof arg == 'string') {
+  if (typeof arg === 'string') {
     return `"${arg}"`;
-  } else {
-    return arg;
-  };
+  }
+  return arg;
 }
 
 
@@ -127,22 +126,21 @@ function steppingJsCode(jsCode, context, pauseLength) {
   function initApi(interpreter, scope) {
     // TODO: dry initApi function
     interpreter.setProperty(scope, 'move',
-      interpreter.createNativeFunction(function(direction) {
-        direction = direction ? direction.toString() : 'ahead';
+      interpreter.createNativeFunction((directionArg) => {
+        const direction = directionArg ? directionArg.toString() : 'ahead';
         context.move(direction);
         pause = true;
         return interpreter.createPrimitive();
-    }));
+      })
+    );
 
     interpreter.setProperty(scope, 'color',
-      interpreter.createNativeFunction(function() {
-        return interpreter.createPrimitive(context.color());
-    }));
+      interpreter.createNativeFunction(() => interpreter.createPrimitive(context.color()))
+    );
 
     interpreter.setProperty(scope, 'position',
-      interpreter.createNativeFunction(function() {
-        return interpreter.createPrimitive(context.position());
-    }));
+      interpreter.createNativeFunction(() => interpreter.createPrimitive(context.position()))
+    );
   }
 
   const jsInterpreter = new Interpreter(jsCode, initApi);
@@ -166,3 +164,6 @@ function steppingJsCode(jsCode, context, pauseLength) {
 
   return new Promise(nextStep);
 }
+
+
+export default interpretRoboCode;

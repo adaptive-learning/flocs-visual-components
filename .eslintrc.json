@@ -6,6 +6,7 @@
         "import"
     ],
     "rules": {
-      "no-use-before-define": [1, "nofunc"]
+      "no-use-before-define": [1, "nofunc"],
+      "no-unused-vars": [1, {"varsIgnorePattern": "^_"}]
     }
 }
