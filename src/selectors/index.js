@@ -1,7 +1,7 @@
 import { getGameState } from './gameState';
 
-const flocsSelector = {
-  getGameState
+export const flocsSelector = {
+  getGameState,
 };
 
-export { flocsSelector };
+export default flocsSelector;
