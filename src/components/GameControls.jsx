@@ -24,7 +24,11 @@ export default function GameControls({ controls, onClick }) {
     if (!(visible(controlGroup))) {
       return null;
     }
-    return <button disabled={disabled(controlGroup)} onClick={onClick.bind(this, name)}>{label}</button>;
+    return (
+      <button disabled={disabled(controlGroup)} onClick={() => onClick(name)}>
+        {label}
+      </button>
+    );
   }
 
   return (

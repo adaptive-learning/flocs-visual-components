@@ -7,16 +7,19 @@
   "homepage": "https://github.com/adaptive-learning/flocs-visual-components",
   "main": "lib/flocs-visual-components.js",
   "dependencies": {
+    "brace": "^0.9.1",
     "js-interpreter": "github:effa/JS-Interpreter#f7afaf9d4862f85394bf4860f8ba8e57f67fbdf2",
     "react-ace": "^4.0.0"
   },
   "peerDependencies": {
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
     "redux": "^3.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",
+    "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.13.2",
     "babel-preset-react": "^6.11.1",

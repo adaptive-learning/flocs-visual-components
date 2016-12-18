@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import brace from 'brace';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/python';

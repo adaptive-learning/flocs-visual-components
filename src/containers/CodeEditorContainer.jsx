@@ -22,7 +22,7 @@ class CodeEditorWrapper extends React.Component {
 }
 
 CodeEditorWrapper.propTypes = {
-  taskEnvironmentId: PropTypes.number.isRequired,
+  taskEnvironmentId: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
   changeCode: PropTypes.func.isRequired,
 };

@@ -10,7 +10,7 @@ export default function SpaceGame({ gameState, showCommandControls, onControlCli
   const initialStage = (stage === 'initial');
   const preparing = (stage === 'preparing');
   const controls = {
-    commands: (showCommandControls && !preparing) ? ((!gameOver) ? 'active' : 'passive') : 'hidden',
+    commands: getVisibility((!showCommandControls) || preparing, gameOver),
     run: (initialStage) ? 'active' : 'hidden',
     reset: (!initialStage && !preparing) ? 'active' : 'hidden',
   };
@@ -25,10 +25,22 @@ export default function SpaceGame({ gameState, showCommandControls, onControlCli
 
 SpaceGame.propTypes = {
   gameState: PropTypes.object.isRequired,
-  showCommandControls: PropTypes.bool,
   onControlClicked: PropTypes.func.isRequired,
+  showCommandControls: PropTypes.bool,
 };
 
 SpaceGame.defaultProps = {
   showCommandControls: false,
 };
+
+
+function getVisibility(hiddenCondition, passiveCondition) {
+  if (hiddenCondition) {
+    return 'hidden';
+  }
+  if (passiveCondition) {
+    return 'passive';
+  }
+  return 'active';
+}
+

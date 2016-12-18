@@ -44,7 +44,7 @@ class SpaceGameWrapper extends React.Component {
 }
 
 SpaceGameWrapper.propTypes = {
-  taskEnvironmentId: PropTypes.number.isRequired,
+  taskEnvironmentId: PropTypes.string.isRequired,
   showCommandControls: PropTypes.bool,
   gameState: PropTypes.object.isRequired,
   runProgram: PropTypes.func.isRequired,
