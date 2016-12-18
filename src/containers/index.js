@@ -1,5 +1,5 @@
-import SpaceGameContainer  from './SpaceGameContainer';
-import CodeEditorContainer  from './CodeEditorContainer';
+import SpaceGameContainer from './SpaceGameContainer';
+import CodeEditorContainer from './CodeEditorContainer';
 
 export {
   SpaceGameContainer,

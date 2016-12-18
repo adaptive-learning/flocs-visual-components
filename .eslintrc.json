@@ -5,6 +5,14 @@
         "jsx-a11y",
         "import"
     ],
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+          "jsx": true,
+          "experimentalObjectRestSpread": true
+      }
+    },
     "rules": {
       "no-use-before-define": [1, "nofunc"],
       "no-unused-vars": [1, {"varsIgnorePattern": "^_"}]

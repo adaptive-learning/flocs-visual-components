@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import taskEnvironments from './taskEnvironments'
+import taskEnvironments from './taskEnvironments';
 
-const flocsComponentsReducer = combineReducers({
+export const flocsComponentsReducer = combineReducers({
   taskEnvironments,
 });
 
 
-export { flocsComponentsReducer };
+export default flocsComponentsReducer;

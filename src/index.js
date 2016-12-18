@@ -1,4 +1,4 @@
-import SpaceGame  from './components/SpaceGame';
+import SpaceGame from './components/SpaceGame';
 import CodeEditor from './components/CodeEditor';
 import SpaceGameContainer from './containers/SpaceGameContainer';
 import CodeEditorContainer from './containers/CodeEditorContainer';
@@ -19,5 +19,5 @@ export {
   flocsSelector,
   flocsComponentsReducer,
   flocsActionCreators,
-  flocsActions
+  flocsActions,
 };

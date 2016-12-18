@@ -1,7 +1,7 @@
 import { flocsActions as actions } from '../actions';
 
 
-function taskEnvironments(state={}, action) {
+function reduceTaskEnvironments(state = {}, action) {
   switch (action.type) {
     case actions.CREATE_TASK_ENVIRONMENT:
       return createTaskEnvironment(state, action.payload.taskEnvironmentId);
@@ -33,7 +33,7 @@ const initialTaskEnvironment = {
 
 
 function createTaskEnvironment(taskEnvironments, taskEnvironmentId) {
-  return {...taskEnvironments, [taskEnvironmentId]: initialTaskEnvironment};
+  return { ...taskEnvironments, [taskEnvironmentId]: initialTaskEnvironment };
 }
 
 
@@ -44,31 +44,31 @@ function updateTaskEnvironment(taskEnvironments, updateFn, args) {
 
 function updateEntity(entities, id, updateFn, args) {
   const oldEntity = (id in entities) ? entities[id] : initialTaskEnvironment;
-  const updatedEntity =  updateFn(oldEntity, args);
-  return {...entities, [id]: updatedEntity};
+  const updatedEntity = updateFn(oldEntity, args);
+  return { ...entities, [id]: updatedEntity };
 }
 
 
 function setTask(taskEnvironment, { task }) {
-  return {...taskEnvironment, task, code: '', commands: []};
+  return { ...taskEnvironment, task, code: '', commands: [] };
 }
 
 
 function changeCode(taskEnvironment, { code }) {
-  return {...taskEnvironment, code };
+  return { ...taskEnvironment, code };
 }
 
 
 function executeCommand(taskEnvironment, { command }) {
   const updatedCommands = [...taskEnvironment.commands, command];
-  const updatedTaskEnvironment = {...taskEnvironment, commands: updatedCommands};
+  const updatedTaskEnvironment = { ...taskEnvironment, commands: updatedCommands };
   return updatedTaskEnvironment;
 }
 
 
 function resetGame(taskEnvironment) {
-  return {...taskEnvironment, commands: []};
+  return { ...taskEnvironment, commands: [] };
 }
 
 
-export default taskEnvironments;
+export default reduceTaskEnvironments;
