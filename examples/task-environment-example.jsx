@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { CodeEditorContainer, SpaceGameContainer } from 'flocs-visual-components';
-import { flocsComponentsReducer, flocsActionCreators } from 'flocs-visual-components';
+import { CodeEditorContainer,
+         SpaceGameContainer,
+         flocsComponentsReducer,
+         flocsActionCreators } from 'flocs-visual-components';
 
 
 function createAppComponent() {
-
   // combine your app reducers with flocsComponentsReducer
   const rootReducer = combineReducers({
     myApp: myAppReducer,
-    flocsComponents: flocsComponentsReducer
+    flocsComponents: flocsComponentsReducer,
   });
 
   // create store with thunk middleware
@@ -23,10 +24,18 @@ function createAppComponent() {
   // set a task in a task environment
   const task = {
     setting: {
-      fields: [[["b", []], ["b", ["A"]], ["b", ["M"]], ["b", ["A"]], ["b", []]], [["k", []], ["k", ["A"]], ["k", []], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", ["M"]], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", []], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", ["M"]], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", []], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", ["M"]], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", []], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", ["S"]], ["k", ["A"]], ["k", []]]],
-    }
+      fields: [[['b', []], ['b', ['A']], ['b', ['M']], ['b', ['A']], ['b', []]],
+              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', ['S']], ['k', ['A']], ['k', []]]],
+    },
   };
-  const taskEnvId = "single";
+  const taskEnvId = 'single';
   store.dispatch(flocsActionCreators.createTaskEnvironment(taskEnvId));
   store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
 
@@ -34,15 +43,15 @@ function createAppComponent() {
   const appComponent = (
     <Provider store={store}>
       <div>
-        <SpaceGameContainer taskEnvironmentId={taskEnvId}/>
-        <CodeEditorContainer taskEnvironmentId={taskEnvId}/>
+        <SpaceGameContainer taskEnvironmentId={taskEnvId} />
+        <CodeEditorContainer taskEnvironmentId={taskEnvId} />
       </div>
     </Provider>
   );
   return appComponent;
 }
 
-function myAppReducer(state={}, action) {
+function myAppReducer(state = {}, action) {
   console.log('myApp reducer listening to action:', action);
   return state;
 }

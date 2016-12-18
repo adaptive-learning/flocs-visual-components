@@ -1,0 +1,20 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "Examples of flocs visual components",
+  "author": "Tomas Effenberger",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/adaptive-learning/flocs-visual-components",
+  "dependencies": {
+    "flocs-visual-components": "^1.0.10",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adaptive-learning/flocs-visual-components.git"
+  }
+}

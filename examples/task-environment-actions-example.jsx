@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import { CodeEditorContainer, SpaceGameContainer } from 'flocs-visual-components';
-import { flocsComponentsReducer, flocsActionCreators } from 'flocs-visual-components';
-import { flocsActions } from 'flocs-visual-components';
-import { flocsSelector } from 'flocs-visual-components';
+import { CodeEditorContainer,
+         SpaceGameContainer,
+         flocsComponentsReducer,
+         flocsActionCreators,
+         flocsActions,
+         flocsSelector } from 'flocs-visual-components';
 
-
-function AppComponent() {
+function createAppComponent() {
   // create a combined reducer and store with needed middleware
   const rootReducer = combineReducers({
     myApp: myAppReducer,
-    flocsComponents: flocsComponentsReducer
+    flocsComponents: flocsComponentsReducer,
   });
   const middleware = applyMiddleware(thunk);
   const store = createStore(rootReducer, middleware);
@@ -22,19 +22,28 @@ function AppComponent() {
   // definiton of two example tasks
   const task1 = {
     setting: {
-      fields: [[["b", []], ["b", []], ["b", []], ["b", []], ["b", []]], [["k", []], ["k", []], ["k", ["S"]], ["k", []], ["k", []]]],
-    }
+      fields: [[['b', []], ['b', []], ['b', []], ['b', []], ['b', []]],
+               [['k', []], ['k', []], ['k', ['S']], ['k', []], ['k', []]]],
+    },
   };
   const task2 = {
     setting: {
-      fields: [[["b", []], ["b", ["A"]], ["b", ["M"]], ["b", ["A"]], ["b", []]], [["k", []], ["k", ["A"]], ["k", []], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", ["M"]], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", []], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", ["M"]], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", []], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", ["M"]], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", []], ["k", ["A"]], ["k", []]], [["k", []], ["k", ["A"]], ["k", ["S"]], ["k", ["A"]], ["k", []]]],
-    }
+      fields: [[['b', []], ['b', ['A']], ['b', ['M']], ['b', ['A']], ['b', []]],
+              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
+              [['k', []], ['k', ['A']], ['k', ['S']], ['k', ['A']], ['k', []]]],
+    },
   };
   const tasks = [task1, task2];
   let currentTaskIndex = 0;
 
   // create task environment and set first task
-  const taskEnvId = "single";
+  const taskEnvId = 'single';
   store.dispatch(flocsActionCreators.createTaskEnvironment(taskEnvId));
   store.dispatch(flocsActionCreators.setTask(taskEnvId, task1));
 
@@ -49,8 +58,8 @@ function AppComponent() {
   function TaskEnvironment({ taskSolved }) {
     return (
       <div>
-        <SpaceGameContainer taskEnvironmentId={taskEnvId}/>
-        <CodeEditorContainer taskEnvironmentId={taskEnvId}/>
+        <SpaceGameContainer taskEnvironmentId={taskEnvId} />
+        <CodeEditorContainer taskEnvironmentId={taskEnvId} />
         {taskSolved &&
           <div>
             <button onClick={nextTask}>Next task</button>
@@ -59,11 +68,14 @@ function AppComponent() {
       </div>
     );
   }
+  TaskEnvironment.propTypes = {
+    taskSolved: PropTypes.bool.isRequired,
+  };
 
   // create redux container for task environment subscribing to store
   function mapStateToProps(state) {
     const gameState = flocsSelector.getGameState(state, taskEnvId);
-    const taskSolved = gameState.stage == 'solved';
+    const taskSolved = gameState.stage === 'solved';
     return { taskSolved };
   }
   const TaskEnvironmentContainer = connect(mapStateToProps)(TaskEnvironment);
@@ -79,14 +91,14 @@ function AppComponent() {
 
 
 // you can make your reducer respond to actions dispatch by flocsComponents
-function myAppReducer(state={attempted: false}, action) {
+function myAppReducer(state = { attempted: false }, action) {
   switch (action.type) {
     case flocsActions.SET_TASK:
       console.log('myAppReducer responding to new task:', action.payload);
-      return {attempted: false}
+      return { attempted: false };
     case flocsActions.TASK_ATTEMPTED:
       console.log('myAppReducer responding to attempted task:', action.payload);
-      return {attempted: true}
+      return { attempted: true };
     default:
       return state;
   }
@@ -95,5 +107,5 @@ function myAppReducer(state={attempted: false}, action) {
 
 const mountElement = document.getElementById('taskEnvironmentActionsExample');
 if (mountElement !== null) {
-  ReactDOM.render(AppComponent(), mountElement);
+  ReactDOM.render(createAppComponent(), mountElement);
 }

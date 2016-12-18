@@ -13,8 +13,14 @@
           "experimentalObjectRestSpread": true
       }
     },
+    "env": {
+      "browser" : true
+    },
     "rules": {
       "no-use-before-define": [1, "nofunc"],
-      "no-unused-vars": [1, {"varsIgnorePattern": "^_"}]
+      "no-unused-vars": [1, {"varsIgnorePattern": "^_"}],
+      "no-console": 0,
+      "import/no-unresolved": [2, {"ignore": ["flocs-visual-components"]}],
+      "react/require-extension": 0
     }
 }
