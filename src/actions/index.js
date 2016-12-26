@@ -9,6 +9,7 @@ import { createTaskEnvironment,
          SET_TASK,
          CHANGE_CODE,
          TASK_ATTEMPTED,
+         INTERPRETATION_STARTED,
          RESET_GAME,
          EXECUTE_COMMAND } from './taskEnvironment';
 
@@ -29,6 +30,7 @@ const flocsActions = {
   TASK_ATTEMPTED,
   RESET_GAME,
   EXECUTE_COMMAND,
+  INTERPRETATION_STARTED,
 };
 
 export { flocsActionCreators, flocsActions };

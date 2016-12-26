@@ -145,24 +145,26 @@ function steppingJsCode(jsCode, context, pauseLength) {
 
   const jsInterpreter = new Interpreter(jsCode, initApi);
 
-  function nextStep(resolve, reject) {
-    let ok = true;
-    while (ok && !pause) {
-      ok = jsInterpreter.step();
+  function nextSteps(resolve, reject) {
+    let next = true;
+    while (next && !pause && !context.interrupted()) {
+      next = jsInterpreter.step();
     }
     if (context.isSolved()) {
       resolve('solved');
     } else if (context.isDead()) {
       resolve('dead');
-    } else if (!ok) {
+    } else if (context.interrupted()) {
+      resolve('interrupted');
+    } else if (!next) {
       resolve('last step');
     } else {
       pause = false;
-      setTimeout(nextStep.bind(this, resolve, reject), pauseLength);
+      setTimeout(() => nextSteps(resolve, reject), pauseLength);
     }
   }
 
-  return new Promise(nextStep);
+  return new Promise(nextSteps);
 }
 
 

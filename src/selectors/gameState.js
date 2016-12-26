@@ -33,6 +33,13 @@ export function isDead(state, taskEnvironmentId) {
 }
 
 
+export function isRunning(state, taskEnvironmentId) {
+  const gameState = getGameState(state, taskEnvironmentId);
+  const running = gameState.stage === 'running';
+  return running;
+}
+
+
 export function getGameState(state, taskEnvironmentId) {
   const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
   const gameState = computeGameStateOfTaskEnvironment(taskEnvironment);
@@ -49,8 +56,10 @@ function computeGameStateOfTaskEnvironment(taskEnvironment) {
       stage = 'dead';
     } else if (gameSolved(fields, spaceship)) {
       stage = 'solved';
-    } else if (taskEnvironment.commands.length > 0) {
+    } else if (taskEnvironment.interpreting) {
       stage = 'running';
+    } else if (taskEnvironment.commands.length > 0) {
+      stage = 'stopped';
     } else {
       stage = 'initial';
     }

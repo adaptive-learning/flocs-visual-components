@@ -13,6 +13,10 @@ function reduceTaskEnvironments(state = {}, action) {
       return updateTaskEnvironment(state, resetGame, action.payload);
     case actions.CHANGE_CODE:
       return updateTaskEnvironment(state, changeCode, action.payload);
+    case actions.INTERPRETATION_STARTED:
+      return updateTaskEnvironment(state, startInterpretation, action.payload);
+    case actions.TASK_ATTEMPTED:
+      return updateTaskEnvironment(state, endInterpretation, action.payload);
     default:
       return state;
   }
@@ -28,6 +32,7 @@ const emptyTask = {
 const initialTaskEnvironment = {
   task: emptyTask,
   code: '',
+  interpreting: false,
   commands: [],
 };
 
@@ -67,7 +72,17 @@ function executeCommand(taskEnvironment, { command }) {
 
 
 function resetGame(taskEnvironment) {
-  return { ...taskEnvironment, commands: [] };
+  return { ...taskEnvironment, interpreting: false, commands: [] };
+}
+
+
+function startInterpretation(taskEnvironment) {
+  return { ...taskEnvironment, interpreting: true };
+}
+
+
+function endInterpretation(taskEnvironment) {
+  return { ...taskEnvironment, interpreting: false };
 }
 
 

@@ -1,14 +1,15 @@
 import { getCode } from '../selectors/taskEnvironment';
-import { getColor, getPosition, isSolved, isDead } from '../selectors/gameState';
+import { getColor, getPosition, isSolved, isDead, isRunning } from '../selectors/gameState';
 import { interpretRoboCode } from '../robocode/interpreter';
 
 
 export const CREATE_TASK_ENVIRONMENT = 'FLOCS.CREATE_TASK_ENVIRONMENT';
 export const SET_TASK = 'FLOCS.SET_TASK';
 export const CHANGE_CODE = 'FLOCS.CHANGE_CODE';
-export const TASK_ATTEMPTED = 'FLOCS.TASK_ATTEMPTED';
 export const RESET_GAME = 'FLOCS.RESET_GAME';
 export const EXECUTE_COMMAND = 'FLOCS.EXECUTE_COMMAND';
+export const INTERPRETATION_STARTED = 'FLOCS.INTERPRETATION_STARTED';
+export const TASK_ATTEMPTED = 'FLOCS.TASK_ATTEMPTED';
 
 
 export function createTaskEnvironment(taskEnvironmentId) {
@@ -45,6 +46,10 @@ export function taskAttempted(taskEnvironmentId) {
 
 export function runProgram(taskEnvironmentId) {
   return (dispatch, getState) => {
+    const startingInterpretation = () => new Promise(resolve => {
+      dispatch(interpretationStarted(taskEnvironmentId));
+      setTimeout(resolve);
+    });
     const code = getCode(getState(), taskEnvironmentId);
     const context = {
       move: (command) => dispatch(executeCommand(taskEnvironmentId, command)),
@@ -52,10 +57,20 @@ export function runProgram(taskEnvironmentId) {
       position: () => getPosition(getState(), taskEnvironmentId),
       isSolved: () => isSolved(getState(), taskEnvironmentId),
       isDead: () => isDead(getState(), taskEnvironmentId),
+      interrupted: () => !isRunning(getState(), taskEnvironmentId),
     };
-    interpretRoboCode(code, context).then(
-      () => dispatch(taskAttempted(taskEnvironmentId))
-    );
+    const interpretingPromise = startingInterpretation()
+      .then(() => interpretRoboCode(code, context))
+      .then(() => dispatch(taskAttempted(taskEnvironmentId)));
+    return interpretingPromise;
+  };
+}
+
+
+export function interpretationStarted(taskEnvironmentId) {
+  return {
+    type: INTERPRETATION_STARTED,
+    payload: { taskEnvironmentId },
   };
 }
 
