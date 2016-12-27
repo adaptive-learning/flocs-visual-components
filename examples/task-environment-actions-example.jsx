@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 import { CodeEditorContainer,
          SpaceGameContainer,
          flocsComponentsReducer,
@@ -16,7 +17,8 @@ function createAppComponent() {
     myApp: myAppReducer,
     flocsComponents: flocsComponentsReducer,
   });
-  const middleware = applyMiddleware(thunk);
+  const logger = createLogger();
+  const middleware = applyMiddleware(thunk, logger);
   const store = createStore(rootReducer, middleware);
 
   // definiton of two example tasks
