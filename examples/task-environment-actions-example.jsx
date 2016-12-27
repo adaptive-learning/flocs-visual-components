@@ -4,8 +4,7 @@ import { connect, Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { CodeEditorContainer,
-         SpaceGameContainer,
+import { TaskEnvironment,
          flocsComponentsReducer,
          flocsActionCreators,
          flocsActions,
@@ -56,12 +55,11 @@ function createAppComponent() {
     store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
   }
 
-  // create presentational component for your task environment
-  function TaskEnvironment({ taskSolved }) {
+  // presentation component for task environment with next-task button
+  function PracticeEnvironment({ taskSolved }) {
     return (
       <div>
-        <SpaceGameContainer taskEnvironmentId={taskEnvId} />
-        <CodeEditorContainer taskEnvironmentId={taskEnvId} />
+        <TaskEnvironment taskEnvironmentId={taskEnvId} />
         {taskSolved &&
           <div>
             <button onClick={nextTask}>Next task</button>
@@ -70,22 +68,22 @@ function createAppComponent() {
       </div>
     );
   }
-  TaskEnvironment.propTypes = {
+  PracticeEnvironment.propTypes = {
     taskSolved: PropTypes.bool.isRequired,
   };
 
-  // create redux container for task environment subscribing to store
+  // create redux container for your environment subscribing to store
   function mapStateToProps(state) {
     const gameState = flocsSelector.getGameState(state, taskEnvId);
     const taskSolved = gameState.stage === 'solved';
     return { taskSolved };
   }
-  const TaskEnvironmentContainer = connect(mapStateToProps)(TaskEnvironment);
+  const PracticeEnvironmentContainer = connect(mapStateToProps)(PracticeEnvironment);
 
   // create your root app component
   const appComponent = (
     <Provider store={store}>
-      <TaskEnvironmentContainer />
+      <PracticeEnvironmentContainer />
     </Provider>
   );
   return appComponent;

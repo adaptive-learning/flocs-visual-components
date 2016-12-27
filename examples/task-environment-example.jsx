@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { CodeEditorContainer,
-         SpaceGameContainer,
+import { TaskEnvironment,
          flocsComponentsReducer,
          flocsActionCreators } from 'flocs-visual-components';
 
@@ -42,10 +41,7 @@ function createAppComponent() {
   // create your app component giving paired components same taskEnvironmentId
   const appComponent = (
     <Provider store={store}>
-      <div>
-        <SpaceGameContainer taskEnvironmentId={taskEnvId} />
-        <CodeEditorContainer taskEnvironmentId={taskEnvId} />
-      </div>
+      <TaskEnvironment taskEnvironmentId={taskEnvId} />
     </Provider>
   );
   return appComponent;

@@ -1,5 +1,7 @@
 import SpaceGame from './components/SpaceGame';
 import CodeEditor from './components/CodeEditor';
+import TasksTable from './components/TasksTable';
+import TaskEnvironment from './components/TaskEnvironment';
 import SpaceGameContainer from './containers/SpaceGameContainer';
 import CodeEditorContainer from './containers/CodeEditorContainer';
 import { flocsComponentsReducer } from './reducers';
@@ -10,6 +12,8 @@ export {
   // components
   SpaceGame,
   CodeEditor,
+  TasksTable,
+  TaskEnvironment,
 
   // containers
   SpaceGameContainer,
