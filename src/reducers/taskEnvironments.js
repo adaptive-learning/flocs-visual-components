@@ -1,4 +1,5 @@
 import { flocsActions as actions } from '../actions';
+import { parseSetting } from '../core/taskSetting';
 
 
 function reduceTaskEnvironments(state = {}, action) {
@@ -7,6 +8,8 @@ function reduceTaskEnvironments(state = {}, action) {
       return createTaskEnvironment(state, action.payload.taskEnvironmentId);
     case actions.SET_TASK:
       return updateTaskEnvironment(state, setTask, action.payload);
+    case actions.CHANGE_SETTING:
+      return updateTaskEnvironment(state, changeSetting, action.payload);
     case actions.EXECUTE_COMMAND:
       return updateTaskEnvironment(state, executeCommand, action.payload);
     case actions.RESET_GAME:
@@ -56,6 +59,17 @@ function updateEntity(entities, id, updateFn, args) {
 
 function setTask(taskEnvironment, { task }) {
   return { ...taskEnvironment, task, code: '', commands: [] };
+}
+
+
+function changeSetting(taskEnvironment, { settingText }) {
+  try {
+    const setting = parseSetting(settingText);
+    const updatedTask = { ...taskEnvironment.task, setting };
+    return { ...taskEnvironment, task: updatedTask, invalidSettingText: null };
+  } catch (err) {
+    return { ...taskEnvironment, invalidSettingText: settingText };
+  }
 }
 
 

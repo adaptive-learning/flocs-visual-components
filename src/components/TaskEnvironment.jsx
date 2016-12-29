@@ -5,7 +5,7 @@ import SpaceGameContainer from '../containers/SpaceGameContainer';
 
 export default function TaskEnvironment({ taskEnvironmentId }) {
   return (
-    <div>
+    <span>
       <SpaceGameContainer
         taskEnvironmentId={taskEnvironmentId}
         showCommandControls={false}
@@ -13,7 +13,7 @@ export default function TaskEnvironment({ taskEnvironmentId }) {
       <CodeEditorContainer
         taskEnvironmentId={taskEnvironmentId}
       />
-    </div>
+    </span>
   );
 }
 

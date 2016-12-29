@@ -5,6 +5,7 @@ import { interpretRoboCode } from '../robocode/interpreter';
 
 export const CREATE_TASK_ENVIRONMENT = 'FLOCS.CREATE_TASK_ENVIRONMENT';
 export const SET_TASK = 'FLOCS.SET_TASK';
+export const CHANGE_SETTING = 'FLOCS.CHANGE_SETTING';
 export const CHANGE_CODE = 'FLOCS.CHANGE_CODE';
 export const RESET_GAME = 'FLOCS.RESET_GAME';
 export const EXECUTE_COMMAND = 'FLOCS.EXECUTE_COMMAND';
@@ -32,6 +33,14 @@ export function changeCode(taskEnvironmentId, code) {
   return {
     type: CHANGE_CODE,
     payload: { taskEnvironmentId, code },
+  };
+}
+
+
+export function changeSetting(taskEnvironmentId, settingText) {
+  return {
+    type: CHANGE_SETTING,
+    payload: { taskEnvironmentId, settingText },
   };
 }
 
