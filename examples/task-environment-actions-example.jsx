@@ -4,7 +4,7 @@ import { connect, Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { TaskEnvironment,
+import { TaskEnvironmentContainer,
          flocsComponentsReducer,
          flocsActionCreators,
          flocsActions,
@@ -42,10 +42,8 @@ function createAppComponent() {
   };
   const tasks = [task1, task2];
   let currentTaskIndex = 0;
-
-  // create task environment and set first task
   const taskEnvId = 'single';
-  store.dispatch(flocsActionCreators.createTaskEnvironment(taskEnvId));
+  // set first task into a task environment
   store.dispatch(flocsActionCreators.setTask(taskEnvId, task1));
 
   // for our demo, we will simply loop over the two tasks
@@ -59,7 +57,7 @@ function createAppComponent() {
   function PracticeEnvironment({ taskSolved }) {
     return (
       <div>
-        <TaskEnvironment taskEnvironmentId={taskEnvId} />
+        <TaskEnvironmentContainer taskEnvironmentId={taskEnvId} />
         {taskSolved &&
           <div>
             <button onClick={nextTask}>Next task</button>

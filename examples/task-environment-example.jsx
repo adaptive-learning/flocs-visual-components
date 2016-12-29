@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { TaskEnvironment,
+import { TaskEnvironmentContainer,
          flocsComponentsReducer,
          flocsActionCreators } from 'flocs-visual-components';
 
@@ -19,6 +19,13 @@ function createAppComponent() {
   const middleware = applyMiddleware(thunk);
   const store = createStore(rootReducer, middleware);
 
+  // create your app component with task environment
+  const taskEnvId = 'single';
+  const appComponent = (
+    <Provider store={store}>
+      <TaskEnvironmentContainer taskEnvironmentId={taskEnvId} />
+    </Provider>
+  );
 
   // set a task in a task environment
   const task = {
@@ -34,16 +41,8 @@ function createAppComponent() {
               [['k', []], ['k', ['A']], ['k', ['S']], ['k', ['A']], ['k', []]]],
     },
   };
-  const taskEnvId = 'single';
-  store.dispatch(flocsActionCreators.createTaskEnvironment(taskEnvId));
   store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
 
-  // create your app component giving paired components same taskEnvironmentId
-  const appComponent = (
-    <Provider store={store}>
-      <TaskEnvironment taskEnvironmentId={taskEnvId} />
-    </Provider>
-  );
   return appComponent;
 }
 

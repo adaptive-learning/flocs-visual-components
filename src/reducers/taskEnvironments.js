@@ -41,6 +41,9 @@ const initialTaskEnvironment = {
 
 
 function createTaskEnvironment(taskEnvironments, taskEnvironmentId) {
+  if (taskEnvironmentId in taskEnvironments) {
+    return taskEnvironments;
+  }
   return { ...taskEnvironments, [taskEnvironmentId]: initialTaskEnvironment };
 }
 
@@ -58,7 +61,7 @@ function updateEntity(entities, id, updateFn, args) {
 
 
 function setTask(taskEnvironment, { task }) {
-  return { ...taskEnvironment, task, code: '', commands: [] };
+  return { ...taskEnvironment, task, code: '', commands: [], interpreting: false };
 }
 
 
