@@ -1,4 +1,5 @@
 import { generateSettingText } from '../core/taskSetting';
+import { stripIndentation } from '../utils/text';
 
 export function getTaskEnvironment(state, taskEnvironmentId) {
   return state.flocsComponents.taskEnvironments[taskEnvironmentId];
@@ -7,6 +8,32 @@ export function getTaskEnvironment(state, taskEnvironmentId) {
 
 export function getTask(state, taskEnvironmentId) {
   return getTaskEnvironment(state, taskEnvironmentId).task;
+}
+
+
+export function getTaskSourceText(state, taskEnvironmentId) {
+  if (!isSettingTextValid(state, taskEnvironmentId)) {
+    throw Error('Invalid task setting');
+  }
+  const setting = getSettingText(state, taskEnvironmentId);
+  const solution = getCode(state, taskEnvironmentId);
+
+  const sourceText = stripIndentation`\
+    Setting
+    -------
+
+    \`\`\`
+    ${setting}
+    \`\`\`
+
+    Solution
+    --------
+
+    \`\`\`python
+    ${solution}
+    \`\`\`
+  `;
+  return sourceText;
 }
 
 

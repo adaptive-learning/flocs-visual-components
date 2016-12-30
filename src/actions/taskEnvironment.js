@@ -1,6 +1,7 @@
-import { getCode } from '../selectors/taskEnvironment';
+import { getCode, getTaskSourceText } from '../selectors/taskEnvironment';
 import { getColor, getPosition, isSolved, isDead, isRunning } from '../selectors/gameState';
 import { interpretRoboCode } from '../robocode/interpreter';
+import { downloadTextFile } from '../utils/files';
 
 
 export const CREATE_TASK_ENVIRONMENT = 'FLOCS.CREATE_TASK_ENVIRONMENT';
@@ -25,6 +26,14 @@ export function setTask(taskEnvironmentId, task) {
   return {
     type: SET_TASK,
     payload: { taskEnvironmentId, task },
+  };
+}
+
+
+export function exportTask(taskEnvironmentId) {
+  return (dispatch, getState) => {
+    const taskSourceText = getTaskSourceText(getState(), taskEnvironmentId);
+    downloadTextFile('untitled-task.md', taskSourceText);
   };
 }
 

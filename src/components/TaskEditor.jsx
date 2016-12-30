@@ -2,18 +2,21 @@ import React, { PropTypes } from 'react';
 import TaskEnvironmentContainer from '../containers/TaskEnvironmentContainer';
 import SettingEditorContainer from '../containers/SettingEditorContainer';
 
-export default function TaskEditor({ taskEnvironmentId }) {
+export default function TaskEditor({ taskEnvironmentId, onExport }) {
   return (
     <div>
-      <TaskEnvironmentContainer taskEnvironmentId={taskEnvironmentId} />
-      <SettingEditorContainer taskEnvironmentId={taskEnvironmentId} />
-      <button>Export</button>
+      <div>
+        <TaskEnvironmentContainer taskEnvironmentId={taskEnvironmentId} />
+        <SettingEditorContainer taskEnvironmentId={taskEnvironmentId} />
+      </div>
+      <button onClick={onExport}>Export</button>
     </div>
   );
 }
 
 TaskEditor.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
+  onExport: PropTypes.func,
 };
 
 TaskEditor.defaultProps = {
