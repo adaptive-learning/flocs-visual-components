@@ -32,8 +32,12 @@ export function setTask(taskEnvironmentId, task) {
 
 export function exportTask(taskEnvironmentId) {
   return (dispatch, getState) => {
-    const taskSourceText = getTaskSourceText(getState(), taskEnvironmentId);
-    downloadTextFile('untitled-task.md', taskSourceText);
+    try {
+      const taskSourceText = getTaskSourceText(getState(), taskEnvironmentId);
+      downloadTextFile('untitled-task.md', taskSourceText);
+    } catch (err) {
+      alert(`Export failed: ${err.message}`);
+    }
   };
 }
 

@@ -21,6 +21,7 @@
       "spaced-comment": 1,
       "no-use-before-define": [1, "nofunc"],
       "no-unused-vars": [1, {"varsIgnorePattern": "^_"}],
+      "no-alert": 0,
       "no-console": 0,
       "react/require-extension": 0,
       "react/jsx-boolean-value": 0,
