@@ -3,12 +3,12 @@ import CodeEditorContainer from '../containers/CodeEditorContainer';
 import SpaceGameContainer from '../containers/SpaceGameContainer';
 
 
-export default function TaskEnvironment({ taskEnvironmentId }) {
+export default function TaskEnvironment({ taskEnvironmentId, showCommandControls }) {
   return (
     <span>
       <SpaceGameContainer
         taskEnvironmentId={taskEnvironmentId}
-        showCommandControls={false}
+        showCommandControls={showCommandControls}
       />
       <CodeEditorContainer
         taskEnvironmentId={taskEnvironmentId}
@@ -19,4 +19,10 @@ export default function TaskEnvironment({ taskEnvironmentId }) {
 
 TaskEnvironment.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
+  showCommandControls: PropTypes.bool,
+};
+
+
+TaskEnvironment.defaultProps = {
+  showCommandControls: false,
 };

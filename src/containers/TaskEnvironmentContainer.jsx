@@ -11,7 +11,10 @@ class TaskEnvironmentWrapper extends React.Component {
 
   render() {
     return (
-      <TaskEnvironment taskEnvironmentId={this.props.taskEnvironmentId} />
+      <TaskEnvironment
+        taskEnvironmentId={this.props.taskEnvironmentId}
+        showCommandControls={this.props.showCommandControls}
+      />
     );
   }
 }
@@ -19,6 +22,12 @@ class TaskEnvironmentWrapper extends React.Component {
 TaskEnvironmentWrapper.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
   createTaskEnvironment: PropTypes.func.isRequired,
+  showCommandControls: PropTypes.bool.isRequired,
+};
+
+
+TaskEnvironmentWrapper.defaultProps = {
+  showCommandControls: false,
 };
 
 

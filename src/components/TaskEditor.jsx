@@ -6,10 +6,17 @@ export default function TaskEditor({ taskEnvironmentId, onExport }) {
   return (
     <div>
       <div>
-        <TaskEnvironmentContainer taskEnvironmentId={taskEnvironmentId} />
-        <SettingEditorContainer taskEnvironmentId={taskEnvironmentId} />
+        <TaskEnvironmentContainer
+          taskEnvironmentId={taskEnvironmentId}
+          showCommandControls={true}
+        />
+        <SettingEditorContainer
+          taskEnvironmentId={taskEnvironmentId}
+        />
       </div>
-      <button onClick={onExport}>Export</button>
+      <button onClick={onExport}>
+        Export
+      </button>
     </div>
   );
 }
