@@ -23,6 +23,7 @@
       "no-unused-vars": [1, {"varsIgnorePattern": "^_"}],
       "no-console": 0,
       "react/require-extension": 0,
+      "react/jsx-boolean-value": 0,
       "import/prefer-default-export": 0,
       "import/no-unresolved": [2, {"ignore": ["flocs-visual-components"]}],
       "import/no-extraneous-dependencies": [0, {"devDependencies": true}]

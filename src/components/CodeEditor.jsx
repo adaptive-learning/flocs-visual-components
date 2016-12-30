@@ -4,18 +4,29 @@ import AceEditor from 'react-ace';
 import 'brace/mode/python';
 import 'brace/theme/solarized_light';
 
-export default function CodeEditor({ code, onChange }) {
-  return (
-    <AceEditor
-      value={code}
-      onChange={onChange}
-      mode="python"
-      theme="solarized_light"
-      fontSize={16}
-      editorProps={{ $blockScrolling: true }}
-      style={{ display: 'inline-block' }}
-    />
-  );
+
+export default class CodeEditor extends React.Component {
+  componentDidUpdate() {
+    if (this.props.code === '') {
+      this.aceEditor.editor.focus();
+    }
+  }
+
+  render() {
+    return (
+      <AceEditor
+        ref={(ref) => { this.aceEditor = ref; }}
+        value={this.props.code}
+        onChange={this.props.onChange}
+        mode="python"
+        theme="solarized_light"
+        fontSize={16}
+        focus={true}
+        editorProps={{ $blockScrolling: true }}
+        style={{ display: 'inline-block' }}
+      />
+    );
+  }
 }
 
 CodeEditor.propTypes = {
