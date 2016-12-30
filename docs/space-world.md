@@ -14,7 +14,7 @@ Example:
 
 Corresponds to:
 
-![task screenshot](docs/files/task-diamond-on-right.png)
+![task screenshot](/docs/files/task-diamond-on-right.png)
 
 Field:
 - starts with a lower-case letter denoting background (black 'k', blue 'b', yellow 'y')
@@ -29,6 +29,6 @@ For more examples, see settings of tasks in
 [flocs-core/tasks](https://github.com/adaptive-learning/flocs-core/tree/master/tasks).
 
 For the exact (and current) setting setting parser rules, see
-[source code of taskSetting parser and generator](https://github.com/adaptive-learning/flocs-visual-components/blob/master/src/core/taskSetting.js).
+[source code of taskSetting parser and generator](/src/core/taskSetting.js).
 
 For new feature requests (or any other changes), create an issue.
