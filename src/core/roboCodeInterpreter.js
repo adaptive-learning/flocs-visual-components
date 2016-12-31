@@ -1,5 +1,5 @@
 import { Interpreter } from 'js-interpreter';
-import { parseRoboCode } from './parser';
+import { parseRoboCode } from './roboCodeParser';
 
 
 const defaultSettings = {

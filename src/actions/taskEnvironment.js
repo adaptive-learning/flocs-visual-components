@@ -1,6 +1,6 @@
 import { getCode, getTaskSourceText } from '../selectors/taskEnvironment';
 import { getColor, getPosition, isSolved, isDead, isRunning } from '../selectors/gameState';
-import { interpretRoboCode } from '../robocode/interpreter';
+import { interpretRoboCode } from '../core/roboCodeInterpreter';
 import { downloadTextFile } from '../utils/files';
 
 
