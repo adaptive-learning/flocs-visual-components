@@ -151,17 +151,24 @@ function steppingJsCode(jsCode, context, pauseLength) {
       next = jsInterpreter.step();
     }
     if (context.isSolved()) {
-      resolve('solved');
+      finalize(resolve, 'solved');
     } else if (context.isDead()) {
-      resolve('dead');
+      finalize(resolve, 'dead');
     } else if (context.interrupted()) {
-      resolve('interrupted');
+      finalize(resolve, 'interrupted');
     } else if (!next) {
-      resolve('last step');
+      finalize(resolve, 'last step');
     } else {
       pause = false;
       setTimeout(() => nextSteps(resolve, reject), pauseLength);
     }
+  }
+
+  function finalize(resolve, reason) {
+    setTimeout(() => {
+      context.finalize();
+      resolve(reason);
+    }, pauseLength);
   }
 
   return new Promise(nextSteps);

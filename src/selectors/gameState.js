@@ -81,12 +81,33 @@ function runCommands(fields, commands) {
 
 
 function runCommand(fields, command) {
-  const direction = (command === 'ahead+shot') ? 'ahead' : command;
-  const shot = (command === 'ahead+shot');
-  const fieldsAfterEvolution = performObjectEvolution(fields);
-  const fieldsAfterMove = performMove(fieldsAfterEvolution, direction);
-  const newFields = (shot) ? performShot(fieldsAfterMove) : fieldsAfterMove;
-  return newFields;
+  let nextFields = performObjectEvolution(fields);
+  const spaceship = findSpaceshipPosition(fields);
+    // NOTE: sure, given the limited size of the grid, finding position is O(1)
+    // operation, but if there is a performance problem, I would recommend to
+    // look at this and use a better data structure
+  if (isSpaceshipDead(fields, spaceship)) {
+    return nextFields;
+  }
+  switch (command) {
+    case 'left':
+    case 'right':
+    case 'ahead': {
+      nextFields = performMove(nextFields, command);
+      break;
+    }
+    case 'ahead+shot': {
+      nextFields = performShot(performMove(nextFields, 'ahead'));
+      break;
+    }
+    case 'finalize': {
+      break;
+    }
+    default: {
+      throw new Error(`Undefined command ${command}`);
+    }
+  }
+  return nextFields;
 }
 
 

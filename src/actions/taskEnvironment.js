@@ -75,6 +75,7 @@ export function runProgram(taskEnvironmentId) {
     const code = getCode(getState(), taskEnvironmentId);
     const context = {
       move: (command) => dispatch(executeCommand(taskEnvironmentId, command)),
+      finalize: () => dispatch(executeCommand(taskEnvironmentId, 'finalize')),
       color: () => getColor(getState(), taskEnvironmentId),
       position: () => getPosition(getState(), taskEnvironmentId),
       isSolved: () => isSolved(getState(), taskEnvironmentId),
