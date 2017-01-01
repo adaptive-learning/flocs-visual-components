@@ -47,6 +47,9 @@ export function getGameState(state, taskEnvironmentId) {
 }
 
 
+// --------------------------------------------------------------------------
+// TODO: move the code below to the core (?)
+
 function computeGameStateOfTaskEnvironment(taskEnvironment) {
   const fields = computeCurrentFields(taskEnvironment);
   const spaceship = findSpaceshipPosition(fields);
@@ -138,10 +141,19 @@ function performMove(fields, direction) {
     const [background, oldObjects] = field;
     let newObjects = oldObjects;
     if (i === oldSpaceshipPosition[0] && j === oldSpaceshipPosition[1]) {
-      newObjects = [];
+      if (outsideWorld(fields, newSpaceshipPosition)) {
+        const border = (j === 0) ? 'left' : 'right';
+        newObjects = [`spaceship-out-${border}`];
+      } else {
+        newObjects = [];
+      }
     }
     if (i === newSpaceshipPosition[0] && j === newSpaceshipPosition[1]) {
-      newObjects = [...newObjects, 'S'];
+      if (onRock(fields, newSpaceshipPosition)) {
+        newObjects = [...newObjects, 'spaceship-broken'];
+      } else {
+        newObjects = [...newObjects, 'S'];
+      }
     }
     return [background, newObjects];
   }));
@@ -186,7 +198,7 @@ function findSpaceshipPosition(fields) {
   for (let i = 0; i < fields.length; i++) {
     for (let j = 0; j < fields[i].length; j++) {
       const objects = fields[i][j][1];
-      if (objects.indexOf('S') >= 0) {
+      if (objects.some(obj => obj === 'S' || obj.startsWith('spaceship'))) {
         return [i, j];
       }
     }

@@ -2,8 +2,23 @@
  * Bidirection parsing/generating of json/text setting
  */
 
-const validBackgrounds = new Set(['k', 'b', 'y']);
-const validObjects = new Set(['S', 'M', 'A', 'D']);
+export const fieldBackgrounds = {
+  black: 'k',
+  blue: 'b',
+  yellow: 'y',
+};
+
+
+export const gameObjects = {
+  spaceship: 'S',
+  asteroid: 'A',
+  meteoroid: 'M',
+  diamond: 'D',
+};
+
+
+const fieldBackgroundsSet = new Set(Object.values(fieldBackgrounds));
+const gameObjectsSet = new Set(Object.values(gameObjects));
 
 
 export function generateSettingText(setting) {
@@ -35,11 +50,11 @@ function parseField(fieldText) {
     throw new Error(`Invalid field: ${fieldText}`);
   }
   const [background, ...objects] = trimmedFieldText;
-  if (!validBackgrounds.has(background)) {
+  if (!fieldBackgroundsSet.has(background)) {
     throw new Error(`Invalid background: ${background}`);
   }
   objects.forEach(object => {
-    if (!validObjects.has(object)) {
+    if (!gameObjectsSet.has(object)) {
       throw new Error(`Invalid object: ${object}`);
     }
   });

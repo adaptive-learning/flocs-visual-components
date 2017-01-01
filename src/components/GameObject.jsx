@@ -11,6 +11,9 @@ export default function GameObject({ type, size }) {
     laser: 'laser',
     'laser-start': 'laser-start',
     'laser-end': 'laser-end',
+    'spaceship-broken': 'spaceship-broken',
+    'spaceship-out-left': 'spaceship-out-left',
+    'spaceship-out-right': 'spaceship-out-right',
   };
 
 
