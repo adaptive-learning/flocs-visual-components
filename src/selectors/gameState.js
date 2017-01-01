@@ -20,23 +20,18 @@ export function getPosition(state, taskEnvironmentId) {
 
 
 export function isSolved(state, taskEnvironmentId) {
-  const gameState = getGameState(state, taskEnvironmentId);
-  const solved = gameState.stage === 'solved';
-  return solved;
+  return getGameStage(state, taskEnvironmentId) === 'solved';
 }
 
 
 export function isDead(state, taskEnvironmentId) {
-  const gameState = getGameState(state, taskEnvironmentId);
-  const solved = gameState.stage === 'dead';
-  return solved;
+  return getGameStage(state, taskEnvironmentId) === 'dead';
 }
 
 
-export function isRunning(state, taskEnvironmentId) {
+export function getGameStage(state, taskEnvironmentId) {
   const gameState = getGameState(state, taskEnvironmentId);
-  const running = gameState.stage === 'running';
-  return running;
+  return gameState.stage;
 }
 
 

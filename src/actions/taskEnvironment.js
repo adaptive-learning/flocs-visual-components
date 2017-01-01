@@ -1,5 +1,5 @@
 import { getCode, getTaskSourceText } from '../selectors/taskEnvironment';
-import { getColor, getPosition, isSolved, isDead, isRunning } from '../selectors/gameState';
+import { getColor, getPosition, isSolved, isDead, getGameStage } from '../selectors/gameState';
 import { interpretRoboCode } from '../core/roboCodeInterpreter';
 import { downloadTextFile } from '../utils/files';
 
@@ -80,7 +80,7 @@ export function runProgram(taskEnvironmentId) {
       position: () => getPosition(getState(), taskEnvironmentId),
       isSolved: () => isSolved(getState(), taskEnvironmentId),
       isDead: () => isDead(getState(), taskEnvironmentId),
-      interrupted: () => !isRunning(getState(), taskEnvironmentId),
+      interrupted: () => getGameStage(getState(), taskEnvironmentId) === 'initial',
     };
     const interpretingPromise = startingInterpretation()
       .then(() => interpretRoboCode(code, context))
