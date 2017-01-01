@@ -150,12 +150,12 @@ function steppingJsCode(jsCode, context, pauseLength) {
     while (next && !pause && !context.interrupted()) {
       next = jsInterpreter.step();
     }
-    if (context.isSolved()) {
+    if (context.interrupted()) {
+      resolve('interrupted');
+    } else if (context.isSolved()) {
       finalize(resolve, 'solved');
     } else if (context.isDead()) {
       finalize(resolve, 'dead');
-    } else if (context.interrupted()) {
-      finalize(resolve, 'interrupted');
     } else if (!next) {
       finalize(resolve, 'last step');
     } else {
