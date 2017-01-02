@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TaskEditor from '../components/TaskEditor';
-import { parseSetting } from '../core/taskSetting';
+import { parseTaskSetting } from '../core/taskSetting';
 import { setTask, exportTask } from '../actions/taskEnvironment';
 
 
@@ -33,7 +33,7 @@ TaskEditorWrapper.propTypes = {
 };
 
 const defaultInitialTask = {
-  setting: parseSetting(`\
+  setting: parseTaskSetting(`\
     |b |b |b |b |b |
     |k |k |k |k |k |
     |k |k |kS|k |k |`),

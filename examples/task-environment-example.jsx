@@ -5,7 +5,8 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { TaskEnvironmentContainer,
          flocsComponentsReducer,
-         flocsActionCreators } from 'flocs-visual-components';
+         flocsActionCreators,
+         parseTaskSetting } from 'flocs-visual-components';
 
 
 function createAppComponent() {
@@ -29,17 +30,16 @@ function createAppComponent() {
 
   // set a task in a task environment
   const task = {
-    setting: {
-      fields: [[['b', []], ['b', ['A']], ['b', ['M']], ['b', ['A']], ['b', []]],
-              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', ['S']], ['k', ['A']], ['k', []]]],
-    },
+    setting: parseTaskSetting(`
+      |b |bA|bM|bA|b |
+      |k |kA|k |kA|k |
+      |k |kA|kM|kA|k |
+      |k |kA|k |kA|k |
+      |k |kA|kM|kA|k |
+      |k |kA|k |kA|k |
+      |k |kA|kM|kA|k |
+      |k |kA|k |kA|k |
+      |k |kA|kS|kA|k |`),
   };
   store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
 

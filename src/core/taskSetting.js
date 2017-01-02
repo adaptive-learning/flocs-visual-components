@@ -28,7 +28,7 @@ export function generateSettingText(setting) {
 }
 
 
-export function parseSetting(settingText) {
+export function parseTaskSetting(settingText) {
   const lines = settingText.trim().split('\n');
   const fields = lines.map(line => line.trim().split('|').filter(f => f !== '').map(parseField));
   const setting = { fields };

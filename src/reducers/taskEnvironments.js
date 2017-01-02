@@ -1,5 +1,5 @@
 import { flocsActions as actions } from '../actions';
-import { parseSetting } from '../core/taskSetting';
+import { parseTaskSetting } from '../core/taskSetting';
 
 
 function reduceTaskEnvironments(state = {}, action) {
@@ -67,7 +67,7 @@ function setTask(taskEnvironment, { task }) {
 
 function changeSetting(taskEnvironment, { settingText }) {
   try {
-    const setting = parseSetting(settingText);
+    const setting = parseTaskSetting(settingText);
     const updatedTask = { ...taskEnvironment.task, setting };
     return { ...taskEnvironment, task: updatedTask, invalidSettingText: null };
   } catch (err) {

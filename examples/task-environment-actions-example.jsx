@@ -8,7 +8,8 @@ import { TaskEnvironmentContainer,
          flocsComponentsReducer,
          flocsActionCreators,
          flocsActions,
-         flocsSelector } from 'flocs-visual-components';
+         flocsSelector,
+         parseTaskSetting } from 'flocs-visual-components';
 
 function createAppComponent() {
   // create a combined reducer and store with needed middleware
@@ -22,23 +23,22 @@ function createAppComponent() {
 
   // definiton of two example tasks
   const task1 = {
-    setting: {
-      fields: [[['b', []], ['b', []], ['b', []], ['b', []], ['b', []]],
-               [['k', []], ['k', []], ['k', ['S']], ['k', []], ['k', []]]],
-    },
+    setting: parseTaskSetting(`
+      |b |b |b |b |b |
+      |k |k |k |k |k |
+      |k |k |kS|k |k |`),
   };
   const task2 = {
-    setting: {
-      fields: [[['b', []], ['b', ['A']], ['b', ['M']], ['b', ['A']], ['b', []]],
-              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-              [['k', []], ['k', ['A']], ['k', ['S']], ['k', ['A']], ['k', []]]],
-    },
+    setting: parseTaskSetting(`
+      |b |bA|bM|bA|b |
+      |k |kA|k |kA|k |
+      |k |kA|kM|kA|k |
+      |k |kA|k |kA|k |
+      |k |kA|kM|kA|k |
+      |k |kA|k |kA|k |
+      |k |kA|kM|kA|k |
+      |k |kA|k |kA|k |
+      |k |kA|kS|kA|k |`),
   };
   const tasks = [task1, task2];
   let currentTaskIndex = 0;
