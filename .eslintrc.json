@@ -19,6 +19,7 @@
     },
     "rules": {
       "spaced-comment": 1,
+      "no-mixed-operators": 0,
       "no-use-before-define": [1, "nofunc"],
       "no-unused-vars": [1, {"varsIgnorePattern": "^_"}],
       "no-alert": 0,

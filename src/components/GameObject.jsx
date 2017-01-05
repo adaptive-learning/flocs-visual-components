@@ -1,32 +1,23 @@
 import React, { PropTypes } from 'react';
 import Image from './Image';
 
-export default function GameObject({ type, size }) {
-  const IMAGE_TYPES = {
-    S: 'spaceship',
-    A: 'asteroid',
-    M: 'meteoroid',
-    D: 'diamond',
-    explosion: 'explosion',
-    laser: 'laser',
-    'laser-start': 'laser-start',
-    'laser-end': 'laser-end',
-    'spaceship-broken': 'spaceship-broken',
-    'spaceship-out-left': 'spaceship-out-left',
-    'spaceship-out-right': 'spaceship-out-right',
-  };
-
-
+export default function GameObject({ imageId, width, height, position, bottom, left }) {
   return (
-    <Image imageId={IMAGE_TYPES[type]} width={size} height={size} position="absolute" />
+    <Image {...{ imageId, width, height, position, bottom, left }} />
   );
 }
 
 GameObject.propTypes = {
-  type: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
+  imageId: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  position: PropTypes.string,
+  bottom: PropTypes.number,
+  left: PropTypes.number,
 };
 
 GameObject.defaultProps = {
-  size: 50,
+  position: 'relative',
+  bottom: 0,
+  left: 0,
 };
