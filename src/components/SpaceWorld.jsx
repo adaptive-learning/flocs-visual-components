@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import GameObject from './GameObject';
-import FieldBackground from './FieldBackground';
-import spaceBackroundPath from '../../assets/images/space.png';
+import SpaceBackgroundGrid from './SpaceBackgroundGrid';
 
 export default function SpaceWorld({ fields }) {
   const width = 250;
@@ -12,22 +11,9 @@ export default function SpaceWorld({ fields }) {
     display: 'block',
     position: 'relative',
   };
-  const backgroundGridStyle = {
-    display: 'block',
-    backgroundImage: `url(${spaceBackroundPath})`,
-  };
-
   return (
     <span style={worldStyle}>
-      <span style={backgroundGridStyle} >
-        {backgrounds.map((backgroundsRow, index) =>
-          <span style={{ display: 'table-row' }} key={index}>
-            {backgroundsRow.map((background, bgIndex) =>
-              <FieldBackground key={bgIndex} color={background} size={fieldSize} />
-            )}
-          </span>
-        )}
-      </span>
+      <SpaceBackgroundGrid backgroundColors={backgrounds} fieldSize={fieldSize} />
       <span>
         {objects.map((object, index) =>
           <GameObject
