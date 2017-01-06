@@ -14,8 +14,9 @@ export default function FieldBackground({ color, size }) {
     borderStyle: 'solid',
     borderColor: '#444',
     borderWidth: `${borderWidth}px`,
-    width: `${size - 2 * borderWidth}px`,
-    height: `${size - 2 * borderWidth}px`,
+    boxSizing: 'border-box',
+    width: `${size}px`,
+    height: `${size}px`,
     backgroundColor: BACKGROUND_COLOR_CLASSES[color],
     opacity: 0.6,
   };
