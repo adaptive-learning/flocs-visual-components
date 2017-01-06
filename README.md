@@ -10,7 +10,11 @@ Install `flocs-visual-component` package from the npm registry:
 npm install --save flocs-visual-components
 ```
 
-Copy library static assets (content of `lib/static`) to the place where you serve static assets.
+Next, make sure to include [babel-polyfill](https://babeljs.io/docs/usage/polyfill/)
+in your bundled app, to support new ES6 features (such as `Object.values`) in all browsers
+(these features are used in this library, so it is really necessary to install and include a polyfill).
+
+Finally, copy library static assets (content of `lib/static`) to the place where you serve static assets.
 The assets need to be available under `/static/[images|fonts]/[name]` url.
 You can achieve this automatically using, for example, webpack with the following configuration.
 
