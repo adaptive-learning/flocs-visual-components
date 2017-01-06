@@ -35,8 +35,11 @@ export default function SettingEditor({ setting, isValid, onChange, vimMode, onS
           vim mode
         </div>
         <div>
-          <a href="https://github.com/adaptive-learning/flocs-visual-components/blob/master/docs/space-world.md"
-             target="_blank" rel='noreferrer noopener'>
+          <a
+            href="https://github.com/adaptive-learning/flocs-visual-components/blob/master/docs/space-world.md"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             Docs: SpaceWorld desription
           </a>
         </div>
