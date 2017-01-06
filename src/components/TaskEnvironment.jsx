@@ -5,7 +5,7 @@ import SpaceGameContainer from '../containers/SpaceGameContainer';
 
 export default function TaskEnvironment({ taskEnvironmentId, showCommandControls }) {
   return (
-    <span>
+    <span style={{ display: 'inline-block', verticalAlign: 'top' }}>
       <SpaceGameContainer
         taskEnvironmentId={taskEnvironmentId}
         showCommandControls={showCommandControls}

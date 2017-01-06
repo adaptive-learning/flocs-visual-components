@@ -2,7 +2,7 @@ import { flocsActions as actions } from '../actions';
 import { parseTaskSetting } from '../core/taskSetting';
 
 
-function reduceTaskEnvironments(state = {}, action) {
+export default function reduceTaskEnvironments(state = {}, action) {
   switch (action.type) {
     case actions.CREATE_TASK_ENVIRONMENT:
       return createTaskEnvironment(state, action.payload.taskEnvironmentId);
@@ -101,6 +101,3 @@ function startInterpretation(taskEnvironment) {
 function endInterpretation(taskEnvironment) {
   return { ...taskEnvironment, interpreting: false };
 }
-
-
-export default reduceTaskEnvironments;

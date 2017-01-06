@@ -1,3 +1,5 @@
+import { switchVimMode,
+         SWITCH_VIM_MODE } from './taskEditor';
 import { createTaskEnvironment,
          setTask,
          changeSetting,
@@ -26,6 +28,7 @@ const flocsActionCreators = {
   taskAttempted,
   executeCommand,
   resetGame,
+  switchVimMode,
 };
 
 const flocsActions = {
@@ -37,6 +40,7 @@ const flocsActions = {
   RESET_GAME,
   EXECUTE_COMMAND,
   INTERPRETATION_STARTED,
+  SWITCH_VIM_MODE,
 };
 
 export { flocsActionCreators, flocsActions };
