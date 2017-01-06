@@ -2,8 +2,15 @@ import React, { PropTypes } from 'react';
 import Image from './Image';
 
 export default function GameObject({ imageId, width, height, position, bottom, left }) {
+  const imageStyle = {
+    position,
+    width: `${width}px`,
+    height: `${height}px`,
+    bottom: `${bottom}px`,
+    left: `${left}px`,
+  };
   return (
-    <Image {...{ imageId, width, height, position, bottom, left }} />
+    <Image imageId={imageId} style={imageStyle} />
   );
 }
 
