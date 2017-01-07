@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import AceEditor from 'react-ace';
 
-import 'brace/mode/text';
 import 'brace/theme/solarized_light';
 import 'brace/keybinding/vim';
+import '../core/spaceWorldHighlighter';
 
 
 export default function SettingEditor({ setting, isValid, onChange, vimMode, onSwitchMode }) {
@@ -17,7 +17,7 @@ export default function SettingEditor({ setting, isValid, onChange, vimMode, onS
       <AceEditor
         value={setting}
         onChange={onChange}
-        mode="text"
+        mode="spaceworld"
         theme="solarized_light"
         fontSize={16}
         keyboardHandler={vimMode ? 'vim' : null}
