@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import AceEditor from 'react-ace';
 
-import 'brace/mode/python';
 import 'brace/theme/solarized_light';
+import '../core/roboCodeHighlighter';
 
 
 export default class CodeEditor extends React.Component {
@@ -18,7 +18,7 @@ export default class CodeEditor extends React.Component {
         ref={(ref) => { this.aceEditor = ref; }}
         value={this.props.code}
         onChange={this.props.onChange}
-        mode="python"
+        mode="robocode"
         theme="solarized_light"
         fontSize={16}
         focus={true}
