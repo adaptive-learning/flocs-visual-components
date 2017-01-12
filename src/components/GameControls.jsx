@@ -3,10 +3,10 @@ import React, { PropTypes } from 'react';
 
 export default function GameControls({ controls, onClick }) {
   const GROUP = {
+    fly: 'commands',
     left: 'commands',
     right: 'commands',
-    ahead: 'commands',
-    'ahead+shot': 'commands',
+    shoot: 'commands',
     run: 'run',
     reset: 'reset',
   };
@@ -35,10 +35,10 @@ export default function GameControls({ controls, onClick }) {
     <span style={{ display: 'block', margin: '5px 0px' }}>
       {visible('commands') &&
         <span style={{ display: 'block', marginBottom: '2px' }}>
+          {conditionallyRenderControlButton('fly', 'Fly')}
           {conditionallyRenderControlButton('left', 'Left')}
-          {conditionallyRenderControlButton('ahead', 'Ahead')}
-          {conditionallyRenderControlButton('ahead+shot', 'Ahead+Shot')}
           {conditionallyRenderControlButton('right', 'Right')}
+          {conditionallyRenderControlButton('shoot', 'Shoot')}
         </span>
       }
       {conditionallyRenderControlButton('run', 'Run')}

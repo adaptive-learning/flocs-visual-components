@@ -14,12 +14,11 @@ class SpaceGameWrapper extends React.Component {
 
   handleControlClicked(control) {
     switch (control) {
+      case 'fly':
       case 'left':
       case 'right':
-      case 'ahead':
-      case 'ahead+shot':
-        this.props.executeCommand(this.props.taskEnvironmentId, control);
-        break;
+      case 'shoot':
+        this.props.executeCommand(this.props.taskEnvironmentId, control); break;
       case 'run':
         this.props.runProgram(this.props.taskEnvironmentId);
         break;

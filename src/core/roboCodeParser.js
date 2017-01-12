@@ -24,14 +24,18 @@ function parseNonemptyIndentedLines(lines) {
 
 
 function parseSequence(nestedLines) {
-  return nestedLines.map(parseCommand);
+  return nestedLines.map(parseStatement);
 }
 
 
-function parseCommand({ head, body }) {
-  if (head.startsWith('move')) {
-    // TODO: force empty body
-    return parseMove(head);
+function parseStatement({ head, body }) {
+  // TODO: force empty body for actions (fly, left etc.)
+  // TODO: tokenization to make it cleaner and easily extensible
+  if (head.startsWith('fly')
+      || head.startsWith('left')
+      || head.startsWith('right')
+      || head.startsWith('shoot')) {
+    return parseCommand(head);
   } else if (head.startsWith('while')) {
     return ['while', parseCondition(head.slice(6)), parseSequence(body)];
   } else if (head.startsWith('repeat')) {
@@ -51,11 +55,11 @@ function parseNumber(text) {
 }
 
 
-function parseMove(line) {
-  const moveCmdRe = /^move\((['"](.*)['"])?\)$/;
-  const match = moveCmdRe.exec(line);
-  const direction = match[2] || 'ahead';
-  return ['move', direction];
+function parseCommand(line) {
+  const cmdRe = /^(.*)\(\)$/;
+  const match = cmdRe.exec(line);
+  const commandName = match[1];
+  return [commandName];
 }
 
 

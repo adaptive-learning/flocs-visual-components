@@ -87,24 +87,31 @@ function runCommand(fields, command) {
   if (isSpaceshipDead(fields, spaceship)) {
     return nextFields;
   }
+  let direction = 'ahead';
   switch (command) {
-    case 'left':
-    case 'right':
-    case 'ahead': {
-      nextFields = performMove(nextFields, command);
+    case 'fly': {
       break;
     }
-    case 'ahead+shot': {
-      nextFields = performShot(performMove(nextFields, 'ahead'));
+    case 'left': {
+      direction = 'left';
+      break;
+    }
+    case 'right': {
+      direction = 'right';
+      break;
+    }
+    case 'shoot': {
+      nextFields = performShot(nextFields);
       break;
     }
     case 'finalize': {
-      break;
+      return nextFields;
     }
     default: {
       throw new Error(`Undefined command ${command}`);
     }
   }
+  nextFields = performMove(nextFields, direction);
   return nextFields;
 }
 

@@ -11,7 +11,8 @@ const defaultSettings = {
  * Interpret given robo-code step by step.
  *
  * Input and output is given by :context: parameter, it must provide
- * all robo-commands (move, position, color)
+ * all robo-commands (doAction, position, color)
+ * and it can optionally provide some other hooks (finalize, isSolved, isDead, interrupted).
  *
  * Return a promise which will be fullfilled when the interpretting is finished
  */
@@ -40,7 +41,10 @@ function generateSequence(nodes) {
 function generateStatement(node) {
   const head = node[0];
   switch (head) {
-    case 'move':
+    case 'fly':
+    case 'left':
+    case 'right':
+    case 'shoot':
       return generateCommand(node);
     case 'repeat':
       return generateRepeatLoop(node);
@@ -125,14 +129,16 @@ function steppingJsCode(jsCode, context, pauseLength) {
 
   function initApi(interpreter, scope) {
     // TODO: dry initApi function
-    interpreter.setProperty(scope, 'move',
-      interpreter.createNativeFunction((directionArg) => {
-        const direction = directionArg ? directionArg.toString() : 'ahead';
-        context.move(direction);
-        pause = true;
-        return interpreter.createPrimitive();
-      })
-    );
+    const actions = ['fly', 'left', 'right', 'shoot'];
+    actions.forEach((action) => {
+      interpreter.setProperty(scope, action,
+        interpreter.createNativeFunction(() => {
+          context.doAction(action);
+          pause = true;
+          return interpreter.createPrimitive();
+        })
+      );
+    });
 
     interpreter.setProperty(scope, 'color',
       interpreter.createNativeFunction(() => interpreter.createPrimitive(context.color()))
