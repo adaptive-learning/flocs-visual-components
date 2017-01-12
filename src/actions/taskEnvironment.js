@@ -9,7 +9,8 @@ export const SET_TASK = 'FLOCS.SET_TASK';
 export const CHANGE_SETTING = 'FLOCS.CHANGE_SETTING';
 export const CHANGE_CODE = 'FLOCS.CHANGE_CODE';
 export const RESET_GAME = 'FLOCS.RESET_GAME';
-export const EXECUTE_COMMAND = 'FLOCS.EXECUTE_COMMAND';
+export const DO_ACTION = 'FLOCS.DO_ACTION';
+export const MOVE = 'FLOCS.MOVE';
 export const INTERPRETATION_STARTED = 'FLOCS.INTERPRETATION_STARTED';
 export const TASK_ATTEMPTED = 'FLOCS.TASK_ATTEMPTED';
 
@@ -74,8 +75,7 @@ export function runProgram(taskEnvironmentId) {
     });
     const code = getCode(getState(), taskEnvironmentId);
     const context = {
-      doAction: (action) => dispatch(executeCommand(taskEnvironmentId, action)),
-      finalize: () => dispatch(executeCommand(taskEnvironmentId, 'finalize')),
+      doActionMove: (action) => dispatch(doActionMove(taskEnvironmentId, action)),
       color: () => getColor(getState(), taskEnvironmentId),
       position: () => getPosition(getState(), taskEnvironmentId),
       isSolved: () => isSolved(getState(), taskEnvironmentId),
@@ -98,10 +98,33 @@ export function interpretationStarted(taskEnvironmentId) {
 }
 
 
-export function executeCommand(taskEnvironmentId, command) {
+export function doActionMove(taskEnvironmentId, action) {
+  const pauseLength = 300;
+  return (dispatch) => {
+    const actionMovePromise = new Promise(resolve => {
+      dispatch(doAction(taskEnvironmentId, action));
+      setTimeout(() => {
+        dispatch(move(taskEnvironmentId));
+        resolve();
+      }, pauseLength);
+    });
+    return actionMovePromise;
+  };
+}
+
+
+export function doAction(taskEnvironmentId, action) {
   return {
-    type: EXECUTE_COMMAND,
-    payload: { taskEnvironmentId, command },
+    type: DO_ACTION,
+    payload: { taskEnvironmentId, action },
+  };
+}
+
+
+export function move(taskEnvironmentId) {
+  return {
+    type: MOVE,
+    payload: { taskEnvironmentId },
   };
 }
 

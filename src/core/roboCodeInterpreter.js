@@ -11,8 +11,8 @@ const defaultSettings = {
  * Interpret given robo-code step by step.
  *
  * Input and output is given by :context: parameter, it must provide
- * all robo-commands (doAction, position, color)
- * and it can optionally provide some other hooks (finalize, isSolved, isDead, interrupted).
+ * all robo-commands (doActionMove, position, color)
+ * and it can optionally provide some other hooks (isSolved, isDead, interrupted).
  *
  * Return a promise which will be fullfilled when the interpretting is finished
  */
@@ -133,7 +133,7 @@ function steppingJsCode(jsCode, context, pauseLength) {
     actions.forEach((action) => {
       interpreter.setProperty(scope, action,
         interpreter.createNativeFunction(() => {
-          context.doAction(action);
+          context.doActionMove(action);
           pause = true;
           return interpreter.createPrimitive();
         })
@@ -172,7 +172,7 @@ function steppingJsCode(jsCode, context, pauseLength) {
 
   function finalize(resolve, reason) {
     setTimeout(() => {
-      context.finalize();
+      // context.finalize();
       resolve(reason);
     }, pauseLength);
   }

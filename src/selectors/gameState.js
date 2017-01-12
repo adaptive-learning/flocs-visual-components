@@ -56,7 +56,7 @@ function computeGameStateOfTaskEnvironment(taskEnvironment) {
       stage = 'solved';
     } else if (taskEnvironment.interpreting) {
       stage = 'running';
-    } else if (taskEnvironment.commands.length > 0) {
+    } else if (taskEnvironment.pastActions.length > 0) {
       stage = 'stopped';
     } else {
       stage = 'initial';
@@ -67,31 +67,26 @@ function computeGameStateOfTaskEnvironment(taskEnvironment) {
 
 
 function computeCurrentFields(taskEnvironment) {
+  const { pastActions, currentAction } = taskEnvironment;
   const initialFields = getInitialFieldsFromTaskEnvironment(taskEnvironment);
-  const fields = runCommands(initialFields, taskEnvironment.commands);
-  return fields;
-}
-
-
-function runCommands(fields, commands) {
-  return commands.reduce(runCommand, fields);
-}
-
-
-function runCommand(fields, command) {
-  let nextFields = performObjectEvolution(fields);
-  const spaceship = findSpaceshipPosition(fields);
-    // NOTE: sure, given the limited size of the grid, finding position is O(1)
-    // operation, but if there is a performance problem, I would recommend to
-    // look at this and use a better data structure
-  if (isSpaceshipDead(fields, spaceship)) {
-    return nextFields;
+  let nextFields = doActionMoves(initialFields, pastActions);
+  if (currentAction !== null) {
+    nextFields = doAction(nextFields, currentAction);
   }
-  let direction = 'ahead';
-  switch (command) {
-    case 'fly': {
-      break;
-    }
+  return nextFields;
+}
+
+
+function doActionMoves(fields, actionMoves) {
+  return actionMoves.reduce(doActionMove, fields);
+}
+
+
+function doActionMove(fields, action) {
+  let nextFields = doAction(fields, action);
+  nextFields = performObjectEvolution(fields);
+  let direction = null;
+  switch (action) {
     case 'left': {
       direction = 'left';
       break;
@@ -100,18 +95,39 @@ function runCommand(fields, command) {
       direction = 'right';
       break;
     }
+    default: {
+      direction = 'ahead';
+      break;
+    }
+  }
+  nextFields = performMove(nextFields, direction);
+  return nextFields;
+}
+
+
+function doAction(fields, action) {
+  let nextFields = performObjectEvolution(fields);
+  const spaceship = findSpaceshipPosition(fields);
+    // NOTE: sure, given the limited size of the grid, finding position is O(1)
+    // operation, but if there is a performance problem, I would recommend to
+    // look at this and use a better data structure
+  if (isSpaceshipDead(fields, spaceship)) {
+    return nextFields;
+  }
+  switch (action) {
+    case 'fly':
+    case 'left':
+    case 'right': {
+      break;
+    }
     case 'shoot': {
       nextFields = performShot(nextFields);
       break;
     }
-    case 'finalize': {
-      return nextFields;
-    }
     default: {
-      throw new Error(`Undefined command ${command}`);
+      throw new Error(`Undefined action ${action}`);
     }
   }
-  nextFields = performMove(nextFields, direction);
   return nextFields;
 }
 

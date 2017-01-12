@@ -7,7 +7,7 @@ import { createTaskEnvironment,
          changeCode,
          runProgram,
          taskAttempted,
-         executeCommand,
+         doActionMove,
          resetGame,
          CREATE_TASK_ENVIRONMENT,
          SET_TASK,
@@ -16,7 +16,8 @@ import { createTaskEnvironment,
          TASK_ATTEMPTED,
          INTERPRETATION_STARTED,
          RESET_GAME,
-         EXECUTE_COMMAND } from './taskEnvironment';
+         DO_ACTION,
+         MOVE } from './taskEnvironment';
 
 const flocsActionCreators = {
   createTaskEnvironment,
@@ -26,7 +27,7 @@ const flocsActionCreators = {
   changeCode,
   runProgram,
   taskAttempted,
-  executeCommand,
+  doActionMove,
   resetGame,
   switchVimMode,
 };
@@ -38,7 +39,8 @@ const flocsActions = {
   CHANGE_CODE,
   TASK_ATTEMPTED,
   RESET_GAME,
-  EXECUTE_COMMAND,
+  DO_ACTION,
+  MOVE,
   INTERPRETATION_STARTED,
   SWITCH_VIM_MODE,
 };

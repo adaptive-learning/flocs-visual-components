@@ -10,8 +10,10 @@ export default function reduceTaskEnvironments(state = {}, action) {
       return updateTaskEnvironment(state, setTask, action.payload);
     case actions.CHANGE_SETTING:
       return updateTaskEnvironment(state, changeSetting, action.payload);
-    case actions.EXECUTE_COMMAND:
-      return updateTaskEnvironment(state, executeCommand, action.payload);
+    case actions.DO_ACTION:
+      return updateTaskEnvironment(state, doAction, action.payload);
+    case actions.MOVE:
+      return updateTaskEnvironment(state, move, action.payload);
     case actions.RESET_GAME:
       return updateTaskEnvironment(state, resetGame, action.payload);
     case actions.CHANGE_CODE:
@@ -36,7 +38,8 @@ const initialTaskEnvironment = {
   task: emptyTask,
   code: '',
   interpreting: false,
-  commands: [],
+  pastActions: [],
+  currentAction: null,
 };
 
 
@@ -61,7 +64,14 @@ function updateEntity(entities, id, updateFn, args) {
 
 
 function setTask(taskEnvironment, { task }) {
-  return { ...taskEnvironment, task, code: '', commands: [], interpreting: false };
+  return {
+    ...taskEnvironment,
+    task,
+    code: '',
+    pastActions: [],
+    currentAction: null,
+    interpreting: false,
+  };
 }
 
 
@@ -81,15 +91,29 @@ function changeCode(taskEnvironment, { code }) {
 }
 
 
-function executeCommand(taskEnvironment, { command }) {
-  const updatedCommands = [...taskEnvironment.commands, command];
-  const updatedTaskEnvironment = { ...taskEnvironment, commands: updatedCommands };
+function doAction(taskEnvironment, { action }) {
+  const updatedTaskEnvironment = { ...taskEnvironment, currentAction: action };
+  return updatedTaskEnvironment;
+}
+
+
+function move(taskEnvironment) {
+  const updatedTaskEnvironment = {
+    ...taskEnvironment,
+    pastActions: [...taskEnvironment.pastActions, taskEnvironment.currentAction],
+    currentAction: null,
+  };
   return updatedTaskEnvironment;
 }
 
 
 function resetGame(taskEnvironment) {
-  return { ...taskEnvironment, interpreting: false, commands: [] };
+  return {
+    ...taskEnvironment,
+    interpreting: false,
+    pastActions: [],
+    currentAction: null,
+  };
 }
 
 

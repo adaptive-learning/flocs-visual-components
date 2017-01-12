@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SpaceGame from '../components/SpaceGame';
-import { runProgram, resetGame, executeCommand } from '../actions/taskEnvironment';
+import { runProgram, resetGame, doActionMove } from '../actions/taskEnvironment';
 import { getGameState } from '../selectors/gameState';
 
 
@@ -18,7 +18,7 @@ class SpaceGameWrapper extends React.Component {
       case 'left':
       case 'right':
       case 'shoot':
-        this.props.executeCommand(this.props.taskEnvironmentId, control); break;
+        this.props.doActionMove(this.props.taskEnvironmentId, control); break;
       case 'run':
         this.props.runProgram(this.props.taskEnvironmentId);
         break;
@@ -48,7 +48,7 @@ SpaceGameWrapper.propTypes = {
   gameState: PropTypes.object.isRequired,
   runProgram: PropTypes.func.isRequired,
   resetGame: PropTypes.func.isRequired,
-  executeCommand: PropTypes.func.isRequired,
+  doActionMove: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -58,7 +58,7 @@ function mapStateToProps(state, props) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ runProgram, resetGame, executeCommand }, dispatch);
+  return bindActionCreators({ runProgram, resetGame, doActionMove }, dispatch);
 }
 
 const SpaceGameContainer = connect(mapStateToProps, mapDispatchToProps)(SpaceGameWrapper);
