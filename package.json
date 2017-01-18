@@ -36,6 +36,7 @@
     "eslint-plugin-react": "^6.0.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
+    "pegjs": "^0.10.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-hot-loader": "^3.0.0-beta.6",
@@ -55,7 +56,8 @@
     "start": "webpack-dev-server --config webpack.config.development.js --progress --inline --hot --content-base examples/",
     "build": "npm run clean && webpack --config webpack.config.build.js",
     "lint": "eslint src examples",
-    "clean": "rm -rf lib"
+    "clean": "rm -rf lib",
+    "generate-robocode-parser": "pegjs -o src/core/newParser.js src/core/roboCodeGrammar.pegjs && sed -i '1i\\'\"/* eslint-disable */\" src/core/newParser.js"
   },
   "repository": {
     "type": "git",
