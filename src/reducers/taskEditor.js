@@ -1,7 +1,7 @@
 import { flocsActions as actions } from '../actions';
 
 const initialState = {
-  vimMode: true,
+  vimMode: false,
 };
 
 export default function reduceTaskEditor(state = initialState, action) {

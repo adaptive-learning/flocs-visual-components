@@ -10,7 +10,10 @@ import { isVimModeEnabled } from '../selectors/taskEditor';
 class SettingEditorWrapper extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChangeSetting = this.props.changeSetting.bind(this, this.props.taskEnvironmentId);
+    this.handleChangeSetting = text => {
+      this.props.changeSetting(this.props.taskEnvironmentId, text);
+      this.forceUpdate();
+    };
     this.handleSwitchMode = this.props.switchVimMode.bind(this);
   }
 
