@@ -83,8 +83,10 @@ function doActionMoves(fields, actionMoves) {
 
 
 function doActionMove(fields, action) {
-  let nextFields = doAction(fields, action);
-  nextFields = performObjectEvolution(fields);
+  const preNextFields = performObjectEvolution(doAction(fields, action));
+  if (isSpaceshipDead(preNextFields, findSpaceshipPosition(preNextFields))) {
+    return preNextFields;
+  }
   let direction = null;
   switch (action) {
     case 'left': {
@@ -100,18 +102,18 @@ function doActionMove(fields, action) {
       break;
     }
   }
-  nextFields = performMove(nextFields, direction);
+  const nextFields = performMove(preNextFields, direction);
   return nextFields;
 }
 
 
 function doAction(fields, action) {
   let nextFields = performObjectEvolution(fields);
-  const spaceship = findSpaceshipPosition(fields);
+  const spaceship = findSpaceshipPosition(nextFields);
     // NOTE: sure, given the limited size of the grid, finding position is O(1)
     // operation, but if there is a performance problem, I would recommend to
     // look at this and use a better data structure
-  if (isSpaceshipDead(fields, spaceship)) {
+  if (isSpaceshipDead(nextFields, spaceship)) {
     return nextFields;
   }
   switch (action) {

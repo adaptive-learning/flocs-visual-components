@@ -52,21 +52,23 @@ function steppingJsCode(jsCode, context, pauseLength) {
   const jsInterpreter = new Interpreter(jsCode, initApi);
 
   function nextSteps(resolve, reject) {
-    let next = true;
-    while (next && !pause && !context.interrupted()) {
-      next = jsInterpreter.step();
-    }
     if (context.interrupted()) {
       resolve('interrupted');
     } else if (context.isSolved()) {
       finalize(resolve, 'solved');
     } else if (context.isDead()) {
       finalize(resolve, 'dead');
-    } else if (!next) {
-      finalize(resolve, 'last step');
     } else {
-      pause = false;
-      setTimeout(() => nextSteps(resolve, reject), pauseLength);
+      let next = true;
+      while (next && !pause) {
+        next = jsInterpreter.step();
+      }
+      if (!next) {
+        finalize(resolve, 'last step');
+      } else {
+        pause = false;
+        setTimeout(() => nextSteps(resolve, reject), pauseLength);
+      }
     }
   }
 

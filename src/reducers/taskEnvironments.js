@@ -98,9 +98,11 @@ function doAction(taskEnvironment, { action }) {
 
 
 function move(taskEnvironment) {
+  const { pastActions, currentAction } = taskEnvironment;
+  const augmentedPastActions = (currentAction) ? [...pastActions, currentAction] : pastActions;
   const updatedTaskEnvironment = {
     ...taskEnvironment,
-    pastActions: [...taskEnvironment.pastActions, taskEnvironment.currentAction],
+    pastActions: augmentedPastActions,
     currentAction: null,
   };
   return updatedTaskEnvironment;
