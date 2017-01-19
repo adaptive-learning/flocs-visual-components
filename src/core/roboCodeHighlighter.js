@@ -42,7 +42,7 @@ var RoboCodeHighlightRules = function() {
         "cmp|globals|max|reversed|zip|compile|hasattr|memoryview|round|" +
         "__import__|complex|hash|min|set|apply|delattr|help|next|setattr|" +
         "buffer|dict|hex|object|slice|coerce|dir|id|oct|sorted|intern|" +
-        "move|color|position"
+        "fly|left|right|shoot|color|position"
     );
     var keywordMapper = this.createKeywordMapper({
         "invalid.deprecated": "debugger",
