@@ -1,145 +1,63 @@
-export function parseRoboCode(text) {
-  const lines = textToNonemptyIndentedLines(text);
-  const program = parseNonemptyIndentedLines(lines);
-  return program;
+import pegRoboCodeParser from './pegRoboCodeParser';
+
+export function parseRoboCode(code) {
+  const normalizedCode = preprocess(code);
+  const roboAst = pegRoboCodeParser.parse(normalizedCode);
+  return roboAst;
 }
 
-
-function textToNonemptyIndentedLines(text) {
-  const lines = text.split(/\n/);
-  const indentedLines = lines.map((line) => {
-    const spacesCount = line.search(/\S|$/);
-    return [spacesCount, line.trim()];
+function preprocess(code) {
+  const lines = removeEmpty(toNumberedIndentedLines(code));
+  const linesAndIndents = addIndentationTokens(lines);
+  const normalizedLines = linesAndIndents.map(line => {
+    switch (line) {
+      case 'INDENT':
+        return '>';
+      case 'DEDENT':
+        return '<';
+      default:
+        return `${line.number}| ${line.text}`;
+    }
   });
-  const nonemptyIndentedLines = indentedLines.filter(indLine => indLine[1].length > 0);
-  return nonemptyIndentedLines;
+  const normalizedCode = normalizedLines.join('\n');
+  return normalizedCode;
 }
 
-
-function parseNonemptyIndentedLines(lines) {
-  const nestedLines = nestIndentedLines(lines);
-  const program = parseSequence(nestedLines);
-  return program;
-}
-
-
-function parseSequence(nestedLines) {
-  return nestedLines.map(parseStatement);
-}
-
-
-function parseStatement({ head, body }) {
-  // TODO: force empty body for actions (fly, left etc.)
-  // TODO: tokenization to make it cleaner and easily extensible
-  if (head.startsWith('fly')
-      || head.startsWith('left')
-      || head.startsWith('right')
-      || head.startsWith('shoot')) {
-    return parseCommand(head);
-  } else if (head.startsWith('while')) {
-    return ['while', parseCondition(head.slice(6)), parseSequence(body)];
-  } else if (head.startsWith('repeat')) {
-    return ['repeat', parseNumber(head.slice(6)), parseSequence(body)];
-  } else if (head.startsWith('if')) {
-    return ['if', parseCondition(head.slice(3)), parseSequence(body)];
-  }
-  throw new Error(`Uknown command: ${head}`);
-}
-
-
-function parseNumber(text) {
-  const numberRe = /(\d+)/;
-  const match = numberRe.exec(text);
-  const number = parseInt(match[1], 10);
-  return number;
-}
-
-
-function parseCommand(line) {
-  const cmdRe = /^(.*)\(\)$/;
-  const match = cmdRe.exec(line);
-  const commandName = match[1];
-  return [commandName];
-}
-
-
-function parseCondition(line) {
-  // TODO: allow for nested conditions
-  // return alternatives(simpleCondition, andCondition, orCondition)(line);
-  if (line.indexOf(' and ') >= 0) {
-    return parseAndCondition(line);
-  }
-  if (line.indexOf(' or ') >= 0) {
-    return parseOrCondition(line);
-  }
-  return parseSimpleCondition(line);
-}
-
-
-function parseSimpleCondition(text) {
-  const tokens = tokenize(text);
-  const conditionParser = {
-    color: parseColorCondition,
-    position: parsePositionCondition,
-  }[tokens[0]];
-  const condition = conditionParser(tokens);
-  return condition;
-}
-
-
-function tokenize(line) {
-  const tokens = line.split(/[ ()'"]+/);
-  return tokens;
-}
-
-
-function parseColorCondition(tokens) {
-  const op = tokens[1];
-  const color = tokens[2];
-  // TODO: checks and error reports
-  return ['color', op, color];
-}
-
-
-function parsePositionCondition(tokens) {
-  const op = tokens[1];
-  const position = parseInt(tokens[2], 10);
-  // TODO: checks and error reports
-  return ['position', op, position];
-}
-
-
-function parseAndCondition(text) {
-  const parts = text.split(' and ');
-  return ['and', parseSimpleCondition(parts[0]), parseSimpleCondition(parts[1])];
-}
-
-
-function parseOrCondition(text) {
-  const parts = text.split(' or ');
-  return ['or', parseSimpleCondition(parts[0]), parseSimpleCondition(parts[1])];
-}
-
-
-function nestIndentedLines(lines) {
-  const nestedLines = [];
-  const openSequences = [nestedLines];
-  for (const [indentation, line] of lines) {
-    if (indentation % 4 !== 0) {
-      throw new Error('Expects indentation to be multiple of 4.');
+function addIndentationTokens(lines) {
+  const levels = [0];
+  const linesAndIndents = [];
+  for (const line of lines) {
+    if (line.indentation > levels[levels.length - 1]) {
+      linesAndIndents.push('INDENT');
+      levels.push(line.indentation);
     }
-    const level = indentation / 4;
-    if (level <= openSequences.length) {
-      openSequences.length = level + 1;
-      const newNode = { head: line, body: [] };
-      openSequences[level].push(newNode);
-      openSequences.push(newNode.body);
-    } else {
-      throw new Error(`Unexpectedly large indentation ${indentation}`);
+    while (line.indentation < levels[levels.length - 1]) {
+      linesAndIndents.push('DEDENT');
+      levels.pop();
     }
+    linesAndIndents.push(line);
   }
-  return nestedLines;
+  while (levels.length > 1) {
+    linesAndIndents.push('DEDENT');
+    levels.pop();
+  }
+  return linesAndIndents;
 }
 
+function toNumberedIndentedLines(code) {
+  const lines = code.split(/\n/);
+  const numberedIndentedLines = lines.map((line, index) => {
+    const number = index + 1;
+    const indentation = line.search(/\S|$/);
+    const text = line.trim();
+    return { number, indentation, text };
+  });
+  return numberedIndentedLines;
+}
+
+
+function removeEmpty(numberedIndentedLines) {
+  return numberedIndentedLines.filter(line => line.text.length > 0);
+}
 
 export default parseRoboCode;

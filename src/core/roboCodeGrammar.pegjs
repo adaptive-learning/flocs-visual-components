@@ -14,7 +14,8 @@
  */
 
 Start
-  = Sequence
+  = body:Sequence
+    { return { head: "start", body: body } }
 
 Sequence
   = StatementLine+
@@ -29,7 +30,7 @@ Statement
 
 SimpleStatement
   = action:FunctionCall
-    { return { type: action } }
+    { return { head: action } }
 
 CompoundStatement
   = IfStatement
@@ -37,19 +38,20 @@ CompoundStatement
   / RepeatStatement
 
 RepeatStatement
-  = "repeat" __ n:Integer ":" s:Suite
-    { return { type: "repeat", count: n, suite: s } }
+  = "repeat" __ n:Integer ":" b:Body
+    { return { head: "repeat", count: n, body: b } }
 
 WhileStatement
-  = "while" __ t:Test ":" s:Suite
-    { return { type: "while", test: t, suite: s } }
+  = "while" __ t:Test ":" b:Body
+    { return { head: "while", test: t, body: b } }
 
 IfStatement
-  = "if" __ t:Test ":" s1:Suite "else:" s2:Suite
-    { return { type: "if", tests: [t], suites: [s1, s2] } }
+  = "if" __ t:Test ":" b1:Body "else:" b2:Body
+    { return { head: "if", tests: [t], bodies: [b1, b2] } }
 
-Suite
-  = EOL INDENT Sequence DEDENT
+Body
+  = EOL INDENT s:Sequence DEDENT
+    { return s }
 
 Test
   = CompoundTest
@@ -57,11 +59,11 @@ Test
 
 CompoundTest
   = left:SimpleTest __ op:BinLogicOp __ right:SimpleTest
-    { return { type: op, left: left, right: right } }
+    { return { head: op, left: left, right: right } }
 
 SimpleTest
   = sensor:FunctionCall _ op:RelOp _ value:Value
-    { return { type: sensor, op: op, value: value } }
+    { return { head: sensor, comparator:op, value: value } }
 
 FunctionCall
   = functionName:Identifier "()"
