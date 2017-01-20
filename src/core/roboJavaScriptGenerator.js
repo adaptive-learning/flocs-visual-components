@@ -51,11 +51,50 @@ function generateWhileLoop({ test, body }) {
 }
 
 
-function generateIfStatement({ tests, bodies }) {
-  // TODO: implement general if-elif*-else?
-  const testCode = generateTest(tests[0]);
-  const bodyCode = generateSequence(bodies[0]);
-  return `if ${testCode} {\n${bodyCode}\n}`;
+function generateIfStatement({ test, body, orelse }) {
+  const testCode = generateTest(test);
+  const bodyCode = generateSequence(body);
+  const orelseCode = orelse ? generateOrelseBlock(orelse) : '';
+  // TODO: strip left whitespace
+  const code = `\
+    if ${testCode} {
+      ${bodyCode}
+    } ${orelseCode}`;
+  return code;
+}
+
+
+function generateOrelseBlock({ statement }) {
+  switch (statement.head) {
+    case 'elif':
+      return generateElif(statement);
+    case 'else':
+      return generateElse(statement);
+    default:
+      throw new Error(`Unexpected orelse head: ${statement.head}`);
+  }
+}
+
+
+function generateElif({ test, body, orelse }) {
+  const testCode = generateTest(test);
+  const bodyCode = generateSequence(body);
+  const orelseCode = orelse ? generateOrelseBlock(orelse) : '';
+  const code = `
+    else if ${testCode} {
+      ${bodyCode}
+    } ${orelseCode}`;
+  return code;
+}
+
+
+function generateElse({ body }) {
+  const bodyCode = generateSequence(body);
+  const code = `
+    else {
+      ${bodyCode}
+    }`;
+  return code;
 }
 
 

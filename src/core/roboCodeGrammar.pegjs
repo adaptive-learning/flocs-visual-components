@@ -17,41 +17,75 @@ Start
   = body:Sequence
     { return { head: "start", body: body } }
 
-Sequence
-  = StatementLine+
 
-StatementLine
+/* ----- Statements ----- */
+
+Sequence
+  = StatementBlock+
+
+
+StatementBlock
   = lineNumber:SOL s:Statement EOL
     { return { statement: s, location: lineNumber } }
+
 
 Statement
   = CompoundStatement
   / SimpleStatement
 
+
 SimpleStatement
   = action:FunctionCall
     { return { head: action } }
+
 
 CompoundStatement
   = IfStatement
   / WhileStatement
   / RepeatStatement
 
+
 RepeatStatement
   = "repeat" __ n:Integer ":" b:Body
     { return { head: "repeat", count: n, body: b } }
+
 
 WhileStatement
   = "while" __ t:Test ":" b:Body
     { return { head: "while", test: t, body: b } }
 
+
 IfStatement
-  = "if" __ t:Test ":" b1:Body "else:" b2:Body
-    { return { head: "if", tests: [t], bodies: [b1, b2] } }
+  = "if" __ t:Test ":" b:Body e:OrelseStatementBlock?
+    { return { head: "if", test: t, body: b, orelse: e} }
+
+
+OrelseStatementBlock
+  = EOL lineNumber:SOL s:OrelseStatement
+    { return { statement: s, location: lineNumber } }
+
+
+OrelseStatement
+  = ElifStatement
+  / ElseStatement
+
+
+ElifStatement
+  = "elif" __ t:Test ":" b:Body e:OrelseStatementBlock?
+    { return { head: "elif", test: t, body: b, orelse: e} }
+
+
+ElseStatement
+  = "else:" b:Body
+    { return { head: "else", body: b } }
+
 
 Body
   = EOL INDENT s:Sequence DEDENT
     { return s }
+
+
+/* ----- Expressions ----- */
 
 Test
   = CompoundTest
@@ -68,9 +102,6 @@ SimpleTest
 FunctionCall
   = functionName:Identifier "()"
     { return functionName; }
-
-Identifier
-  = $([a-zA-Z_][a-zA-Z0-9_]*)
 
 BinLogicOp
   = "and" / "or"
@@ -89,12 +120,17 @@ String
   = "'" value:$([^']*) "'"
     { return value; }
 
+
+// ----- Lexical Grammar -----
+
+Identifier
+  = $([a-zA-Z_][a-zA-Z0-9_]*)
+
 _ "optional spaces"
   = [ \t]*
 
 __ "mandatory spaces"
   = [ \t]+
-
 
 INDENT
   = ">" EOL
