@@ -1,6 +1,6 @@
 import { getCode, getTaskSourceText } from '../selectors/taskEnvironment';
 import { getColor, getPosition, isSolved, isDead, getGameStage } from '../selectors/gameState';
-import { interpretRoboCode } from '../core/roboCodeInterpreter';
+import { interpretRoboCode, InterpreterError } from '../core/roboCodeInterpreter';
 import { downloadTextFile } from '../utils/files';
 
 
@@ -84,9 +84,18 @@ export function runProgram(taskEnvironmentId) {
     };
     const interpretingPromise = startingInterpretation()
       .then(() => interpretRoboCode(code, context))
+      .catch(handleInterpreterError)
       .then(() => dispatch(taskAttempted(taskEnvironmentId)));
     return interpretingPromise;
   };
+}
+
+function handleInterpreterError(error) {
+  if (error instanceof InterpreterError) {
+    alert(error.message);
+  } else {
+    throw error;
+  }
 }
 
 

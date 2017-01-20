@@ -1,5 +1,5 @@
 import { Interpreter } from 'js-interpreter';
-import { parseRoboCode } from './roboCodeParser';
+import { parseRoboCode, RoboCodeSyntaxError } from './roboCodeParser';
 import { generateRoboJavaScript } from './roboJavaScriptGenerator';
 
 const defaultSettings = {
@@ -17,10 +17,23 @@ const defaultSettings = {
  * Return a promise which will be fullfilled when the interpretting is finished
  */
 export function interpretRoboCode(code, context, settings = defaultSettings) {
-  const roboAst = parseRoboCode(code);
-  const jsCode = generateRoboJavaScript(roboAst);
+  let jsCode = null;
+  try {
+    const roboAst = parseRoboCode(code);
+    jsCode = generateRoboJavaScript(roboAst);
+  } catch (error) {
+    if (error instanceof RoboCodeSyntaxError) {
+      return Promise.reject(new InterpreterError(error.message));
+    }
+    throw error;
+  }
   const interpretingFinishedPromise = steppingJsCode(jsCode, context, settings.pauseLength);
   return interpretingFinishedPromise;
+}
+
+export function InterpreterError(message) {
+  this.name = 'InterpreterError';
+  this.message = message;
 }
 
 
@@ -61,7 +74,20 @@ function steppingJsCode(jsCode, context, pauseLength) {
     } else {
       let next = true;
       while (next && !pause) {
-        next = jsInterpreter.step();
+        try {
+          next = jsInterpreter.step();
+        } catch (error) {
+          if (error instanceof ReferenceError) {
+            let suggestion = '';
+            if (error.message.startsWith('move is not defined')) {
+              suggestion = ' (Did you mean "fly"?)';
+            }
+            const report = `InterpreterError: ${error.message}${suggestion}`;
+            reject(new InterpreterError(report));
+            return;
+          }
+          throw error;
+        }
       }
       if (!next) {
         finalize(resolve, 'last step');
@@ -81,6 +107,3 @@ function steppingJsCode(jsCode, context, pauseLength) {
 
   return new Promise(nextSteps);
 }
-
-
-export default interpretRoboCode;

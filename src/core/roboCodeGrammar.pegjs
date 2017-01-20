@@ -14,8 +14,11 @@
  */
 
 Start
-  = body:Sequence
+  = body:(Sequence / EmptyProgram)
     { return { head: "start", body: body } }
+
+EmptyProgram
+  = EOL { return [] }
 
 
 /* ----- Statements ----- */

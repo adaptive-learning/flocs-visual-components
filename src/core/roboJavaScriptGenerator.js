@@ -4,8 +4,7 @@ export function generateRoboJavaScript(roboAst) {
   if (head !== 'start') {
     throw new Error(`Unexpected root of roboAst: ${head}`);
   }
-  const jsCode = generateSequence(body);
-  console.log('generated code:', jsCode);
+  const jsCode = (body.length > 0) ? generateSequence(body) : '';
   return jsCode;
 }
 
