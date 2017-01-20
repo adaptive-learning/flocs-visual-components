@@ -5,6 +5,7 @@ export function generateRoboJavaScript(roboAst) {
     throw new Error(`Unexpected root of roboAst: ${head}`);
   }
   const jsCode = generateSequence(body);
+  console.log('generated code:', jsCode);
   return jsCode;
 }
 
@@ -40,7 +41,12 @@ function generateSimpleStatement({ head }) {
 
 function generateRepeatLoop({ count, body }) {
   const bodyCode = generateSequence(body);
-  return `for (var i=0; i<${count}; i++) {\n${bodyCode}\n}`;
+  const i = generateNewIdentifier();
+  const code = `\
+    for (var ${i}=0; ${i}<${count}; ${i}++) {
+      ${bodyCode}
+    }`;
+  return code;
 }
 
 
@@ -55,7 +61,6 @@ function generateIfStatement({ test, body, orelse }) {
   const testCode = generateTest(test);
   const bodyCode = generateSequence(body);
   const orelseCode = orelse ? generateOrelseBlock(orelse) : '';
-  // TODO: strip left whitespace
   const code = `\
     if ${testCode} {
       ${bodyCode}
@@ -129,3 +134,11 @@ function generateValue(value) {
   return value;
 }
 
+
+let lastGeneratedIdentierId = 0;
+
+function generateNewIdentifier() {
+  lastGeneratedIdentierId += 1;
+  const newIdentifier = `generatedIdentifier${lastGeneratedIdentierId}_`;
+  return newIdentifier;
+}
