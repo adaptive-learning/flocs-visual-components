@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SpaceGame from '../components/SpaceGame';
 import { runProgram, resetGame, doActionMove } from '../actions/taskEnvironment';
 import { getGameState } from '../selectors/gameState';
+import { getTaskId } from '../selectors/taskEnvironment';
 
 
 class SpaceGameWrapper extends React.Component {
@@ -33,6 +34,7 @@ class SpaceGameWrapper extends React.Component {
   render() {
     return (
       <SpaceGame
+        taskId={this.props.taskId}
         gameState={this.props.gameState}
         showCommandControls={this.props.showCommandControls}
         onControlClicked={this.handleControlClicked}
@@ -44,6 +46,7 @@ class SpaceGameWrapper extends React.Component {
 
 SpaceGameWrapper.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
+  taskId: PropTypes.string.isRequired,
   showCommandControls: PropTypes.bool,
   gameState: PropTypes.object.isRequired,
   runProgram: PropTypes.func.isRequired,
@@ -54,7 +57,9 @@ SpaceGameWrapper.propTypes = {
 function mapStateToProps(state, props) {
   const { taskEnvironmentId, showCommandControls } = props;
   const gameState = getGameState(state, taskEnvironmentId);
-  return { taskEnvironmentId, gameState, showCommandControls };
+  const taskId = getTaskId(state, taskEnvironmentId);
+  console.log('taskId:', taskId);
+  return { taskEnvironmentId, taskId, gameState, showCommandControls };
 }
 
 function mapDispatchToProps(dispatch) {

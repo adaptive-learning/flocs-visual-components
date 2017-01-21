@@ -7,3 +7,10 @@ export function stripIndentation(strings, ...values) {
   const text = trimmedStrings.reduce((acc, string, i) => acc + values[i - 1] + string);
   return text;
 }
+
+
+export function toTitle(id) {
+  const words = id.replace(/[-_]/g, ' ');
+  const title = words.replace(/\w+/g, word => word.charAt(0).toUpperCase() + word.slice(1));
+  return title;
+}

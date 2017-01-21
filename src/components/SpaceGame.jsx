@@ -4,7 +4,7 @@ import SpaceWorld from './SpaceWorld';
 import GameControls from './GameControls';
 
 
-export default function SpaceGame({ gameState, showCommandControls, onControlClicked }) {
+export default function SpaceGame({ taskId, gameState, showCommandControls, onControlClicked }) {
   const { fields, stage } = gameState;
   const gameOver = (stage === 'solved' || stage === 'dead');
   const initialStage = (stage === 'initial');
@@ -16,7 +16,11 @@ export default function SpaceGame({ gameState, showCommandControls, onControlCli
   };
   return (
     <span style={{ display: 'inline-block', verticalAlign: 'top' }}>
-      <GameStatus solved={stage === 'solved'} dead={stage === 'dead'} />
+      <GameStatus
+        taskId={taskId}
+        solved={stage === 'solved'}
+        dead={stage === 'dead'}
+      />
       <SpaceWorld fields={fields} />
       <GameControls controls={controls} onClick={onControlClicked} />
     </span>
@@ -24,12 +28,14 @@ export default function SpaceGame({ gameState, showCommandControls, onControlCli
 }
 
 SpaceGame.propTypes = {
+  taskId: PropTypes.string,
   gameState: PropTypes.object.isRequired,
   onControlClicked: PropTypes.func.isRequired,
   showCommandControls: PropTypes.bool,
 };
 
 SpaceGame.defaultProps = {
+  taskId: 'nameless-task',
   showCommandControls: false,
 };
 

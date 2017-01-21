@@ -23,12 +23,14 @@ function createAppComponent() {
 
   // definiton of two example tasks
   const task1 = {
+    taskId: 'two-steps-forward',
     setting: parseTaskSetting(`
       |g |g |g |g |g |
       |b |b |b |b |b |
       |b |b |bS|b |b |`),
   };
   const task2 = {
+    taskId: 'ladder',
     setting: parseTaskSetting(`
       |g |gA|gM|gA|g |
       |b |bA|b |bA|b |

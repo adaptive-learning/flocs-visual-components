@@ -30,6 +30,7 @@ function createAppComponent() {
 
   // set a task in a task environment
   const task = {
+    taskId: 'ladder',
     setting: parseTaskSetting(`
       |g |gA|gM|gA|g |
       |b |bA|b |bA|b |

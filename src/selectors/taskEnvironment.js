@@ -11,6 +11,12 @@ export function getTask(state, taskEnvironmentId) {
 }
 
 
+export function getTaskId(state, taskEnvironmentId) {
+  const task = getTask(state, taskEnvironmentId);
+  return task.taskId;
+}
+
+
 export function getTaskSourceText(state, taskEnvironmentId) {
   if (!isSettingTextValid(state, taskEnvironmentId)) {
     throw Error('Invalid task setting');
