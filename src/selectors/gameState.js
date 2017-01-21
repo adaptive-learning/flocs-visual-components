@@ -47,6 +47,11 @@ export function getGameState(state, taskEnvironmentId) {
 
 function computeGameStateOfTaskEnvironment(taskEnvironment) {
   const fields = computeCurrentFields(taskEnvironment);
+  const diamondsTotal = countDiamonds(getInitialFieldsFromTaskEnvironment(taskEnvironment));
+  const diamonds = {
+    taken: diamondsTotal - countDiamonds(fields),
+    total: diamondsTotal,
+  };
   const spaceship = findSpaceshipPosition(fields);
   let stage = 'preparing';
   if (spaceship !== null) {
@@ -62,7 +67,7 @@ function computeGameStateOfTaskEnvironment(taskEnvironment) {
       stage = 'initial';
     }
   }
-  return { fields, stage };
+  return { fields, stage, diamonds };
 }
 
 
@@ -102,20 +107,20 @@ function doActionMove(fields, action) {
       break;
     }
   }
-  const nextFields = performMove(preNextFields, direction);
+  const nextFields = performObjectEvolution(performMove(preNextFields, direction));
   return nextFields;
 }
 
 
 function doAction(fields, action) {
-  let nextFields = performObjectEvolution(fields);
-  const spaceship = findSpaceshipPosition(nextFields);
+  const spaceship = findSpaceshipPosition(fields);
     // NOTE: sure, given the limited size of the grid, finding position is O(1)
     // operation, but if there is a performance problem, I would recommend to
     // look at this and use a better data structure
-  if (isSpaceshipDead(nextFields, spaceship)) {
-    return nextFields;
+  if (isSpaceshipDead(fields, spaceship)) {
+    return fields;
   }
+  let nextFields = fields;
   switch (action) {
     case 'fly':
     case 'left':
@@ -123,7 +128,7 @@ function doAction(fields, action) {
       break;
     }
     case 'shoot': {
-      nextFields = performShot(nextFields);
+      nextFields = performShot(fields);
       break;
     }
     default: {
@@ -143,9 +148,21 @@ function performObjectEvolution(fields) {
     const effects = new Set(['laser', 'laser-start', 'laser-end']);
     const removeEffects = oldObjects => oldObjects.filter(obj => !effects.has(obj));
     const evolvedObjects = removeAllIfExplosion(removeEffects(objects));
-    return [background, evolvedObjects];
+    const remainingObjects = takeObjectsBySpaceship(evolvedObjects);
+    return [background, remainingObjects];
   }));
   return newFields;
+}
+
+
+function takeObjectsBySpaceship(objects) {
+  const spaceshipHere = (objects.indexOf('S') > -1);
+  if (!spaceshipHere) {
+    return objects;
+  }
+  const remainingObjects = objects.filter(obj => obj !== 'D');
+  console.log('taking objects:', objects, remainingObjects);
+  return remainingObjects;
 }
 
 
@@ -208,7 +225,7 @@ function performShot(fields) {
 
 function shootObject(obj) {
   // TODO: improve readability and maintainability
-  const shootableObjects = new Set(['M', 'D']);
+  const shootableObjects = new Set(['M']);
   const shotObject = (shootableObjects.has(obj)) ? 'explosion' : obj;
   return shotObject;
 }
@@ -228,7 +245,11 @@ function findSpaceshipPosition(fields) {
 
 
 function gameSolved(fields, spaceship) {
-  return !(isSpaceshipDead(fields, spaceship)) && lastRowReached(spaceship);
+  if (isSpaceshipDead(fields, spaceship)) {
+    return false;
+  }
+  const solved = countDiamonds(fields) === 0 && lastRowReached(spaceship);
+  return solved;
 }
 
 
@@ -255,4 +276,13 @@ function onRock(fields, position) {
   const [y, x] = position;
   const objects = fields[y][x][1];
   return objects.some(object => rockObjects.has(object));
+}
+
+
+function countDiamonds(fields) {
+  let count = 0;
+  fields.forEach(row => row.forEach(field => field[1].forEach(object => {
+    count += (object === 'D') ? 1 : 0;
+  })));
+  return count;
 }

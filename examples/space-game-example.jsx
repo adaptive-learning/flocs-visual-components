@@ -10,10 +10,11 @@ const gameState = {
   ...parseTaskSetting(`\
     |g |gM|gS|g |g |
     |b |b |b |bA|b |
-    |bA|b |b |b |bD|
+    |bA|b |b |b |b |
     |b |bM|b |b |b |
     |b |b |b |b |bM|`),
   stage: 'solved',
+  diamonds: { taken: 2, total: 2 },
 };
 
 const component = (

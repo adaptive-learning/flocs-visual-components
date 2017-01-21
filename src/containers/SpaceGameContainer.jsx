@@ -58,7 +58,6 @@ function mapStateToProps(state, props) {
   const { taskEnvironmentId, showCommandControls } = props;
   const gameState = getGameState(state, taskEnvironmentId);
   const taskId = getTaskId(state, taskEnvironmentId);
-  console.log('taskId:', taskId);
   return { taskEnvironmentId, taskId, gameState, showCommandControls };
 }
 
