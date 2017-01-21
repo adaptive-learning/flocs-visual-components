@@ -4,7 +4,11 @@
 
 export const fieldBackgrounds = {
   black: 'k',
+  red: 'r',
+  green: 'g',
   blue: 'b',
+  cyan: 'c',
+  magenta: 'm',
   yellow: 'y',
 };
 

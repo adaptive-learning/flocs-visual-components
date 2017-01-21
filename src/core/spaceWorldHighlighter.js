@@ -20,21 +20,36 @@ ace.define('ace/mode/spaceworld_highlight_rules',
     const oop = acequire('../lib/oop');
     const TextHighlightRules = acequire('./text_highlight_rules').TextHighlightRules;
     const colorTokens = {
-      yellow: 'constant.language.boolean',
+      black: 'text',
+      gray: 'comment',
+      red: 'constant.character',
       green: 'keyword',
       blue: 'variable',
-      gray: 'comment',
-      black: 'text',
+      cyan: 'string',
+      magenta: 'constant.numeric',
+      yellow: 'constant.language.boolean',
     };
     function SpaceWorldHighlightRules() {
       this.$rules = {
         start: [
           {
+            token: colorTokens.black,
+            regex: 'k',
+          }, {
+            token: colorTokens.red,
+            regex: 'r',
+          }, {
+            token: colorTokens.green,
+            regex: 'g',
+          }, {
             token: colorTokens.blue,
             regex: 'b',
           }, {
-            token: colorTokens.black,
-            regex: 'k',
+            token: colorTokens.cyan,
+            regex: 'c',
+          }, {
+            token: colorTokens.magenta,
+            regex: 'm',
           }, {
             token: colorTokens.yellow,
             regex: 'y',

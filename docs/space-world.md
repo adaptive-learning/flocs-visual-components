@@ -16,13 +16,14 @@ Corresponds to:
 
 ![task screenshot](/docs/files/task-diamond-on-right.png)
 
-Field:
-- starts with a lower-case letter denoting background (black 'k', blue 'b', yellow 'y')
-- followed by a series of upper-case letters denoting objects (spaceship 'S', diamond 'D', meteoroid 'M', asteroid 'A').
+## Field
+- starts with a lower-case letter denoting background
+  - colors: `r`ed, `g`reen, `b`lue, `y`ellow, blac`k`
+- followed by a series of upper-case letters denoting objects
+  - objects: `S`paceship, `D`iamond, `M`eteoroid, `A`steroid
+- for example, `kD` is a black field with a diamond
 
-Additional rules:
-- there should be exaclty one spaceship
-- the spaceship should be somewhere on the bottom row
+## Conventions:
 - the top row should be all blue and there should be no other blue fields
 
 For more examples, see settings of tasks in

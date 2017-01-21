@@ -50,7 +50,7 @@ else:
 
 ```
 position() [==|!=|>|<|>=|<=] [1..5]
-color() [==|!=] ['k'|'b'|'y']  # (black 'k', blue 'b', yellow 'y')
+color() [==|!=] ['r'|'g'|'b'|'y'|'k']  # (Red, Green, Blue, Yellow, blacK)
 <test> [and|or] <test>
 ```
 
