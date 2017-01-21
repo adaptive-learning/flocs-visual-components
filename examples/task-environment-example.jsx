@@ -31,15 +31,15 @@ function createAppComponent() {
   // set a task in a task environment
   const task = {
     setting: parseTaskSetting(`
+      |g |gA|gM|gA|g |
+      |b |bA|b |bA|b |
       |b |bA|bM|bA|b |
-      |k |kA|k |kA|k |
-      |k |kA|kM|kA|k |
-      |k |kA|k |kA|k |
-      |k |kA|kM|kA|k |
-      |k |kA|k |kA|k |
-      |k |kA|kM|kA|k |
-      |k |kA|k |kA|k |
-      |k |kA|kS|kA|k |`),
+      |b |bA|b |bA|b |
+      |b |bA|bM|bA|b |
+      |b |bA|b |bA|b |
+      |b |bA|bM|bA|b |
+      |b |bA|b |bA|b |
+      |b |bA|bS|bA|b |`),
   };
   store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
 

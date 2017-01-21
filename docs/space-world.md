@@ -5,11 +5,11 @@ SpaceWorld is a simple grid world used in (currently the only one) game in RoboM
 Example:
 
 ```
+|g |gM|g |g |g |
+|b |b |b |bA|b |
+|bA|b |b |b |bD|
 |b |bM|b |b |b |
-|k |k |k |kA|k |
-|kA|k |k |k |kD|
-|k |kM|k |k |k |
-|k |k |kS|k |kM|
+|b |b |bS|b |bM|
 ```
 
 Corresponds to:
@@ -18,18 +18,20 @@ Corresponds to:
 
 ## Field
 - starts with a lower-case letter denoting background
-  - colors: `r`ed, `g`reen, `b`lue, `y`ellow, blac`k`
+  - colors: `r`ed, `g`reen, `b`lue, `y`ellow, `m`agenta
 - followed by a series of upper-case letters denoting objects
   - objects: `S`paceship, `D`iamond, `M`eteoroid, `A`steroid
-- for example, `kD` is a black field with a diamond
+- for example, `bD` is a blue field with a diamond
 
-## Conventions:
-- the top row should be all blue and there should be no other blue fields
+## Conventions
+- use blue as a basic background colour, green for the top row, other colours for specific meaning (decisions or just hints)
+
+## Links
 
 For more examples, see settings of tasks in
 [flocs-core/tasks](https://github.com/adaptive-learning/flocs-core/tree/master/tasks).
 
-For the exact (and current) setting setting parser rules, see
+For the exact (and current) setting parser rules, see
 [source code of taskSetting parser and generator](/src/core/taskSetting.js).
 
 For new feature requests (or any other changes), create an issue.

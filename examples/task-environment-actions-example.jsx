@@ -24,21 +24,21 @@ function createAppComponent() {
   // definiton of two example tasks
   const task1 = {
     setting: parseTaskSetting(`
+      |g |g |g |g |g |
       |b |b |b |b |b |
-      |k |k |k |k |k |
-      |k |k |kS|k |k |`),
+      |b |b |bS|b |b |`),
   };
   const task2 = {
     setting: parseTaskSetting(`
+      |g |gA|gM|gA|g |
+      |b |bA|b |bA|b |
       |b |bA|bM|bA|b |
-      |k |kA|k |kA|k |
-      |k |kA|kM|kA|k |
-      |k |kA|k |kA|k |
-      |k |kA|kM|kA|k |
-      |k |kA|k |kA|k |
-      |k |kA|kM|kA|k |
-      |k |kA|k |kA|k |
-      |k |kA|kS|kA|k |`),
+      |b |bA|b |bA|b |
+      |b |bA|bM|bA|b |
+      |b |bA|b |bA|b |
+      |b |bA|bM|bA|b |
+      |b |bA|b |bA|b |
+      |b |bA|bS|bA|b |`),
   };
   const tasks = [task1, task2];
   let currentTaskIndex = 0;

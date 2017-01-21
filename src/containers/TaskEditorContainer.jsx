@@ -34,9 +34,11 @@ TaskEditorWrapper.propTypes = {
 
 const defaultInitialTask = {
   setting: parseTaskSetting(`\
+    |g |g |g |g |g |
     |b |b |b |b |b |
-    |k |k |k |k |k |
-    |k |k |kS|k |k |`),
+    |b |b |b |b |b |
+    |b |b |b |b |b |
+    |b |b |bS|b |b |`),
 };
 
 TaskEditorWrapper.defaultProps = {

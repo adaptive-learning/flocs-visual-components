@@ -8,11 +8,11 @@ function handleControlClicked(control) {
 
 const gameState = {
   ...parseTaskSetting(`\
-    |b |bM|bS|b |b |
-    |k |k |k |kA|k |
-    |kA|k |k |k |kD|
-    |k |kM|k |k |k |
-    |k |k |k |k |kM|`),
+    |g |gM|gS|g |g |
+    |b |b |b |bA|b |
+    |bA|b |b |b |bD|
+    |b |bM|b |b |b |
+    |b |b |b |b |bM|`),
   stage: 'solved',
 };
 
