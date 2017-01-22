@@ -161,7 +161,6 @@ function takeObjectsBySpaceship(objects) {
     return objects;
   }
   const remainingObjects = objects.filter(obj => obj !== 'D');
-  console.log('taking objects:', objects, remainingObjects);
   return remainingObjects;
 }
 
