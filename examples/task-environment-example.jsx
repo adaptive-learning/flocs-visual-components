@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { TaskEnvironmentContainer,
          flocsComponentsReducer,
          flocsActionCreators,
-         parseTaskSetting } from 'flocs-visual-components';
+         parseSpaceWorld } from 'flocs-visual-components';
 
 
 function createAppComponent() {
@@ -31,16 +31,18 @@ function createAppComponent() {
   // set a task in a task environment
   const task = {
     taskId: 'ladder',
-    setting: parseTaskSetting(`
-      |g |gA|gM|gA|g |
-      |b |bA|b |bA|b |
-      |b |bA|bM|bA|b |
-      |b |bA|b |bA|b |
-      |b |bA|bM|bA|b |
-      |b |bA|b |bA|b |
-      |b |bA|bM|bA|b |
-      |b |bA|b |bA|b |
-      |b |bA|bS|bA|b |`),
+    setting: {
+      fields: parseSpaceWorld(`
+        |g |gA|gM|gA|g |
+        |b |bA|b |bA|b |
+        |b |bA|bM|bA|b |
+        |b |bA|b |bA|b |
+        |b |bA|bM|bA|b |
+        |b |bA|b |bA|b |
+        |b |bA|bM|bA|b |
+        |b |bA|b |bA|b |
+        |b |bA|bS|bA|b |`),
+    },
   };
   store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
 

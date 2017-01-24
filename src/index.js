@@ -10,7 +10,7 @@ import TaskEditorContainer from './containers/TaskEditorContainer';
 import { flocsComponentsReducer } from './reducers';
 import { flocsSelector } from './selectors';
 import { flocsActionCreators, flocsActions } from './actions';
-import { parseTaskSetting } from './core/taskSetting';
+import { parseSpaceWorld } from './core/spaceWorldDescription';
 
 export {
   // components
@@ -33,5 +33,5 @@ export {
   flocsActions,
 
   // core functions and objects
-  parseTaskSetting,
+  parseSpaceWorld,
 };

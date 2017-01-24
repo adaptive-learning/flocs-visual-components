@@ -1,4 +1,4 @@
-import { generateSettingText } from '../core/taskSetting';
+import { generateSpaceWorldText } from '../core/spaceWorldDescription';
 import { stripIndentation } from '../utils/text';
 
 export function getTaskEnvironment(state, taskEnvironmentId) {
@@ -55,7 +55,7 @@ export function getSettingText(state, taskEnvironmentId) {
     return invalidSettingText;
   }
   const setting = getSetting(state, taskEnvironmentId);
-  const settingText = generateSettingText(setting);
+  const settingText = generateSpaceWorldText(setting.fields);
   return settingText;
 }
 

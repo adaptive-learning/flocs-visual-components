@@ -9,7 +9,7 @@ import { TaskEnvironmentContainer,
          flocsActionCreators,
          flocsActions,
          flocsSelector,
-         parseTaskSetting } from 'flocs-visual-components';
+         parseSpaceWorld } from 'flocs-visual-components';
 
 function createAppComponent() {
   // create a combined reducer and store with needed middleware
@@ -24,23 +24,32 @@ function createAppComponent() {
   // definiton of two example tasks
   const task1 = {
     taskId: 'two-steps-forward',
-    setting: parseTaskSetting(`
-      |g |g |g |g |g |
-      |b |b |b |b |b |
-      |b |b |bS|b |b |`),
+    category: 'actions',
+    setting: {
+      fields: parseSpaceWorld(`
+        |g |g |g |g |g |
+        |b |b |b |b |b |
+        |b |b |bS|b |b |`),
+      actionsLimit: 1,
+    },
   };
+
   const task2 = {
     taskId: 'ladder',
-    setting: parseTaskSetting(`
-      |g |gA|gM|gA|g |
-      |b |bA|b |bA|b |
-      |b |bA|bM|bA|b |
-      |b |bA|b |bA|b |
-      |b |bA|bM|bA|b |
-      |b |bA|b |bA|b |
-      |b |bA|bM|bA|b |
-      |b |bA|b |bA|b |
-      |b |bA|bS|bA|b |`),
+    setting: {
+      fields: parseSpaceWorld(`
+        |g |gA|gM|gA|g |
+        |b |bA|b |bA|b |
+        |b |bA|bM|bA|b |
+        |b |bA|b |bA|b |
+        |b |bA|bM|bA|b |
+        |b |bA|b |bA|b |
+        |b |bA|bM|bA|b |
+        |b |bA|b |bA|b |
+        |b |bA|bS|bA|b |`),
+      energy: 4,
+      actionsLimit: 2,
+    },
   };
   const tasks = [task1, task2];
   let currentTaskIndex = 0;

@@ -46,52 +46,97 @@ export function getGameState(state, taskEnvironmentId) {
 // TODO: move the code below to the core (?)
 
 function computeGameStateOfTaskEnvironment(taskEnvironment) {
-  const fields = computeCurrentFields(taskEnvironment);
-  const diamondsTotal = countDiamonds(getInitialFieldsFromTaskEnvironment(taskEnvironment));
-  const diamonds = {
-    taken: diamondsTotal - countDiamonds(fields),
-    total: diamondsTotal,
-  };
+  const { pastActions, currentAction } = taskEnvironment;
+  const initialState = getInitialGameState(taskEnvironment);
+  let currentState = doActionMoves(initialState, pastActions);
+  if (currentAction !== null) {
+    currentState = doAction(currentState, currentAction);
+  }
+  /*
+  const someActionsTaken = taskEnvironment.pastActions.length > 0;
+  // TODO: DRY identical someActionsTaken computation at two places (or avoid
+  // finalGameStage computation altogether, it feels like a hack...)
+  const finalGameStage = decideGameStage(
+    currentState.fields,
+    currentState.spaceship,
+    taskEnvironment.interpreting,
+    someActionsTaken);
+  return { ...currentState, stage: finalGameStage };
+  */
+  return currentState;
+}
+
+
+function getInitialGameState(taskEnvironment) {
+  const fields = getInitialFieldsFromTaskEnvironment(taskEnvironment);
   const spaceship = findSpaceshipPosition(fields);
+  const diamonds = {
+    taken: 0,
+    total: countDiamonds(fields),
+  };
+  const energy = {
+    current: taskEnvironment.task.setting.energy,
+    full: taskEnvironment.task.setting.energy,
+  };
+  const someActionsTaken = taskEnvironment.pastActions.length > 0;
+  const stage = decideGameStage(fields, spaceship, taskEnvironment.interpreting, someActionsTaken);
+  return { fields, spaceship, stage, diamonds, energy };
+}
+
+
+function decideGameStage(fields, spaceship, interpreting, someActionsTaken) {
   let stage = 'preparing';
   if (spaceship !== null) {
     if (isSpaceshipDead(fields, spaceship)) {
       stage = 'dead';
     } else if (gameSolved(fields, spaceship)) {
       stage = 'solved';
-    } else if (taskEnvironment.interpreting) {
+    } else if (interpreting) {
       stage = 'running';
-    } else if (taskEnvironment.pastActions.length > 0) {
+    } else if (someActionsTaken) {
       stage = 'stopped';
     } else {
       stage = 'initial';
     }
   }
-  return { fields, stage, diamonds };
+  return stage;
 }
 
 
-function computeCurrentFields(taskEnvironment) {
-  const { pastActions, currentAction } = taskEnvironment;
-  const initialFields = getInitialFieldsFromTaskEnvironment(taskEnvironment);
-  let nextFields = doActionMoves(initialFields, pastActions);
-  if (currentAction !== null) {
-    nextFields = doAction(nextFields, currentAction);
+function doActionMoves(state, actionMoves) {
+  return actionMoves.reduce(doActionMove, state);
+}
+
+
+function doActionMove(state, action) {
+  const semiState = doAction(state, action);
+  const { fields, spaceship, stage, diamonds, energy } = semiState;
+  let nextFields = performObjectEvolution(fields);
+  if (!isSpaceshipDead(nextFields, spaceship)) {
+    nextFields = computeFieldsAfterMove(nextFields, action);
   }
-  return nextFields;
+  const nextDiamonds = {
+    taken: diamonds.total - countDiamonds(nextFields),
+    total: diamonds.total,
+  };
+  const nextEnergy = {
+    current: Math.max(energy.current - energyCost(action), 0),
+    full: energy.full,
+  };
+  const nextSpaceship = findSpaceshipPosition(nextFields);
+  const nextStage = decideGameStage(nextFields, nextSpaceship, stage === 'running', true);
+  const nextState = {
+    fields: nextFields,
+    spaceship: nextSpaceship,
+    stage: nextStage,
+    diamonds: nextDiamonds,
+    energy: nextEnergy,
+  };
+  return nextState;
 }
 
 
-function doActionMoves(fields, actionMoves) {
-  return actionMoves.reduce(doActionMove, fields);
-}
-
-
-function doActionMove(fields, action) {
-  const preNextFields = performObjectEvolution(doAction(fields, action));
-  if (isSpaceshipDead(preNextFields, findSpaceshipPosition(preNextFields))) {
-    return preNextFields;
-  }
+function computeFieldsAfterMove(fields, action) {
   let direction = null;
   switch (action) {
     case 'left': {
@@ -107,18 +152,22 @@ function doActionMove(fields, action) {
       break;
     }
   }
-  const nextFields = performObjectEvolution(performMove(preNextFields, direction));
+  const nextFields = performObjectEvolution(performMove(fields, direction));
   return nextFields;
 }
 
 
-function doAction(fields, action) {
+function doAction(state, action) {
+  const { fields, energy } = state;
   const spaceship = findSpaceshipPosition(fields);
     // NOTE: sure, given the limited size of the grid, finding position is O(1)
     // operation, but if there is a performance problem, I would recommend to
     // look at this and use a better data structure
   if (isSpaceshipDead(fields, spaceship)) {
-    return fields;
+    return state;
+  }
+  if (energy.full !== null && energyCost(action) > energy.current) {
+    return state;
   }
   let nextFields = fields;
   switch (action) {
@@ -135,7 +184,18 @@ function doAction(fields, action) {
       throw new Error(`Undefined action ${action}`);
     }
   }
-  return nextFields;
+  const nextState = {
+    ...state,
+    fields: nextFields,
+    // TODO: energy should be deduced here, not in actionMove
+    // TODO: ? recomputing stage ?
+  };
+  return nextState;
+}
+
+
+function energyCost(action) {
+  return (action === 'shoot') ? 1 : 0;
 }
 
 

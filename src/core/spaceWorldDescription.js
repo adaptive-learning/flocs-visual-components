@@ -1,5 +1,5 @@
 /**
- * Bidirection parsing/generating of json/text setting
+ * Bidirection parsing/generating of SpaceWorld description
  */
 
 export const fieldBackgrounds = {
@@ -25,18 +25,16 @@ const fieldBackgroundsSet = new Set(Object.values(fieldBackgrounds));
 const gameObjectsSet = new Set(Object.values(gameObjects));
 
 
-export function generateSettingText(setting) {
-  const { fields } = setting;
-  const settingText = fields.map(row => `|${row.map(fieldToText).join('|')}|`).join('\n');
-  return settingText;
+export function generateSpaceWorldText(fields) {
+  const text = fields.map(row => `|${row.map(fieldToText).join('|')}|`).join('\n');
+  return text;
 }
 
 
-export function parseTaskSetting(settingText) {
-  const lines = settingText.trim().split('\n');
+export function parseSpaceWorld(text) {
+  const lines = text.trim().split('\n');
   const fields = lines.map(line => line.trim().split('|').filter(f => f !== '').map(parseField));
-  const setting = { fields };
-  return setting;
+  return fields;
 }
 
 

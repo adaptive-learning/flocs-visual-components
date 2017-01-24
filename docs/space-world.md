@@ -1,6 +1,6 @@
 # Space World
 
-SpaceWorld is a simple grid world used in (currently the only one) game in RoboMission for learning basics of programming.
+Space World is a simple grid world used in (currently the only one) game in RoboMission for learning basics of programming.
 
 Example:
 
@@ -31,7 +31,7 @@ Corresponds to:
 For more examples, see settings of tasks in
 [flocs-core/tasks](https://github.com/adaptive-learning/flocs-core/tree/master/tasks).
 
-For the exact (and current) setting parser rules, see
-[source code of taskSetting parser and generator](/src/core/taskSetting.js).
+For the exact (and current) Space World description rules, see
+[source code of Space World parser and generator](/src/core/spaceWorldDescription.js).
 
 For new feature requests (or any other changes), create an issue.

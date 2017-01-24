@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TaskEditor from '../components/TaskEditor';
-import { parseTaskSetting } from '../core/taskSetting';
+import { parseSpaceWorld } from '../core/spaceWorldDescription';
 import { setTask, exportTask } from '../actions/taskEnvironment';
 
 
@@ -33,12 +33,14 @@ TaskEditorWrapper.propTypes = {
 };
 
 const defaultInitialTask = {
-  setting: parseTaskSetting(`\
-    |g |g |g |g |g |
-    |b |b |b |b |b |
-    |b |b |b |b |b |
-    |b |b |b |b |b |
-    |b |b |bS|b |b |`),
+  setting: {
+    fields: parseSpaceWorld(`\
+      |g |g |g |g |g |
+      |b |b |b |b |b |
+      |b |b |b |b |b |
+      |b |b |b |b |b |
+      |b |b |bS|b |b |`),
+  },
 };
 
 TaskEditorWrapper.defaultProps = {

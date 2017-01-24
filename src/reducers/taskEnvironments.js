@@ -1,5 +1,5 @@
 import { flocsActions as actions } from '../actions';
-import { parseTaskSetting } from '../core/taskSetting';
+import { parseSpaceWorld } from '../core/spaceWorldDescription';
 
 
 export default function reduceTaskEnvironments(state = {}, action) {
@@ -31,6 +31,8 @@ export default function reduceTaskEnvironments(state = {}, action) {
 const emptyTask = {
   setting: {
     fields: [[]],
+    actionsLimit: null,
+    energy: null,
   },
 };
 
@@ -64,9 +66,10 @@ function updateEntity(entities, id, updateFn, args) {
 
 
 function setTask(taskEnvironment, { task }) {
+  const taskWithDefaults = addDefaults(task);
   return {
     ...taskEnvironment,
-    task,
+    task: taskWithDefaults,
     code: '',
     pastActions: [],
     currentAction: null,
@@ -75,9 +78,25 @@ function setTask(taskEnvironment, { task }) {
 }
 
 
+function addDefaults(task) {
+  // TODO: better way to specify defaults?
+  const setting = {
+    actionsLimit: null,
+    energy: null,
+    ...task.setting,
+  };
+  const taskWithDefaults = {
+    category: null,
+    ...task,
+    setting,
+  };
+  return taskWithDefaults;
+}
+
+
 function changeSetting(taskEnvironment, { settingText }) {
   try {
-    const setting = parseTaskSetting(settingText);
+    const setting = { fields: parseSpaceWorld(settingText) };
     const updatedTask = { ...taskEnvironment.task, setting };
     return { ...taskEnvironment, task: updatedTask, invalidSettingText: null };
   } catch (err) {

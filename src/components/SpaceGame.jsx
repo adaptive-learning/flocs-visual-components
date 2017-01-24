@@ -5,7 +5,7 @@ import GameControls from './GameControls';
 
 
 export default function SpaceGame({ taskId, gameState, showCommandControls, onControlClicked }) {
-  const { fields, stage, diamonds } = gameState;
+  const { fields, stage, diamonds, energy } = gameState;
   const gameOver = (stage === 'solved' || stage === 'dead');
   const initialStage = (stage === 'initial');
   const preparing = (stage === 'preparing');
@@ -19,6 +19,7 @@ export default function SpaceGame({ taskId, gameState, showCommandControls, onCo
       <GameStatus
         taskId={taskId}
         diamonds={diamonds}
+        energy={energy}
         solved={stage === 'solved'}
         dead={stage === 'dead'}
       />
