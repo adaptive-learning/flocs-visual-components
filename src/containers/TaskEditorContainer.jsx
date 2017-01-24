@@ -33,6 +33,7 @@ TaskEditorWrapper.propTypes = {
 };
 
 const defaultInitialTask = {
+  taskId: 'nameless-task',
   setting: {
     fields: parseSpaceWorld(`\
       |g |g |g |g |g |

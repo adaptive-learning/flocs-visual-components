@@ -29,6 +29,7 @@ export default function reduceTaskEnvironments(state = {}, action) {
 
 
 const emptyTask = {
+  taskId: '',
   setting: {
     fields: [[]],
     actionsLimit: null,
@@ -94,14 +95,25 @@ function addDefaults(task) {
 }
 
 
-function changeSetting(taskEnvironment, { settingText }) {
+function changeSetting(taskEnvironment, { taskSource }) {
+  const { task } = taskEnvironment;
+  const { taskId, settingText } = taskSource;
+  let invalidSettingText = null;
+  let newFields = null;
   try {
-    const setting = { fields: parseSpaceWorld(settingText) };
-    const updatedTask = { ...taskEnvironment.task, setting };
-    return { ...taskEnvironment, task: updatedTask, invalidSettingText: null };
+    newFields = parseSpaceWorld(settingText);
   } catch (err) {
-    return { ...taskEnvironment, invalidSettingText: settingText };
+    newFields = null;
+    invalidSettingText = settingText;
   }
+  const updatedTask = {
+    taskId: (taskId != null) ? taskId : task.taskId,
+    setting: {
+      fields: (newFields != null) ? newFields : task.setting.fields,
+    },
+  };
+  const updatedTaskWithDefaults = addDefaults(updatedTask);
+  return { ...taskEnvironment, task: updatedTaskWithDefaults, invalidSettingText };
 }
 
 

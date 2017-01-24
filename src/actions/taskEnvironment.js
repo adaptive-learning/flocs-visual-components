@@ -51,10 +51,10 @@ export function changeCode(taskEnvironmentId, code) {
 }
 
 
-export function changeSetting(taskEnvironmentId, settingText) {
+export function changeSetting(taskEnvironmentId, taskSource) {
   return {
     type: CHANGE_SETTING,
-    payload: { taskEnvironmentId, settingText },
+    payload: { taskEnvironmentId, taskSource },
   };
 }
 

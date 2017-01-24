@@ -6,7 +6,15 @@ import 'brace/keybinding/vim';
 import '../core/spaceWorldHighlighter';
 
 
-export default function SettingEditor({ setting, isValid, onChange, vimMode, onSwitchMode }) {
+export default function SettingEditor({
+  setting,
+  isValid,
+  onChange,
+  taskId,
+  onTaskIdChange,
+  vimMode,
+  onSwitchMode,
+}) {
   const annotations = [];
   if (!isValid) {
     annotations.push({ row: 0, column: 0, type: 'error', text: 'Invalid setting' });
@@ -14,6 +22,11 @@ export default function SettingEditor({ setting, isValid, onChange, vimMode, onS
 
   return (
     <span style={{ display: 'inline-block' }}>
+      <div>
+        taskId: <input type="text" value={taskId} onChange={onTaskIdChange} />
+      </div>
+
+
       <AceEditor
         value={setting}
         onChange={onChange}
@@ -52,6 +65,8 @@ SettingEditor.propTypes = {
   setting: PropTypes.string.isRequired,
   isValid: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
+  taskId: PropTypes.string.isRequired,
+  onTaskIdChange: PropTypes.func.isRequired,
   vimMode: PropTypes.bool.isRequired,
   onSwitchMode: PropTypes.func.isRequired,
 };
