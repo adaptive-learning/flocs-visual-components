@@ -17,6 +17,17 @@ export function getTaskId(state, taskEnvironmentId) {
 }
 
 
+export function getActionsLimit(state, taskEnvironmentId) {
+  const task = getTask(state, taskEnvironmentId);
+  const limit = task.setting.actionsLimit;
+  const code = getCode(state, taskEnvironmentId);
+  const used = (code.match(/(shoot|fly|left|right)\(\)/g) || []).length;
+    // this is cheating (not working e.g. with comments)
+    // TODO: do it properly (over roboAST)
+  return { used, limit };
+}
+
+
 export function getTaskSourceText(state, taskEnvironmentId) {
   if (!isSettingTextValid(state, taskEnvironmentId)) {
     throw Error('Invalid task setting');

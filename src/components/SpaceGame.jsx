@@ -4,7 +4,13 @@ import SpaceWorld from './SpaceWorld';
 import GameControls from './GameControls';
 
 
-export default function SpaceGame({ taskId, gameState, showCommandControls, onControlClicked }) {
+export default function SpaceGame({
+    taskId,
+    gameState,
+    actionsLimit,
+    showCommandControls,
+    onControlClicked,
+  }) {
   const { fields, stage, diamonds, energy } = gameState;
   const gameOver = (stage === 'solved' || stage === 'dead');
   const initialStage = (stage === 'initial');
@@ -20,6 +26,7 @@ export default function SpaceGame({ taskId, gameState, showCommandControls, onCo
         taskId={taskId}
         diamonds={diamonds}
         energy={energy}
+        actions={actionsLimit}
         solved={stage === 'solved'}
         dead={stage === 'dead'}
       />
@@ -32,12 +39,14 @@ export default function SpaceGame({ taskId, gameState, showCommandControls, onCo
 SpaceGame.propTypes = {
   taskId: PropTypes.string,
   gameState: PropTypes.object.isRequired,
+  actionsLimit: PropTypes.object,
   onControlClicked: PropTypes.func.isRequired,
   showCommandControls: PropTypes.bool,
 };
 
 SpaceGame.defaultProps = {
   taskId: 'nameless-task',
+  actionsLimit: { limit: null },
   showCommandControls: false,
 };
 

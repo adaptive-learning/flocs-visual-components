@@ -1,4 +1,4 @@
-import { getCode, getTaskSourceText } from '../selectors/taskEnvironment';
+import { getCode, getActionsLimit, getTaskSourceText } from '../selectors/taskEnvironment';
 import { getColor, getPosition, isSolved, isDead, getGameStage } from '../selectors/gameState';
 import { interpretRoboCode, InterpreterError } from '../core/roboCodeInterpreter';
 import { downloadTextFile } from '../utils/files';
@@ -69,6 +69,12 @@ export function taskAttempted(taskEnvironmentId) {
 
 export function runProgram(taskEnvironmentId) {
   return (dispatch, getState) => {
+    const actions = getActionsLimit(getState(), taskEnvironmentId);
+    if (actions.limit !== null && actions.used > actions.limit) {
+      const message = `Violated actions limit: ${actions.used}/${actions.limit}`;
+      alert(message);
+      return Promise.resolve(message);
+    }
     const startingInterpretation = () => new Promise(resolve => {
       dispatch(interpretationStarted(taskEnvironmentId));
       setTimeout(resolve);

@@ -30,7 +30,6 @@ function createAppComponent() {
         |g |g |g |g |g |
         |b |b |b |b |b |
         |b |b |bS|b |b |`),
-      actionsLimit: 1,
     },
   };
 
