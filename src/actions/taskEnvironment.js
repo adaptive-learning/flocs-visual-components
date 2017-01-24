@@ -1,4 +1,7 @@
-import { getCode, getActionsLimit, getTaskSourceText } from '../selectors/taskEnvironment';
+import { getTaskId,
+         getCode,
+         getActionsLimit,
+         getTaskSourceText } from '../selectors/taskEnvironment';
 import { getColor, getPosition, isSolved, isDead, getGameStage } from '../selectors/gameState';
 import { interpretRoboCode, InterpreterError } from '../core/roboCodeInterpreter';
 import { downloadTextFile } from '../utils/files';
@@ -34,8 +37,9 @@ export function setTask(taskEnvironmentId, task) {
 export function exportTask(taskEnvironmentId) {
   return (dispatch, getState) => {
     try {
+      const taskId = getTaskId(getState(), taskEnvironmentId);
       const taskSourceText = getTaskSourceText(getState(), taskEnvironmentId);
-      downloadTextFile('untitled-task.md', taskSourceText);
+      downloadTextFile(`${taskId}.md`, taskSourceText);
     } catch (err) {
       alert(`Export failed: ${err.message}`);
     }

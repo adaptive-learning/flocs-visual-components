@@ -97,7 +97,7 @@ function addDefaults(task) {
 
 function changeSetting(taskEnvironment, { taskSource }) {
   const { task } = taskEnvironment;
-  const { taskId, settingText } = taskSource;
+  const { taskId, category, settingText } = taskSource;
   let invalidSettingText = null;
   let newFields = null;
   try {
@@ -107,7 +107,8 @@ function changeSetting(taskEnvironment, { taskSource }) {
     invalidSettingText = settingText;
   }
   const updatedTask = {
-    taskId: (taskId != null) ? taskId : task.taskId,
+    taskId: (taskId !== undefined) ? taskId : task.taskId,
+    category: (category !== undefined) ? category : task.category,
     setting: {
       fields: (newFields != null) ? newFields : task.setting.fields,
     },

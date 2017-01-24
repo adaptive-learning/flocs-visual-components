@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SettingEditor from '../components/SettingEditor';
 import { changeSetting } from '../actions/taskEnvironment';
 import { switchVimMode } from '../actions/taskEditor';
-import { getSettingText, isSettingTextValid, getTaskId } from '../selectors/taskEnvironment';
+import { getSettingText, isSettingTextValid, getTask } from '../selectors/taskEnvironment';
 import { isVimModeEnabled } from '../selectors/taskEditor';
 
 
@@ -21,6 +21,14 @@ class SettingEditorWrapper extends React.Component {
       this.props.changeSetting(this.props.taskEnvironmentId, { taskId });
     };
 
+    this.handleCategoryChange = event => {
+      let category = event.target.value;
+      if (category.length === 0) {
+        category = null;
+      }
+      this.props.changeSetting(this.props.taskEnvironmentId, { category });
+    };
+
     this.handleSwitchMode = this.props.switchVimMode.bind(this);
   }
 
@@ -32,6 +40,8 @@ class SettingEditorWrapper extends React.Component {
         onChange={this.handleChangeSetting}
         taskId={this.props.taskId}
         onTaskIdChange={this.handleTaskIdChange}
+        category={this.props.category || ''}
+        onCategoryChange={this.handleCategoryChange}
         vimMode={this.props.vimMode}
         onSwitchMode={this.handleSwitchMode}
       />
@@ -45,6 +55,7 @@ SettingEditorWrapper.propTypes = {
   isValid: PropTypes.bool.isRequired,
   changeSetting: PropTypes.func.isRequired,
   taskId: PropTypes.string.isRequired,
+  category: PropTypes.string,
   vimMode: PropTypes.bool.isRequired,
   switchVimMode: PropTypes.func.isRequired,
 };
@@ -53,9 +64,9 @@ function mapStateToProps(state, props) {
   const { taskEnvironmentId } = props;
   const setting = getSettingText(state, taskEnvironmentId);
   const isValid = isSettingTextValid(state, taskEnvironmentId);
-  const taskId = getTaskId(state, taskEnvironmentId);
+  const { taskId, category } = getTask(state, taskEnvironmentId);
   const vimMode = isVimModeEnabled(state);
-  return { taskEnvironmentId, setting, isValid, taskId, vimMode };
+  return { taskEnvironmentId, setting, isValid, taskId, category, vimMode };
 }
 
 const actionCreators = { changeSetting, switchVimMode };

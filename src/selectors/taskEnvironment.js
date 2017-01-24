@@ -32,19 +32,22 @@ export function getTaskSourceText(state, taskEnvironmentId) {
   if (!isSettingTextValid(state, taskEnvironmentId)) {
     throw Error('Invalid task setting');
   }
+  const { taskId, category } = getTask(state, taskEnvironmentId);
   const setting = getSettingText(state, taskEnvironmentId);
   const solution = getCode(state, taskEnvironmentId);
 
   const sourceText = stripIndentation`\
-    Setting
-    -------
+    # ${taskId}
+
+    category: ${category || '-'}
+
+    ## Setting
 
     \`\`\`
     ${setting}
     \`\`\`
 
-    Solution
-    --------
+    ## Solution
 
     \`\`\`python
     ${solution}

@@ -12,6 +12,8 @@ export default function SettingEditor({
   onChange,
   taskId,
   onTaskIdChange,
+  category,
+  onCategoryChange,
   vimMode,
   onSwitchMode,
 }) {
@@ -24,6 +26,9 @@ export default function SettingEditor({
     <span style={{ display: 'inline-block' }}>
       <div>
         taskId: <input type="text" value={taskId} onChange={onTaskIdChange} />
+      </div>
+      <div>
+        category: <input type="text" value={category} onChange={onCategoryChange} />
       </div>
 
 
@@ -67,6 +72,8 @@ SettingEditor.propTypes = {
   onChange: PropTypes.func.isRequired,
   taskId: PropTypes.string.isRequired,
   onTaskIdChange: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
   vimMode: PropTypes.bool.isRequired,
   onSwitchMode: PropTypes.func.isRequired,
 };
