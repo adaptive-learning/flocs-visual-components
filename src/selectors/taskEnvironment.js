@@ -39,21 +39,19 @@ export function getTaskSourceText(state, taskEnvironmentId) {
 
   const sourceText = stripIndentation`\
     # ${taskId}
-
-    - category: ${category || '-'}
+    ${category !== null ? `- category: ${category}` : ''}
 
     ## Setting
 
     \`\`\`
     ${spaceWorldText}
     \`\`\`
-
-    - energy: ${energy}
-    - actionsLimit: ${actionsLimit}
+    ${energy !== null ? `- energy: ${energy}` : ''}
+    ${actionsLimit !== null ? `- actionsLimit: ${actionsLimit}` : ''}
 
     ## Solution
 
-    \`\`\`python
+    \`\`\`
     ${solution}
     \`\`\`
   `;
