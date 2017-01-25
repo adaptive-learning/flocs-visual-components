@@ -96,27 +96,35 @@ function addDefaults(task) {
 
 
 function changeSetting(taskEnvironment, { taskSource }) {
-  const { task } = taskEnvironment;
+  const { task, invalidSettingText } = taskEnvironment;
   const { taskId, category, energy, actionsLimit, settingText } = taskSource;
-  let invalidSettingText = null;
+  let newInvalidSettingText = invalidSettingText;
   let newFields = null;
-  try {
-    newFields = parseSpaceWorld(settingText);
-  } catch (err) {
-    newFields = null;
-    invalidSettingText = settingText;
+  if (settingText !== undefined) {
+    try {
+      newFields = parseSpaceWorld(settingText);
+      newInvalidSettingText = null;
+    } catch (err) {
+      newFields = null;
+      newInvalidSettingText = settingText;
+    }
   }
   const updatedTask = {
     taskId: (taskId !== undefined) ? taskId : task.taskId,
     category: (category !== undefined) ? category : task.category,
     setting: {
-      fields: (newFields != null) ? newFields : task.setting.fields,
+      fields: (newFields !== null) ? newFields : task.setting.fields,
       energy: (energy !== undefined) ? energy : task.setting.energy,
       actionsLimit: (actionsLimit !== undefined) ? actionsLimit : task.setting.actionsLimit,
     },
   };
   const updatedTaskWithDefaults = addDefaults(updatedTask);
-  return { ...taskEnvironment, task: updatedTaskWithDefaults, invalidSettingText };
+  const updatedTaskEnvironment = {
+    ...taskEnvironment,
+    task: updatedTaskWithDefaults,
+    invalidSettingText: newInvalidSettingText,
+  };
+  return updatedTaskEnvironment;
 }
 
 
