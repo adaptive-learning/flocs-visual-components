@@ -57,7 +57,8 @@
     "build": "npm run clean && webpack --config webpack.config.build.js",
     "lint": "eslint src examples",
     "clean": "rm -rf lib",
-    "generate-robocode-parser": "pegjs -o src/core/pegRoboCodeParser.js src/core/roboCodeGrammar.pegjs && sed -i '1i\\'\"/* eslint-disable */\" src/core/pegRoboCodeParser.js"
+    "generate-robocode-parser": "pegjs -o src/core/pegRoboCodeParser.js src/core/roboCodeGrammar.pegjs && sed -i '1i\\'\"/* eslint-disable */\" src/core/pegRoboCodeParser.js",
+    "generate-task-parser": "pegjs -o src/core/pegTaskSourceParser.js src/core/taskSourceGrammar.pegjs && sed -i '1i\\'\"/* eslint-disable */\" src/core/pegTaskSourceParser.js"
   },
   "repository": {
     "type": "git",
