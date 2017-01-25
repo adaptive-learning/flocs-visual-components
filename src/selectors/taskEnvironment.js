@@ -29,12 +29,12 @@ export function getActionsLimit(state, taskEnvironmentId) {
 
 
 export function getTaskSourceText(state, taskEnvironmentId) {
-  if (!isSettingTextValid(state, taskEnvironmentId)) {
+  if (!isSpaceWorldTextValid(state, taskEnvironmentId)) {
     throw Error('Invalid task setting');
   }
   const { taskId, category, setting } = getTask(state, taskEnvironmentId);
   const { energy, actionsLimit } = setting;
-  const spaceWorldText = getSettingText(state, taskEnvironmentId);
+  const spaceWorldText = getSpaceWorldText(state, taskEnvironmentId);
   const solution = getCode(state, taskEnvironmentId);
 
   const sourceText = stripIndentation`\
@@ -65,29 +65,29 @@ export function getSetting(state, taskEnvironmentId) {
 }
 
 
-export function getSettingText(state, taskEnvironmentId) {
-  if (!isSettingTextValid(state, taskEnvironmentId)) {
-    const invalidSettingText = getInvalidSettingText(state, taskEnvironmentId);
-    return invalidSettingText;
+export function getSpaceWorldText(state, taskEnvironmentId) {
+  if (!isSpaceWorldTextValid(state, taskEnvironmentId)) {
+    const invalidSpaceWorldText = getInvalidSpaceWorldText(state, taskEnvironmentId);
+    return invalidSpaceWorldText;
   }
   const setting = getSetting(state, taskEnvironmentId);
-  const settingText = generateSpaceWorldText(setting.fields);
-  return settingText;
+  const spaceWorldText = generateSpaceWorldText(setting.fields);
+  return spaceWorldText;
 }
 
 
-export function getInvalidSettingText(state, taskEnvironmentId) {
-  const { invalidSettingText } = getTaskEnvironment(state, taskEnvironmentId);
-  if (invalidSettingText === undefined) {
+export function getInvalidSpaceWorldText(state, taskEnvironmentId) {
+  const { invalidSpaceWorldText } = getTaskEnvironment(state, taskEnvironmentId);
+  if (invalidSpaceWorldText === undefined) {
     return null;
   }
-  return invalidSettingText;
+  return invalidSpaceWorldText;
 }
 
 
-export function isSettingTextValid(state, taskEnvironmentId) {
-  const { invalidSettingText } = getTaskEnvironment(state, taskEnvironmentId);
-  const isValid = (invalidSettingText == null);
+export function isSpaceWorldTextValid(state, taskEnvironmentId) {
+  const { invalidSpaceWorldText } = getTaskEnvironment(state, taskEnvironmentId);
+  const isValid = (invalidSpaceWorldText == null);
   return isValid;
 }
 

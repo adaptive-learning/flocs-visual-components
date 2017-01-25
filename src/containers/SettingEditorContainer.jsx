@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SettingEditor from '../components/SettingEditor';
 import { changeSetting } from '../actions/taskEnvironment';
 import { switchVimMode } from '../actions/taskEditor';
-import { getSettingText, isSettingTextValid, getTask } from '../selectors/taskEnvironment';
+import { getSpaceWorldText, isSpaceWorldTextValid, getTask } from '../selectors/taskEnvironment';
 import { isVimModeEnabled } from '../selectors/taskEditor';
 
 
@@ -11,8 +11,8 @@ class SettingEditorWrapper extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleChangeSetting = settingText => {
-      this.props.changeSetting(this.props.taskEnvironmentId, { settingText });
+    this.handleChangeSetting = spaceWorldText => {
+      this.props.changeSetting(this.props.taskEnvironmentId, { spaceWorldText });
       this.forceUpdate();
     };
 
@@ -84,8 +84,8 @@ function mapStateToProps(state, props) {
   const { taskEnvironmentId } = props;
   const { taskId, category, setting } = getTask(state, taskEnvironmentId);
   const { energy, actionsLimit } = setting;
-  const spaceWorldText = getSettingText(state, taskEnvironmentId);
-  const isValid = isSettingTextValid(state, taskEnvironmentId);
+  const spaceWorldText = getSpaceWorldText(state, taskEnvironmentId);
+  const isValid = isSpaceWorldTextValid(state, taskEnvironmentId);
   const vimMode = isVimModeEnabled(state);
   return {
     taskEnvironmentId,
