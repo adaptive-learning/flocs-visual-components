@@ -4,7 +4,8 @@ import { getTaskId,
          getTaskSourceText } from '../selectors/taskEnvironment';
 import { getColor, getPosition, isSolved, isDead, getGameStage } from '../selectors/gameState';
 import { interpretRoboCode, InterpreterError } from '../core/roboCodeInterpreter';
-import { downloadTextFile } from '../utils/files';
+import { parseTaskSourceText } from '../core/taskSourceParser';
+import { downloadTextFile, loadTextFile } from '../utils/files';
 
 
 export const CREATE_TASK_ENVIRONMENT = 'FLOCS.CREATE_TASK_ENVIRONMENT';
@@ -42,6 +43,20 @@ export function exportTask(taskEnvironmentId) {
       downloadTextFile(`${taskId}.md`, taskSourceText);
     } catch (err) {
       alert(`Export failed: ${err.message}`);
+    }
+  };
+}
+
+
+export function importTask(taskEnvironmentId) {
+  return (dispatch) => {
+    try {
+      loadTextFile().then(taskSourceText => {
+        const task = parseTaskSourceText(taskSourceText);
+        dispatch(setTask(taskEnvironmentId, task));
+      });
+    } catch (err) {
+      alert(`Import failed: ${err.message}`);
     }
   };
 }

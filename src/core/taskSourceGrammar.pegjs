@@ -74,8 +74,17 @@ Code
 
 
 Value
-  = $([a-zA-Z0-9_-]+)
+  = Integer
+  / Text
 
+
+Integer
+  = digits:[0-9]+
+  { return parseInt(digits.join(""), 10); }
+
+
+Text
+  = $([a-zA-Z0-9_-]+)
 
 _ "inline whitespace"
   = [ \t]*
