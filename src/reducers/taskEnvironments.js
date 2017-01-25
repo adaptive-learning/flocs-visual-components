@@ -97,7 +97,7 @@ function addDefaults(task) {
 
 function changeSetting(taskEnvironment, { taskSource }) {
   const { task } = taskEnvironment;
-  const { taskId, category, settingText } = taskSource;
+  const { taskId, category, energy, actionsLimit, settingText } = taskSource;
   let invalidSettingText = null;
   let newFields = null;
   try {
@@ -111,6 +111,8 @@ function changeSetting(taskEnvironment, { taskSource }) {
     category: (category !== undefined) ? category : task.category,
     setting: {
       fields: (newFields != null) ? newFields : task.setting.fields,
+      energy: (energy !== undefined) ? energy : task.setting.energy,
+      actionsLimit: (actionsLimit !== undefined) ? actionsLimit : task.setting.actionsLimit,
     },
   };
   const updatedTaskWithDefaults = addDefaults(updatedTask);

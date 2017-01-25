@@ -29,19 +29,37 @@ class SettingEditorWrapper extends React.Component {
       this.props.changeSetting(this.props.taskEnvironmentId, { category });
     };
 
+    this.handleEnergyChange = event => {
+      const energyString = event.target.value;
+      const energyNumber = parseInt(energyString, 10);
+      const energy = isNaN(energyNumber) ? null : energyNumber;
+      this.props.changeSetting(this.props.taskEnvironmentId, { energy });
+    };
+
+    this.handleActionsLimitChange = event => {
+      const actionsLimitString = event.target.value;
+      const actionsLimitNumber = parseInt(actionsLimitString, 10);
+      const actionsLimit = isNaN(actionsLimitNumber) ? null : actionsLimitNumber;
+      this.props.changeSetting(this.props.taskEnvironmentId, { actionsLimit });
+    };
+
     this.handleSwitchMode = this.props.switchVimMode.bind(this);
   }
 
   render() {
     return (
       <SettingEditor
-        setting={this.props.setting}
+        spaceWorldText={this.props.spaceWorldText}
         isValid={this.props.isValid}
         onChange={this.handleChangeSetting}
         taskId={this.props.taskId}
         onTaskIdChange={this.handleTaskIdChange}
         category={this.props.category || ''}
         onCategoryChange={this.handleCategoryChange}
+        energy={this.props.energy}
+        onEnergyChange={this.handleEnergyChange}
+        actionsLimit={this.props.actionsLimit}
+        onActionsLimitChange={this.handleActionsLimitChange}
         vimMode={this.props.vimMode}
         onSwitchMode={this.handleSwitchMode}
       />
@@ -51,22 +69,34 @@ class SettingEditorWrapper extends React.Component {
 
 SettingEditorWrapper.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
-  setting: PropTypes.string.isRequired,
+  spaceWorldText: PropTypes.string.isRequired,
   isValid: PropTypes.bool.isRequired,
   changeSetting: PropTypes.func.isRequired,
   taskId: PropTypes.string.isRequired,
   category: PropTypes.string,
+  energy: PropTypes.number,
+  actionsLimit: PropTypes.number,
   vimMode: PropTypes.bool.isRequired,
   switchVimMode: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
   const { taskEnvironmentId } = props;
-  const setting = getSettingText(state, taskEnvironmentId);
+  const { taskId, category, setting } = getTask(state, taskEnvironmentId);
+  const { energy, actionsLimit } = setting;
+  const spaceWorldText = getSettingText(state, taskEnvironmentId);
   const isValid = isSettingTextValid(state, taskEnvironmentId);
-  const { taskId, category } = getTask(state, taskEnvironmentId);
   const vimMode = isVimModeEnabled(state);
-  return { taskEnvironmentId, setting, isValid, taskId, category, vimMode };
+  return {
+    taskEnvironmentId,
+    taskId,
+    category,
+    energy,
+    actionsLimit,
+    spaceWorldText,
+    isValid,
+    vimMode,
+  };
 }
 
 const actionCreators = { changeSetting, switchVimMode };

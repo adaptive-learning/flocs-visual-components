@@ -32,20 +32,24 @@ export function getTaskSourceText(state, taskEnvironmentId) {
   if (!isSettingTextValid(state, taskEnvironmentId)) {
     throw Error('Invalid task setting');
   }
-  const { taskId, category } = getTask(state, taskEnvironmentId);
-  const setting = getSettingText(state, taskEnvironmentId);
+  const { taskId, category, setting } = getTask(state, taskEnvironmentId);
+  const { energy, actionsLimit } = setting;
+  const spaceWorldText = getSettingText(state, taskEnvironmentId);
   const solution = getCode(state, taskEnvironmentId);
 
   const sourceText = stripIndentation`\
     # ${taskId}
 
-    category: ${category || '-'}
+    - category: ${category || '-'}
 
     ## Setting
 
     \`\`\`
-    ${setting}
+    ${spaceWorldText}
     \`\`\`
+
+    - energy: ${energy}
+    - actionsLimit: ${actionsLimit}
 
     ## Solution
 

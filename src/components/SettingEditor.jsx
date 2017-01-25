@@ -7,13 +7,17 @@ import '../core/spaceWorldHighlighter';
 
 
 export default function SettingEditor({
-  setting,
+  spaceWorldText,
   isValid,
   onChange,
   taskId,
   onTaskIdChange,
   category,
   onCategoryChange,
+  energy,
+  onEnergyChange,
+  actionsLimit,
+  onActionsLimitChange,
   vimMode,
   onSwitchMode,
 }) {
@@ -24,16 +28,53 @@ export default function SettingEditor({
 
   return (
     <span style={{ display: 'inline-block' }}>
-      <div>
-        taskId: <input type="text" value={taskId} onChange={onTaskIdChange} />
+      <div style={{ display: 'table-row' }}>
+        <span style={{ display: 'table-cell' }}>
+          taskId:
+        </span>
+        <input
+          style={{ display: 'table-cell' }}
+          type="text"
+          value={taskId}
+          onChange={onTaskIdChange}
+        />
       </div>
-      <div>
-        category: <input type="text" value={category} onChange={onCategoryChange} />
+      <div style={{ display: 'table-row' }}>
+        <span style={{ display: 'table-cell' }}>
+          category:
+        </span>
+        <input
+          style={{ display: 'table-cell' }}
+          type="text"
+          value={category}
+          onChange={onCategoryChange}
+        />
       </div>
-
+      <div style={{ display: 'table-row' }}>
+        <span style={{ display: 'table-cell' }}>
+          energy:
+        </span>
+        <input
+          style={{ display: 'table-cell' }}
+          type="text"
+          value={energy || ''}
+          onChange={onEnergyChange}
+        />
+      </div>
+      <div style={{ display: 'table-row' }}>
+        <span style={{ display: 'table-cell' }}>
+          actionsLimit:
+        </span>
+        <input
+          style={{ display: 'table-cell' }}
+          type="text"
+          value={actionsLimit || ''}
+          onChange={onActionsLimitChange}
+        />
+      </div>
 
       <AceEditor
-        value={setting}
+        value={spaceWorldText}
         onChange={onChange}
         mode="spaceworld"
         theme="solarized_light"
@@ -67,13 +108,17 @@ export default function SettingEditor({
 }
 
 SettingEditor.propTypes = {
-  setting: PropTypes.string.isRequired,
+  spaceWorldText: PropTypes.string.isRequired,
   isValid: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   taskId: PropTypes.string.isRequired,
   onTaskIdChange: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
+  energy: PropTypes.number,
+  onEnergyChange: PropTypes.func.isRequired,
+  actionsLimit: PropTypes.number,
+  onActionsLimitChange: PropTypes.func.isRequired,
   vimMode: PropTypes.bool.isRequired,
   onSwitchMode: PropTypes.func.isRequired,
 };
