@@ -1,5 +1,6 @@
 import SpaceGame from './components/SpaceGame';
 import CodeEditor from './components/CodeEditor';
+import BlocklyEditor from './components/BlocklyEditor';
 import TasksTable from './components/TasksTable';
 import TaskEnvironment from './components/TaskEnvironment';
 import TaskEditor from './components/TaskEditor';
@@ -11,11 +12,16 @@ import { flocsComponentsReducer } from './reducers';
 import { flocsSelector } from './selectors';
 import { flocsActionCreators, flocsActions } from './actions';
 import { parseSpaceWorld } from './core/spaceWorldDescription';
+import { initGlobalBlockly } from './core/blockly';
+
+
+initGlobalBlockly();
 
 export {
   // components
   SpaceGame,
   CodeEditor,
+  BlocklyEditor,
   TasksTable,
   TaskEnvironment,
   TaskEditor,
