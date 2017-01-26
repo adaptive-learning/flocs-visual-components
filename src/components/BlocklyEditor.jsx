@@ -1,47 +1,64 @@
 import React, { PropTypes } from 'react';
 import ReactBlocklyComponent from 'react-blockly-component';
+import { blocklyXmlToRoboAst } from '../core/blockly';
 
 /*
  * Blockly editor requires global Blockly object
  * It fills the parent div completely and resize on dimensions change
  */
 export default class BlocklyEditor extends React.Component {
-  componentDidUpdate() {
+  componentDidMount() {
     // TODO: if hook methods not needed, rewrite as a functional component
     console.log('blockly editor did mount');
   }
 
+  // getBlocklyWorkspace() {
+  //   return this.blocklyEditor.refs.workspace.state.workspace;
+  // }
+
   render() {
-    const workspaceConfiguration = {};
+    const workspaceConfiguration = {
+      trashcan: true,
+    };
 
     const toolboxBlocks = [
-      { type: 'controls-start' },
       {
-        type: 'command-fly',
+        type: 'fly',
         fields: { direction: 'ahead' },
       },
       {
-        type: 'command-fly',
+        type: 'fly',
         fields: { direction: 'left' },
       },
       {
-        type: 'command-fly',
+        type: 'fly',
         fields: { direction: 'right' },
       },
-      { type: 'command-shoot' },
-      { type: 'controls-repeat' },
-      { type: 'controls-while' },
-      { type: 'test-color' },
-      { type: 'test-position' },
-      { type: 'controls-if' },
-      { type: 'controls-if-else' },
+      { type: 'shoot' },
+      { type: 'repeat' },
+      { type: 'while' },
+      { type: 'color' },
+      { type: 'position' },
+      { type: 'if' },
+      { type: 'if-else' },
 
     ];
 
-    const initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
+    /*
+    const roboAstToBlocklyXml = roboAst => {
+      // TODO: unfake = implement
+      const blocklyXml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="start" deletable="false" x="210" y="10"></block></xml>';
+      return blocklyXml;
+    };
+    const initialXml = roboAstToBlocklyXml(this.props.roboAst);
+    */
+
+    const initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="start" deletable="false" x="210" y="10"></block></xml>';
 
     const xmlDidChange = newXml => {
-      console.log('generated xml:', newXml);
+      console.log('new xml:', newXml);
+      const roboAst = blocklyXmlToRoboAst(newXml);
+      console.log('new roboAst:', roboAst);
     };
 
     return (
@@ -57,6 +74,7 @@ export default class BlocklyEditor extends React.Component {
         }}
       >
         <ReactBlocklyComponent.BlocklyEditor
+          ref={(ref) => { this.blocklyEditor = ref; }}
           workspaceConfiguration={workspaceConfiguration}
           toolboxBlocks={toolboxBlocks}
           initialXml={initialXml}
@@ -69,13 +87,13 @@ export default class BlocklyEditor extends React.Component {
 }
 
 BlocklyEditor.propTypes = {
-  blocks: PropTypes.array,
-  program: PropTypes.string,
+  // blocks: PropTypes.array,
+  roboAst: PropTypes.object,
   onChange: PropTypes.func,
 };
 
 BlocklyEditor.defaultProps = {
-  blocks: [],
-  program: '',
+  // blocks: [],
+  roboAst: { head: 'start', body: [] },
   onChange: null,
 };

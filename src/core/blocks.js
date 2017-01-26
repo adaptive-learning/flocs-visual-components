@@ -13,7 +13,7 @@ const colors = {
 
 const blocks = [
   {
-    id: 'controls-start',
+    id: 'start',
     message0: 'start',
     args0: [],
     nextStatement: null,
@@ -22,7 +22,7 @@ const blocks = [
     helpUrl: '',
   },
   {
-    id: 'command-fly',
+    id: 'fly',
     message0: 'fly %1',
     args0: [
       {
@@ -42,7 +42,7 @@ const blocks = [
     helpUrl: '',
   },
   {
-    id: 'command-shoot',
+    id: 'shoot',
     message0: 'shoot',
     args0: [],
     previousStatement: null,
@@ -52,7 +52,7 @@ const blocks = [
     helpUrl: '',
   },
   {
-    id: 'test-color',
+    id: 'color',
     message0: 'color %1 %2',
     args0: [
       {
@@ -81,7 +81,7 @@ const blocks = [
     helpUrl: '',
   },
   {
-    id: 'test-position',
+    id: 'position',
     message0: 'x %1 %2',
     args0: [
       {
@@ -114,7 +114,7 @@ const blocks = [
     helpUrl: '',
   },
   {
-    id: 'controls-repeat',
+    id: 'repeat',
     message0: 'repeat %1 : %2 %3',
     args0: [
       {
@@ -147,7 +147,7 @@ const blocks = [
     helpUrl: '',
   },
   {
-    id: 'controls-while',
+    id: 'while',
     message0: 'while %1 : %2 %3',
     args0: [
       {
@@ -170,7 +170,7 @@ const blocks = [
     helpUrl: '',
   },
   {
-    id: 'controls-if',
+    id: 'if',
     message0: 'if %1 : %2 %3',
     args0: [
       {
@@ -193,7 +193,7 @@ const blocks = [
     helpUrl: '',
   },
   {
-    id: 'controls-if-else',
+    id: 'if-else',
     message0: 'if %1 : %2 %3 else: %4 %5',
     args0: [
       {

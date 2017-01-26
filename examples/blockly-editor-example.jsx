@@ -7,7 +7,6 @@ if (mountElement !== null) {
   const handleChange = newCode => {
     console.log('new code:', newCode);
   };
-  const program = '?program?';
   const component = (
     <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }} >
       <div style={{ backgroundColor: 'blue', height: '50px', width: '100%' }} />
@@ -23,7 +22,6 @@ if (mountElement !== null) {
         }}
       >
         <BlocklyEditor
-          program={program}
           onChange={handleChange}
         />
       </span>
