@@ -16,7 +16,26 @@ export default class BlocklyEditor extends React.Component {
 
     const toolboxBlocks = [
       { type: 'controls-start' },
-      { type: 'command-fly' },
+      {
+        type: 'command-fly',
+        fields: { direction: 'ahead' },
+      },
+      {
+        type: 'command-fly',
+        fields: { direction: 'left' },
+      },
+      {
+        type: 'command-fly',
+        fields: { direction: 'right' },
+      },
+      { type: 'command-shoot' },
+      { type: 'controls-repeat' },
+      { type: 'controls-while' },
+      { type: 'test-color' },
+      { type: 'test-position' },
+      { type: 'controls-if' },
+      { type: 'controls-if-else' },
+
     ];
 
     const initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
