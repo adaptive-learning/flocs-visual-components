@@ -4,8 +4,8 @@ import { BlocklyEditor } from 'flocs-visual-components';
 
 const mountElement = document.getElementById('blocklyEditorExample');
 if (mountElement !== null) {
-  const handleChange = newCode => {
-    console.log('new code:', newCode);
+  const handleChange = newAst => {
+    console.log('new ast:', newAst);
   };
   const component = (
     <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }} >

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactBlocklyComponent from 'react-blockly-component';
 import { blocklyXmlToRoboAst } from '../core/blockly';
+import { generateBlocklyXml } from '../core/blocklyXmlGenerator';
 import { completeToolbox } from '../core/toolbox';
 
 /*
@@ -22,20 +23,13 @@ export default class BlocklyEditor extends React.Component {
       trashcan: true,
     };
 
-    /*
-    const roboAstToBlocklyXml = roboAst => {
-      // TODO: unfake = implement
-      const blocklyXml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="start" deletable="false" x="210" y="10"></block></xml>';
-      return blocklyXml;
-    };
-    const initialXml = roboAstToBlocklyXml(this.props.roboAst);
-    */
+    const initialXml = generateBlocklyXml(this.props.roboAst);
 
-    const initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="start" deletable="false" x="210" y="10"></block></xml>';
+    // const initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="start" deletable="false" x="210" y="10"></block></xml>';
 
     const xmlDidChange = newXml => {
       const roboAst = blocklyXmlToRoboAst(newXml);
-      console.log('new roboAst:', roboAst);
+      this.props.onChange(roboAst);
     };
 
     return (
@@ -53,7 +47,7 @@ export default class BlocklyEditor extends React.Component {
         <ReactBlocklyComponent.BlocklyEditor
           ref={(ref) => { this.blocklyEditor = ref; }}
           workspaceConfiguration={workspaceConfiguration}
-          toolboxBlocks={completeToolbox}
+          toolboxBlocks={this.props.toolboxBlocks}
           initialXml={initialXml}
           xmlDidChange={xmlDidChange}
           wrapperDivClassName={'fill-height'}
@@ -64,13 +58,13 @@ export default class BlocklyEditor extends React.Component {
 }
 
 BlocklyEditor.propTypes = {
-  // blocks: PropTypes.array,
+  toolboxBlocks: PropTypes.array,
   roboAst: PropTypes.object,
   onChange: PropTypes.func,
 };
 
 BlocklyEditor.defaultProps = {
-  // blocks: [],
+  toolboxBlocks: completeToolbox,
   roboAst: { head: 'start', body: [] },
   onChange: null,
 };
