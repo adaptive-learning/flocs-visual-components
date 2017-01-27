@@ -59,13 +59,13 @@ const blocks = [
         type: 'field_dropdown',
         name: 'comparator',
         options: [
-          ['!=', '!='],
+          ['≠', '!='],
           ['=', '='],
         ],
       },
       {
         type: 'field_dropdown',
-        name: 'color',
+        name: 'value',
         options: [
           ['green', 'green'],
           ['blue', 'blue'],
@@ -89,16 +89,16 @@ const blocks = [
         name: 'comparator',
         options: [
           ['=', '='],
-          ['!=', '!='],
+          ['≠', '!='],
           ['>', '>'],
-          ['>=', '>='],
+          ['≥', '>='],
           ['<', '<'],
-          ['<=', '<='],
+          ['≤', '<='],
         ],
       },
       {
         type: 'field_dropdown',
-        name: 'position',
+        name: 'value',
         options: [
           ['1', '1'],
           ['2', '2'],
@@ -119,7 +119,7 @@ const blocks = [
     args0: [
       {
         type: 'field_dropdown',
-        name: 'position',
+        name: 'count',
         options: [
           ['2', '2'],
           ['3', '3'],
