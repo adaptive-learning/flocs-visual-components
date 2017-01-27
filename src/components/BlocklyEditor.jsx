@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactBlocklyComponent from 'react-blockly-component';
 import { blocklyXmlToRoboAst } from '../core/blockly';
+import { completeToolbox } from '../core/toolbox';
 
 /*
  * Blockly editor requires global Blockly object
@@ -21,29 +22,6 @@ export default class BlocklyEditor extends React.Component {
       trashcan: true,
     };
 
-    const toolboxBlocks = [
-      {
-        type: 'fly',
-        fields: { direction: 'ahead' },
-      },
-      {
-        type: 'fly',
-        fields: { direction: 'left' },
-      },
-      {
-        type: 'fly',
-        fields: { direction: 'right' },
-      },
-      { type: 'shoot' },
-      { type: 'repeat' },
-      { type: 'while' },
-      { type: 'color' },
-      { type: 'position' },
-      { type: 'if' },
-      { type: 'if-else' },
-
-    ];
-
     /*
     const roboAstToBlocklyXml = roboAst => {
       // TODO: unfake = implement
@@ -56,7 +34,6 @@ export default class BlocklyEditor extends React.Component {
     const initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="start" deletable="false" x="210" y="10"></block></xml>';
 
     const xmlDidChange = newXml => {
-      console.log('new xml:', newXml);
       const roboAst = blocklyXmlToRoboAst(newXml);
       console.log('new roboAst:', roboAst);
     };
@@ -76,7 +53,7 @@ export default class BlocklyEditor extends React.Component {
         <ReactBlocklyComponent.BlocklyEditor
           ref={(ref) => { this.blocklyEditor = ref; }}
           workspaceConfiguration={workspaceConfiguration}
-          toolboxBlocks={toolboxBlocks}
+          toolboxBlocks={completeToolbox}
           initialXml={initialXml}
           xmlDidChange={xmlDidChange}
           wrapperDivClassName={'fill-height'}
