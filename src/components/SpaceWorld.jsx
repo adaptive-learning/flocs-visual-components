@@ -3,7 +3,7 @@ import GameObject from './GameObject';
 import SpaceBackgroundGrid from './SpaceBackgroundGrid';
 
 export default function SpaceWorld({ fields }) {
-  const width = 250;
+  const width = 280;
   const { cols, backgrounds, objects } = prepareFields(fields);
   const fieldSize = Math.floor(width / cols);
   // const height = fieldSize * rows;

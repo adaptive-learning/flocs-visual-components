@@ -20,10 +20,8 @@ export function getTaskId(state, taskEnvironmentId) {
 export function getActionsLimit(state, taskEnvironmentId) {
   const task = getTask(state, taskEnvironmentId);
   const limit = task.setting.actionsLimit;
-  const code = getCode(state, taskEnvironmentId);
-  const used = (code.match(/(shoot|fly|left|right)\(\)/g) || []).length;
-    // this is cheating (not working e.g. with comments)
-    // TODO: do it properly (over roboAST)
+  const roboAst = getRoboAst(state, taskEnvironmentId);
+  const used = countActions(roboAst);
   return { used, limit };
 }
 
@@ -93,7 +91,52 @@ export function isSpaceWorldTextValid(state, taskEnvironmentId) {
 
 
 export function getCode(state, taskEnvironmentId) {
-  return getTaskEnvironment(state, taskEnvironmentId).code;
+  const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
+  return taskEnvironment.code;
+}
+
+
+export function getRoboAst(state, taskEnvironmentId) {
+  const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
+  return taskEnvironment.roboAst;
+}
+
+
+export function getEditorType(state, taskEnvironmentId) {
+  const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
+  const editorType = taskEnvironment.editorType;
+  return editorType;
+}
+
+
+// FIXME: not a selector function, should be somewhere else
+function countActions(roboAst) {
+  const nodes = getAllNodes(roboAst);
+  // TODO: use in-set instead of 4 comparisions
+  const actionNodes = nodes.filter(node => node.head === 'fly'
+                                   || node.head === 'left'
+                                   || node.head === 'right'
+                                   || node.head === 'shoot');
+  const count = actionNodes.length;
+  return count;
+}
+
+// FIXME: not a selector function, should be somewhere else
+function getAllNodes(astNode) {
+  // quick traversing hack -> fragile code -> TODO: do it properly
+  // TODO: also traverse through non-commands (ie. test)
+  if (astNode.statement) {
+    return getAllNodes(astNode.statement);
+  }
+  let nodes = [astNode];
+  if (astNode.body) {
+    nodes = [].concat.apply(nodes, astNode.body.map(getAllNodes));
+  }
+  if (astNode.orelse) {
+    nodes = nodes.concat(getAllNodes(astNode.orelse));
+  }
+  console.log(nodes);
+  return nodes;
 }
 
 

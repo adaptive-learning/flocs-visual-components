@@ -20,10 +20,12 @@ export default class CodeEditor extends React.Component {
         onChange={this.props.onChange}
         mode="robocode"
         theme="solarized_light"
-        fontSize={16}
+        fontSize={18}
         focus={true}
         editorProps={{ $blockScrolling: true }}
-        style={{ display: 'inline-block' }}
+        width="100%"
+        height="100%"
+        style={{ display: 'inline-block', marginBottom: '-5px' }}
       />
     );
   }

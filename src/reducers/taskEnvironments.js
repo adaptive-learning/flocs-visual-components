@@ -1,5 +1,6 @@
 import { flocsActions as actions } from '../actions';
 import { parseSpaceWorld } from '../core/spaceWorldDescription';
+import { parseRoboCode, RoboCodeSyntaxError } from '../core/roboCodeParser';
 
 
 export default function reduceTaskEnvironments(state = {}, action) {
@@ -18,6 +19,8 @@ export default function reduceTaskEnvironments(state = {}, action) {
       return updateTaskEnvironment(state, resetGame, action.payload);
     case actions.CHANGE_CODE:
       return updateTaskEnvironment(state, changeCode, action.payload);
+    case actions.CHANGE_ROBO_AST:
+      return updateTaskEnvironment(state, changeRoboAst, action.payload);
     case actions.INTERPRETATION_STARTED:
       return updateTaskEnvironment(state, startInterpretation, action.payload);
     case actions.TASK_ATTEMPTED:
@@ -39,7 +42,10 @@ const emptyTask = {
 
 const initialTaskEnvironment = {
   task: emptyTask,
+  editorType: 'blockly',
+  roboAst: { head: 'start', body: [] },
   code: '',
+  validCode: true,
   interpreting: false,
   pastActions: [],
   currentAction: null,
@@ -71,7 +77,9 @@ function setTask(taskEnvironment, { task }) {
   return {
     ...taskEnvironment,
     task: taskWithDefaults,
+    roboAst: { head: 'start', body: [] },
     code: '',
+    validCode: true,
     pastActions: [],
     currentAction: null,
     interpreting: false,
@@ -129,7 +137,26 @@ function changeSetting(taskEnvironment, { taskSource }) {
 
 
 function changeCode(taskEnvironment, { code }) {
-  return { ...taskEnvironment, code };
+  let roboAst = taskEnvironment.roboAst;
+  let validCode = true;
+  try {
+    roboAst = parseRoboCode(code);
+  } catch (error) {
+    if (error instanceof RoboCodeSyntaxError) {
+      validCode = false;
+    } else {
+      throw error;
+    }
+  }
+  return { ...taskEnvironment, code, validCode, roboAst };
+}
+
+
+function changeRoboAst(taskEnvironment, { roboAst }) {
+  const code = 'fly()';  // TODO: generateRoboCode
+  const validCode = true;
+  console.log('changed', code, validCode, roboAst);
+  return { ...taskEnvironment, code, validCode, roboAst };
 }
 
 

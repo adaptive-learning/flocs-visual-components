@@ -12,6 +12,7 @@ export const CREATE_TASK_ENVIRONMENT = 'FLOCS.CREATE_TASK_ENVIRONMENT';
 export const SET_TASK = 'FLOCS.SET_TASK';
 export const CHANGE_SETTING = 'FLOCS.CHANGE_SETTING';
 export const CHANGE_CODE = 'FLOCS.CHANGE_CODE';
+export const CHANGE_ROBO_AST = 'FLOCS.CHANGE_ROBO_AST';
 export const RESET_GAME = 'FLOCS.RESET_GAME';
 export const DO_ACTION = 'FLOCS.DO_ACTION';
 export const MOVE = 'FLOCS.MOVE';
@@ -66,6 +67,14 @@ export function changeCode(taskEnvironmentId, code) {
   return {
     type: CHANGE_CODE,
     payload: { taskEnvironmentId, code },
+  };
+}
+
+
+export function changeRoboAst(taskEnvironmentId, roboAst) {
+  return {
+    type: CHANGE_ROBO_AST,
+    payload: { taskEnvironmentId, roboAst },
   };
 }
 
