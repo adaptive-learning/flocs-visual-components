@@ -1,9 +1,9 @@
 import { getTaskId,
-         getCode,
+         getRoboAst,
          getActionsLimit,
          getTaskSourceText } from '../selectors/taskEnvironment';
 import { getColor, getPosition, isSolved, isDead, getGameStage } from '../selectors/gameState';
-import { interpretRoboCode, InterpreterError } from '../core/roboCodeInterpreter';
+import { interpretRoboAst, InterpreterError } from '../core/roboCodeInterpreter';
 import { parseTaskSourceText } from '../core/taskSourceParser';
 import { downloadTextFile, loadTextFile } from '../utils/files';
 
@@ -107,7 +107,7 @@ export function runProgram(taskEnvironmentId) {
       dispatch(interpretationStarted(taskEnvironmentId));
       setTimeout(resolve);
     });
-    const code = getCode(getState(), taskEnvironmentId);
+    const roboAst = getRoboAst(getState(), taskEnvironmentId);
     const context = {
       doActionMove: (action) => dispatch(doActionMove(taskEnvironmentId, action)),
       color: () => getColor(getState(), taskEnvironmentId),
@@ -117,7 +117,7 @@ export function runProgram(taskEnvironmentId) {
       interrupted: () => getGameStage(getState(), taskEnvironmentId) === 'initial',
     };
     const interpretingPromise = startingInterpretation()
-      .then(() => interpretRoboCode(code, context))
+      .then(() => interpretRoboAst(roboAst, context))
       .catch(handleInterpreterError)
       .then(() => dispatch(taskAttempted(taskEnvironmentId)));
     return interpretingPromise;

@@ -10,8 +10,8 @@ export function generateRoboJavaScript(roboAst) {
 
 
 function generateSequence(nodes) {
-  if (nodes === undefined || nodes === null || nodes.length === 0) {
-    throw new Error('Cannot generate empty sequence');
+  if (nodes.length === 0) {
+    return '';
   }
   const lines = nodes.map(generateStatement);
   const jsCode = lines.join('\n');

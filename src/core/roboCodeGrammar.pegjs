@@ -24,8 +24,12 @@ EmptyProgram
 /* ----- Statements ----- */
 
 Sequence
-  = StatementBlock+
+  = EmptySequence
+  / StatementBlock+
 
+EmptySequence
+  = SOL "pass" EOL
+    { return [] }
 
 StatementBlock
   = lineNumber:SOL s:Statement EOL

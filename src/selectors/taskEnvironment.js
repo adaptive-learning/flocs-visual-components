@@ -1,3 +1,4 @@
+import { countActions } from '../core/roboCodeSyntaxChecker';
 import { generateSpaceWorldText } from '../core/spaceWorldDescription';
 import { stripIndentation } from '../utils/text';
 
@@ -106,36 +107,6 @@ export function getEditorType(state, taskEnvironmentId) {
   const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
   const editorType = taskEnvironment.editorType;
   return editorType;
-}
-
-
-// FIXME: not a selector function, should be somewhere else
-function countActions(roboAst) {
-  const nodes = getAllNodes(roboAst);
-  // TODO: use in-set instead of 4 comparisions
-  const actionNodes = nodes.filter(node => node.head === 'fly'
-                                   || node.head === 'left'
-                                   || node.head === 'right'
-                                   || node.head === 'shoot');
-  const count = actionNodes.length;
-  return count;
-}
-
-// FIXME: not a selector function, should be somewhere else
-function getAllNodes(astNode) {
-  // quick traversing hack -> fragile code -> TODO: do it properly
-  // TODO: also traverse through non-commands (ie. test)
-  if (astNode.statement) {
-    return getAllNodes(astNode.statement);
-  }
-  let nodes = [astNode];
-  if (astNode.body) {
-    nodes = [].concat.apply(nodes, astNode.body.map(getAllNodes));
-  }
-  if (astNode.orelse) {
-    nodes = nodes.concat(getAllNodes(astNode.orelse));
-  }
-  return nodes;
 }
 
 

@@ -1,5 +1,6 @@
 import { Interpreter } from 'js-interpreter';
 import { parseRoboCode, RoboCodeSyntaxError } from './roboCodeParser';
+import { getSyntaxCheckInfo } from './roboCodeSyntaxChecker';
 import { generateRoboJavaScript } from './roboJavaScriptGenerator';
 
 const defaultSettings = {
@@ -8,7 +9,7 @@ const defaultSettings = {
 
 
 /**
- * Interpret given robo-code step by step.
+ * Interpret given robo-ast step by step.
  *
  * Input and output is given by :context: parameter, it must provide
  * all robo-commands (doActionMove, position, color)
@@ -16,20 +17,31 @@ const defaultSettings = {
  *
  * Return a promise which will be fullfilled when the interpretting is finished
  */
+export function interpretRoboAst(roboAst, context, settings = defaultSettings) {
+  const syntaxInfo = getSyntaxCheckInfo(roboAst);
+  if (!syntaxInfo.valid) {
+    const report = syntaxInfo.errors[0].message;
+    return Promise.reject(new InterpreterError(report));
+  }
+  const jsCode = generateRoboJavaScript(roboAst);
+  const interpretingFinishedPromise = steppingJsCode(jsCode, context, settings.pauseLength);
+  return interpretingFinishedPromise;
+}
+
+
 export function interpretRoboCode(code, context, settings = defaultSettings) {
-  let jsCode = null;
+  let roboAst = null;
   try {
-    const roboAst = parseRoboCode(code);
-    jsCode = generateRoboJavaScript(roboAst);
+    roboAst = parseRoboCode(code);
   } catch (error) {
     if (error instanceof RoboCodeSyntaxError) {
       return Promise.reject(new InterpreterError(error.message));
     }
     throw error;
   }
-  const interpretingFinishedPromise = steppingJsCode(jsCode, context, settings.pauseLength);
-  return interpretingFinishedPromise;
+  return interpretRoboAst(roboAst, context, settings);
 }
+
 
 export function InterpreterError(message) {
   this.name = 'InterpreterError';
