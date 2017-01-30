@@ -102,7 +102,10 @@ function ifElseBlockToAst(block) {
   const test = blockToAst(getValueBlock(block, 'test'));
   const body = getBody(block);
   const bodyElse = getBody(block, 'body-else');
-  const orelse = { head: 'else', bodyElse };
+  const orelse = {
+    statement: { head: 'else', body: bodyElse },
+    location: getLocation(block),
+  };
   const astNode = { head: 'if', test, body, orelse };
   return astNode;
 }
@@ -132,7 +135,7 @@ function colorBlockToAst(block) {
 
 function positionBlockToAst(block) {
   const comparator = getFieldValue(block, 'comparator');
-  const value = getFieldValue(block, 'value');
+  const value = parseInt(getFieldValue(block, 'value'), 10);
   return { head: 'position', comparator, value };
 }
 

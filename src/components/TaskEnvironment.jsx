@@ -5,7 +5,6 @@ import SpaceGameContainer from '../containers/SpaceGameContainer';
 
 
 export default function TaskEnvironment({ taskEnvironmentId, editorType, showCommandControls }) {
-  console.log('editor type', editorType);
   return (
     <span
       style={{

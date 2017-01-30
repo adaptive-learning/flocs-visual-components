@@ -135,7 +135,6 @@ function getAllNodes(astNode) {
   if (astNode.orelse) {
     nodes = nodes.concat(getAllNodes(astNode.orelse));
   }
-  console.log(nodes);
   return nodes;
 }
 

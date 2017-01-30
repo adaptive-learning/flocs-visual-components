@@ -97,14 +97,14 @@ function generateIfBlock({ test, body, orelse }, nextNodes) {
 
 
 function generateIfElseBlock({ test, body, orelse }, nextNodes) {
-  if (orelse.head !== 'else') {
-    throw new Error(`Expected else node, found ${orelse.head}`);
+  if (orelse.statement.head !== 'else') {
+    throw new Error(`Expected else node, found ${orelse.statement.head}`);
   }
   return `
     <block type="if-else">
-      <value name="test">${generateTest(test)}</value>
+      ${generateTestValueIfPresent(test)};
       <statement name="body">${generateSequence(body)}</statement>
-      <statement name="body-else">${generateSequence(orelse.body)}</statement>
+      <statement name="body-else">${generateSequence(orelse.statement.body)}</statement>
       ${generateNextBlocksIfPresent(nextNodes)}
     </block>
   `;

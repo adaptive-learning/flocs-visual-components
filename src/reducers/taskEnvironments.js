@@ -1,6 +1,7 @@
 import { flocsActions as actions } from '../actions';
 import { parseSpaceWorld } from '../core/spaceWorldDescription';
 import { parseRoboCode, RoboCodeSyntaxError } from '../core/roboCodeParser';
+import { generateRoboCode } from '../core/roboCodeGenerator';
 
 
 export default function reduceTaskEnvironments(state = {}, action) {
@@ -153,9 +154,8 @@ function changeCode(taskEnvironment, { code }) {
 
 
 function changeRoboAst(taskEnvironment, { roboAst }) {
-  const code = 'fly()';  // TODO: generateRoboCode
+  const code = generateRoboCode(roboAst);
   const validCode = true;
-  console.log('changed', code, validCode, roboAst);
   return { ...taskEnvironment, code, validCode, roboAst };
 }
 
