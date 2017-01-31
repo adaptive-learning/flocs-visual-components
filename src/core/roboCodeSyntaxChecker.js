@@ -9,7 +9,7 @@ export function getSyntaxCheckInfo(roboAst) {
       }
     }
     if (node.head === 'while') {
-      if (node.body == null || countActions(node.body) === 0) {
+      if (countActions(node) === 0) {
         const error = { message: 'While loop without any action' };
         errors.push(error);
       }

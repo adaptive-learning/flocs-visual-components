@@ -44,6 +44,7 @@ const emptyTask = {
 const initialTaskEnvironment = {
   task: emptyTask,
   editorType: 'blockly',
+  editorSessionId: 0,
   roboAst: { head: 'start', body: [] },
   code: '',
   validCode: true,
@@ -77,6 +78,7 @@ function setTask(taskEnvironment, { task }) {
   const taskWithDefaults = addDefaults(task);
   return {
     ...taskEnvironment,
+    editorSessionId: taskEnvironment.editorSessionId + 1,
     task: taskWithDefaults,
     roboAst: { head: 'start', body: [] },
     code: '',

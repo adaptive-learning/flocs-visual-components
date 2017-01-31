@@ -18,6 +18,12 @@ export function getTaskId(state, taskEnvironmentId) {
 }
 
 
+export function getEditorSessionId(state, taskEnvironmentId) {
+  const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
+  return taskEnvironment.editorSessionId;
+}
+
+
 export function getActionsLimit(state, taskEnvironmentId) {
   const task = getTask(state, taskEnvironmentId);
   const limit = task.setting.actionsLimit;
