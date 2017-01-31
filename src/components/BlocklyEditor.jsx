@@ -3,6 +3,7 @@ import ReactBlocklyComponent from 'react-blockly-component';
 import { blocklyXmlToRoboAst } from '../core/blockly';
 import { generateBlocklyXml } from '../core/blocklyXmlGenerator';
 import { completeToolbox } from '../core/toolbox';
+import { countActions } from '../core/roboCodeSyntaxChecker';
 
 
 const workspaceConfiguration = {
@@ -26,6 +27,7 @@ export default class BlocklyEditor extends React.Component {
     if (prevProps.editorSessionId !== this.props.editorSessionId) {
       this.setRoboAst(this.props.roboAst);
     }
+    this.checkActionsLimit(this.props.roboAst);
   }
 
   setRoboAst(roboAst) {
@@ -37,6 +39,28 @@ export default class BlocklyEditor extends React.Component {
     this.blocklyWorkspace.clear();
     this.blocklyEditor.importFromXml(xml);
   }
+
+  // TODO: unhack
+  checkActionsLimit(roboAst) {
+    if (this.blocklyEditor == null) {
+      return; // blockly hasn't been loaded yet
+    }
+    const disable = (this.props.actionsLimit !== null)
+                    && (countActions(roboAst) >= this.props.actionsLimit);
+    for (const block of this.blocklyWorkspace.flyout_.workspace_.getAllBlocks()) {
+      const type = block.type;
+      // TODO: dry enumeration of actions
+      if (type === 'fly' || type === 'left' || type === 'right' || type === 'shoot') {
+        if (disable) {
+          this.blocklyWorkspace.flyout_.permanentlyDisabled_.push(block);
+          block.setDisabled(true);
+        } else {
+          block.setDisabled(false);
+        }
+      }
+    }
+  }
+
 
   // Return Blockly.Workspace
   // (node_modules/node-blockly/blockly/core/workspace.js)
@@ -52,9 +76,11 @@ export default class BlocklyEditor extends React.Component {
 
   render() {
     const initialXml = generateBlocklyXml(this.props.roboAst);
+    // factor out to a method
     const xmlDidChange = newXml => {
       const roboAst = blocklyXmlToRoboAst(newXml);
       this.props.onChange(roboAst);
+      this.checkActionsLimit(roboAst);
     };
     return (
       <div
@@ -86,6 +112,7 @@ BlocklyEditor.propTypes = {
   roboAst: PropTypes.object,
   onChange: PropTypes.func,
   editorSessionId: PropTypes.number,
+  actionsLimit: PropTypes.number,
 };
 
 BlocklyEditor.defaultProps = {
@@ -93,4 +120,5 @@ BlocklyEditor.defaultProps = {
   roboAst: { head: 'start', body: [] },
   onChange: null,
   editorSessionId: 0,
+  actionsLimit: null,
 };
