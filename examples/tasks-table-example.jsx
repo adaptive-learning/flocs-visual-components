@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
-import { TasksTable } from 'flocs-visual-components';
+import { FlocsProvider, TasksTable } from 'flocs-visual-components';
 
 const task1 = {
   taskId: 'first',
@@ -29,10 +29,12 @@ const tasks = { first: task1, second: task2 };
 
 function TasksTableContainer() {
   return (
-    <TasksTable
-      tasks={tasks}
-      urlBase="/task/"
-    />
+    <FlocsProvider>
+      <TasksTable
+        tasks={tasks}
+        urlBase="/task/"
+      />
+    </FlocsProvider>
   );
 }
 
