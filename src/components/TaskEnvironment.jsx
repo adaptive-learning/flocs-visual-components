@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import SplitPane from 'react-split-pane';
 import CodeEditorContainer from '../containers/CodeEditorContainer';
 import BlocklyEditorContainer from '../containers/BlocklyEditorContainer';
 import SpaceGameContainer from '../containers/SpaceGameContainer';
@@ -6,13 +7,14 @@ import SpaceGameContainer from '../containers/SpaceGameContainer';
 
 export default function TaskEnvironment({ taskEnvironmentId, editorType, showCommandControls }) {
   return (
-    <span
-      style={{
-        display: 'inline-block',
-        position: 'absolute',
-        verticalAlign: 'top',
-        height: '100%',
-        width: '100%',
+    <SplitPane
+      split="vertical"
+      minSize={280}
+      defaultSize={280}
+      resizerStyle={{
+        backgroundColor: '#ddd',
+        width: 1,
+        cursor: 'col-resize',
       }}
     >
       <span
@@ -41,7 +43,7 @@ export default function TaskEnvironment({ taskEnvironmentId, editorType, showCom
           position: 'absolute',
           top: 0,
           bottom: 0,
-          left: '280px',
+          left: 0,
           right: 0,
         }}
       >
@@ -52,7 +54,7 @@ export default function TaskEnvironment({ taskEnvironmentId, editorType, showCom
           <BlocklyEditorContainer taskEnvironmentId={taskEnvironmentId} />
         }
       </span>
-    </span>
+    </SplitPane>
   );
 }
 

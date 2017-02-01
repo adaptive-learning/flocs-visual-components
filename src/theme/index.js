@@ -1,6 +1,7 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // include global css styles
+import 'normalize.css';
 import './styles.css';
 
 export function initGlobalTheme() {

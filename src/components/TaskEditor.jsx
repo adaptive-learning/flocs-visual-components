@@ -1,33 +1,33 @@
 import React, { PropTypes } from 'react';
+import SplitPane from 'react-split-pane';
 import TaskEnvironmentContainer from '../containers/TaskEnvironmentContainer';
 import SettingEditorContainer from '../containers/SettingEditorContainer';
 
-export default function TaskEditor({ taskEnvironmentId, onImport, onExport }) {
+export default function TaskEditor({ taskEnvironmentId }) {
   return (
-    <div>
-      <div>
-        <TaskEnvironmentContainer
-          taskEnvironmentId={taskEnvironmentId}
-          showCommandControls={true}
-        />
-        <SettingEditorContainer
-          taskEnvironmentId={taskEnvironmentId}
-        />
-      </div>
-      <button onClick={onImport}>
-        Import
-      </button>
-      <button onClick={onExport}>
-        Export
-      </button>
-    </div>
+    <SplitPane
+      split="vertical"
+      primary="second"
+      defaultSize={400}
+      resizerStyle={{
+        backgroundColor: '#ddd',
+        width: 1,
+        cursor: 'col-resize',
+      }}
+    >
+      <TaskEnvironmentContainer
+        taskEnvironmentId={taskEnvironmentId}
+        showCommandControls={true}
+      />
+      <SettingEditorContainer
+        taskEnvironmentId={taskEnvironmentId}
+      />
+    </SplitPane>
   );
 }
 
 TaskEditor.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
-  onImport: PropTypes.func,
-  onExport: PropTypes.func,
 };
 
 TaskEditor.defaultProps = {

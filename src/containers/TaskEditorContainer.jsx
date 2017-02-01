@@ -2,17 +2,12 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TaskEditor from '../components/TaskEditor';
 import { parseSpaceWorld } from '../core/spaceWorldDescription';
-import { setTask, importTask, exportTask } from '../actions/taskEnvironment';
+import { setTask } from '../actions/taskEnvironment';
 
 
 class TaskEditorWrapper extends React.Component {
   constructor(props) {
     super(props);
-    this.exportTask = this.props.exportTask.bind(this, this.props.taskEnvironmentId);
-    this.importTask = this.props.importTask.bind(this, this.props.taskEnvironmentId);
-  }
-
-  componentDidMount() {
     this.props.setTask(this.props.taskEnvironmentId, this.props.initialTask);
   }
 
@@ -20,8 +15,6 @@ class TaskEditorWrapper extends React.Component {
     return (
       <TaskEditor
         taskEnvironmentId={this.props.taskEnvironmentId}
-        onImport={this.importTask}
-        onExport={this.exportTask}
       />
     );
   }
@@ -31,8 +24,6 @@ TaskEditorWrapper.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
   initialTask: PropTypes.object.isRequired,
   setTask: PropTypes.func.isRequired,
-  importTask: PropTypes.func.isRequired,
-  exportTask: PropTypes.func.isRequired,
 };
 
 const defaultInitialTask = {
@@ -57,6 +48,6 @@ function mapStateToProps(state) {
   return {};
 }
 
-const actionCreators = { setTask, importTask, exportTask };
+const actionCreators = { setTask };
 const TaskEditorContainer = connect(mapStateToProps, actionCreators)(TaskEditorWrapper);
 export default TaskEditorContainer;

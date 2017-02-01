@@ -4,7 +4,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { TaskEditorContainer,
+import { FlocsProvider,
+         TaskEditorContainer,
          flocsComponentsReducer } from 'flocs-visual-components';
 
 
@@ -18,7 +19,9 @@ function createAppComponent() {
 
   const appComponent = (
     <Provider store={store}>
-      <TaskEditorContainer />
+      <FlocsProvider>
+        <TaskEditorContainer />
+      </FlocsProvider>
     </Provider>
   );
   return appComponent;

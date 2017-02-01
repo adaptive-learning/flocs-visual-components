@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SettingEditor from '../components/SettingEditor';
-import { changeSetting } from '../actions/taskEnvironment';
+import { changeSetting, importTask, exportTask } from '../actions/taskEnvironment';
 import { switchVimMode } from '../actions/taskEditor';
 import { getSpaceWorldText, isSpaceWorldTextValid, getTask } from '../selectors/taskEnvironment';
 import { isVimModeEnabled } from '../selectors/taskEditor';
@@ -44,6 +44,8 @@ class SettingEditorWrapper extends React.Component {
     };
 
     this.handleSwitchMode = this.props.switchVimMode.bind(this);
+    this.exportTask = this.props.exportTask.bind(this, this.props.taskEnvironmentId);
+    this.importTask = this.props.importTask.bind(this, this.props.taskEnvironmentId);
   }
 
   render() {
@@ -62,6 +64,8 @@ class SettingEditorWrapper extends React.Component {
         onActionsLimitChange={this.handleActionsLimitChange}
         vimMode={this.props.vimMode}
         onSwitchMode={this.handleSwitchMode}
+        onImport={this.importTask}
+        onExport={this.exportTask}
       />
     );
   }
@@ -78,6 +82,8 @@ SettingEditorWrapper.propTypes = {
   actionsLimit: PropTypes.number,
   vimMode: PropTypes.bool.isRequired,
   switchVimMode: PropTypes.func.isRequired,
+  importTask: PropTypes.func.isRequired,
+  exportTask: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -99,6 +105,6 @@ function mapStateToProps(state, props) {
   };
 }
 
-const actionCreators = { changeSetting, switchVimMode };
+const actionCreators = { changeSetting, switchVimMode, importTask, exportTask };
 const SettingEditorContainer = connect(mapStateToProps, actionCreators)(SettingEditorWrapper);
 export default SettingEditorContainer;

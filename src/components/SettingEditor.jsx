@@ -20,6 +20,8 @@ export default function SettingEditor({
   onActionsLimitChange,
   vimMode,
   onSwitchMode,
+  onImport,
+  onExport,
 }) {
   const annotations = [];
   if (!isValid) {
@@ -103,6 +105,12 @@ export default function SettingEditor({
           </a>
         </div>
       </span>
+      <button onClick={onImport}>
+        Import
+      </button>
+      <button onClick={onExport}>
+        Export
+      </button>
     </span>
   );
 }
@@ -121,4 +129,6 @@ SettingEditor.propTypes = {
   onActionsLimitChange: PropTypes.func.isRequired,
   vimMode: PropTypes.bool.isRequired,
   onSwitchMode: PropTypes.func.isRequired,
+  onImport: PropTypes.func.isRequired,
+  onExport: PropTypes.func.isRequired,
 };
