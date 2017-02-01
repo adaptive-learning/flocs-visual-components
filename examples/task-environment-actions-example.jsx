@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { connect, Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -91,7 +92,9 @@ function createAppComponent() {
   // create your root app component
   const appComponent = (
     <Provider store={store}>
-      <PracticeEnvironmentContainer />
+      <MuiThemeProvider>
+        <PracticeEnvironmentContainer />
+      </MuiThemeProvider>
     </Provider>
   );
   return appComponent;

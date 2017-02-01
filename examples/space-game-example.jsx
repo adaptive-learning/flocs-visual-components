@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { SpaceGame, parseSpaceWorld } from 'flocs-visual-components';
 
 function handleControlClicked(control) {
@@ -19,10 +20,12 @@ const gameState = {
 };
 
 const component = (
-  <SpaceGame
-    gameState={gameState}
-    onControlClicked={handleControlClicked}
-  />
+  <MuiThemeProvider>
+    <SpaceGame
+      gameState={gameState}
+      onControlClicked={handleControlClicked}
+    />
+  </MuiThemeProvider>
 );
 
 const mountElement = document.getElementById('spaceGameExample');

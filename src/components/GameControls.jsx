@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 export default function GameControls({ controls, onClick }) {
@@ -19,15 +20,18 @@ export default function GameControls({ controls, onClick }) {
     return controls[controlGroup] === 'passive';
   }
 
-  function conditionallyRenderControlButton(name, label) {
+  function conditionallyRenderControlButton(name, label, primary = false) {
     const controlGroup = GROUP[name];
     if (!(visible(controlGroup))) {
       return null;
     }
     return (
-      <button disabled={disabled(controlGroup)} onClick={() => onClick(name)}>
-        {label}
-      </button>
+      <RaisedButton
+        label={label}
+        disabled={disabled(controlGroup)}
+        primary={primary}
+        onClick={() => onClick(name)}
+      />
     );
   }
 
@@ -41,8 +45,8 @@ export default function GameControls({ controls, onClick }) {
           {conditionallyRenderControlButton('shoot', 'Shoot')}
         </span>
       }
-      {conditionallyRenderControlButton('run', 'Run')}
-      {conditionallyRenderControlButton('reset', 'Reset')}
+      {conditionallyRenderControlButton('run', 'Run', true)}
+      {conditionallyRenderControlButton('reset', 'Reset', true)}
     </span>
   );
 }

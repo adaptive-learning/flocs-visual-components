@@ -35,6 +35,10 @@ module.exports = {
         force: 'pre',
       },
       {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader',
+      },
+      {
         test: /\.(jpg|png)$/,
         loader: 'url?limit=8000&name=/static/images/[name].[ext]',
       },

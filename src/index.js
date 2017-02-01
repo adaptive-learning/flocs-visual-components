@@ -13,8 +13,10 @@ import { flocsSelector } from './selectors';
 import { flocsActionCreators, flocsActions } from './actions';
 import { parseSpaceWorld } from './core/spaceWorldDescription';
 import { initGlobalBlockly } from './core/blockly';
+import { initGlobalTheme } from './theme';
 
-
+// global initializations
+initGlobalTheme();
 initGlobalBlockly();
 
 export {
