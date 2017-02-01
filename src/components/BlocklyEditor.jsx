@@ -100,7 +100,7 @@ export default class BlocklyEditor extends React.Component {
           toolboxBlocks={this.props.toolboxBlocks}
           initialXml={initialXml}
           xmlDidChange={xmlDidChange}
-          wrapperDivClassName={'fill-height'}
+          wrapperDivClassName="flocs-blockly"
         />
       </div>
     );
