@@ -15,6 +15,7 @@ const gameState = {
     |b |b |b |b |bM|`),
   stage: 'solved',
   diamonds: { taken: 2, total: 2 },
+  energy: { current: 1, full: 2 },
 };
 
 const component = (
