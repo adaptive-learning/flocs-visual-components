@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 
-
 export default function GameControls({ controls, onClick }) {
   const GROUP = {
     fly: 'commands',
@@ -20,7 +19,7 @@ export default function GameControls({ controls, onClick }) {
     return controls[controlGroup] === 'passive';
   }
 
-  function conditionallyRenderControlButton(name, label, primary = false) {
+  function conditionallyRenderControlButton(name, label, primary = false, minWidth = 50) {
     const controlGroup = GROUP[name];
     if (!(visible(controlGroup))) {
       return null;
@@ -30,23 +29,24 @@ export default function GameControls({ controls, onClick }) {
         label={label}
         disabled={disabled(controlGroup)}
         primary={primary}
+        style={{ margin: 2, minWidth }}
         onClick={() => onClick(name)}
       />
     );
   }
 
   return (
-    <span style={{ display: 'block', margin: '5px 0px' }}>
+    <span style={{ display: 'block', margin: '5px 4px' }}>
       {visible('commands') &&
         <span style={{ display: 'block', marginBottom: '2px' }}>
-          {conditionallyRenderControlButton('fly', 'Fly')}
-          {conditionallyRenderControlButton('left', 'Left')}
-          {conditionallyRenderControlButton('right', 'Right')}
-          {conditionallyRenderControlButton('shoot', 'Shoot')}
+          {conditionallyRenderControlButton('fly', '↑')}
+          {conditionallyRenderControlButton('left', '↖')}
+          {conditionallyRenderControlButton('right', '↗')}
+          {conditionallyRenderControlButton('shoot', '★')}
         </span>
       }
-      {conditionallyRenderControlButton('run', 'Run', true)}
-      {conditionallyRenderControlButton('reset', 'Reset', true)}
+      {conditionallyRenderControlButton('run', 'Run', true, 88)}
+      {conditionallyRenderControlButton('reset', 'Reset', true, 88)}
     </span>
   );
 }
