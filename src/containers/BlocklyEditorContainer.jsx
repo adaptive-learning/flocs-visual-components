@@ -27,7 +27,7 @@ BlocklyEditorWrapper.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
   editorSessionId: PropTypes.number,
   roboAst: PropTypes.object.isRequired,
-  actionsLimit: PropTypes.number.isRequired,
+  actionsLimit: PropTypes.number,
   changeRoboAst: PropTypes.func.isRequired,
 };
 
