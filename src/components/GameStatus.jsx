@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import TaskName from './TaskName';
+import Icon from './Icon';
 
 export default function GameStatus({ taskId, solved, dead, diamonds, energy, actions }) {
   return (
@@ -10,11 +11,15 @@ export default function GameStatus({ taskId, solved, dead, diamonds, energy, act
         {dead && <span style={{ float: 'right' }}>&#10005;</span>}
       </span>
       <span style={{ display: 'block' }}>
-        {diamonds.total > 0 && <span>D: {diamonds.taken}/{diamonds.total}&nbsp;&nbsp;</span>}
-        {energy.full !== null && <span>E: {energy.current}/{energy.full}</span>}
-      </span>
-      <span style={{ display: 'block' }}>
-        {actions.limit !== null && <span>Actions: {actions.used}/{actions.limit}&nbsp;&nbsp;</span>}
+        { diamonds.total > 0 &&
+          <span><Icon name="energy" /> {diamonds.taken}/{diamonds.total}&nbsp;&nbsp;</span>
+        }
+        { energy.full !== null &&
+          <span><Icon name="diamond" /> {energy.current}/{energy.full}&nbsp;&nbsp;</span>
+        }
+        { actions.limit !== null &&
+          <span><Icon name="actions" /> {actions.used}/{actions.limit}&nbsp;&nbsp;</span>
+        }
       </span>
     </span>
   );
