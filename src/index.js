@@ -14,12 +14,16 @@ import { flocsActionCreators, flocsActions } from './actions';
 import { parseSpaceWorld } from './core/spaceWorldDescription';
 import { initGlobalBlockly } from './core/blockly';
 import { initGlobalTheme } from './theme';
+import FlocsProvider from './FlocsProvider';
 
 // global initializations
 initGlobalTheme();
 initGlobalBlockly();
 
 export {
+  // context provider (store, theme, localization)
+  FlocsProvider,
+
   // components
   SpaceGame,
   CodeEditor,

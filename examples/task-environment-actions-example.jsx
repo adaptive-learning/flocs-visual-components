@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { connect, Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { TaskEnvironmentContainer,
+import { FlocsProvider,
+         TaskEnvironmentContainer,
          flocsComponentsReducer,
          flocsActionCreators,
          flocsActions,
@@ -92,9 +92,9 @@ function createAppComponent() {
   // create your root app component
   const appComponent = (
     <Provider store={store}>
-      <MuiThemeProvider>
+      <FlocsProvider>
         <PracticeEnvironmentContainer />
-      </MuiThemeProvider>
+      </FlocsProvider>
     </Provider>
   );
   return appComponent;

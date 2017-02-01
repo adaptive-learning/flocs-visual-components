@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { TaskEnvironmentContainer,
+import { FlocsProvider,
+         TaskEnvironmentContainer,
          flocsComponentsReducer,
          flocsActionCreators,
          parseSpaceWorld } from 'flocs-visual-components';
@@ -24,7 +25,9 @@ function createAppComponent() {
   const taskEnvId = 'single';
   const appComponent = (
     <Provider store={store}>
-      <TaskEnvironmentContainer taskEnvironmentId={taskEnvId} />
+      <FlocsProvider>
+        <TaskEnvironmentContainer taskEnvironmentId={taskEnvId} />
+      </FlocsProvider>
     </Provider>
   );
 
