@@ -21,7 +21,7 @@ export default class TaskEditor extends React.Component {
     return (
       <SplitPane
         split="vertical"
-        defaultSize={800}
+        defaultSize="50%"
         maxSize={-350}
         resizerStyle={{
           backgroundColor: '#aaa',

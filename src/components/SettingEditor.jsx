@@ -1,5 +1,12 @@
 import React, { PropTypes } from 'react';
 import AceEditor from 'react-ace';
+import Toggle from 'material-ui/Toggle';
+import { List, ListItem } from 'material-ui/List';
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
+import IconDescription from 'material-ui/svg-icons/action/description';
+import IconUpload from 'material-ui/svg-icons/content/unarchive';
+import IconDownload from 'material-ui/svg-icons/content/move-to-inbox';
 
 import 'brace/theme/solarized_light';
 import 'brace/keybinding/vim';
@@ -91,38 +98,35 @@ export default function SettingEditor({
         height="300px"
         style={{ display: 'block' }}
       />
-      <span style={{ display: 'block' }}>
-        <div>
-          <input
-            type="checkbox"
-            checked={vimMode}
-            onChange={onSwitchMode}
-          />
-          vim mode
-        </div>
-        <div>
-          <a
-            href="https://github.com/adaptive-learning/flocs-visual-components/blob/master/docs/space-world.md"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Docs: SpaceWorld desription
-          </a>
-        </div>
-      </span>
-      <button onClick={onImport}>
-        Import
-      </button>
-      <button onClick={onExport}>
-        Export
-      </button>
       <div>
-        <input
-          type="checkbox"
-          checked={blocklyEditorType}
-          onChange={onEditorTypeChange}
-        />
-        Blockly editor
+        <Paper style={{ width: 350, margin: 10 }}>
+          <List>
+            <ListItem
+              primaryText="Vim SpaceWorld editor"
+              rightToggle={<Toggle toggled={vimMode} onToggle={onSwitchMode} />}
+            />
+            <ListItem
+              primaryText="Blockly editor"
+              rightToggle={<Toggle toggled={blocklyEditorType} onToggle={onEditorTypeChange} />}
+            />
+          </List>
+          <Divider />
+          <List>
+            <ListItem primaryText="Import task" onClick={onImport} leftIcon={<IconUpload />} />
+            <ListItem primaryText="Export task" onClick={onExport} leftIcon={<IconDownload />} />
+          </List>
+          <Divider />
+          <List>
+            <ListItem
+              href="https://github.com/adaptive-learning/flocs-visual-components/blob/master/docs/space-world.md"
+              target="_blank"
+              rel="noreferrer noopener"
+              primaryText="Open SpaceWorld desription"
+              secondary={true}
+              leftIcon={<IconDescription />}
+            />
+          </List>
+        </Paper>
       </div>
     </div>
   );
