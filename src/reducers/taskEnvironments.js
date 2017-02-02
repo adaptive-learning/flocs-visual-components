@@ -28,6 +28,8 @@ export default function reduceTaskEnvironments(state = {}, action) {
       return updateTaskEnvironment(state, endInterpretation, action.payload);
     case actions.CHANGE_GAME_PANEL_WIDTH:
       return updateTaskEnvironment(state, changeGamePanelWidth, action.payload);
+    case actions.SET_EDITOR_TYPE:
+      return updateTaskEnvironment(state, setEditorType, action.payload);
     default:
       return state;
   }
@@ -205,4 +207,9 @@ function endInterpretation(taskEnvironment) {
 
 function changeGamePanelWidth(taskEnvironment, { gamePanelWidth }) {
   return { ...taskEnvironment, gamePanelWidth };
+}
+
+
+function setEditorType(taskEnvironment, { editorType }) {
+  return { ...taskEnvironment, editorType };
 }

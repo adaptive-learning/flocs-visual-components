@@ -11,6 +11,7 @@ import { createTaskEnvironment,
          taskAttempted,
          doActionMove,
          resetGame,
+         setEditorType,
          CREATE_TASK_ENVIRONMENT,
          SET_TASK,
          CHANGE_SETTING,
@@ -21,7 +22,8 @@ import { createTaskEnvironment,
          INTERPRETATION_STARTED,
          RESET_GAME,
          DO_ACTION,
-         MOVE } from './taskEnvironment';
+         MOVE,
+         SET_EDITOR_TYPE } from './taskEnvironment';
 
 const flocsActionCreators = {
   createTaskEnvironment,
@@ -36,6 +38,7 @@ const flocsActionCreators = {
   doActionMove,
   resetGame,
   switchVimMode,
+  setEditorType,
 };
 
 const flocsActions = {
@@ -51,6 +54,7 @@ const flocsActions = {
   MOVE,
   INTERPRETATION_STARTED,
   SWITCH_VIM_MODE,
+  SET_EDITOR_TYPE,
 };
 
 export { flocsActionCreators, flocsActions };

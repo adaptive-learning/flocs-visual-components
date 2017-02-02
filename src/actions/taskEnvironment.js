@@ -21,6 +21,7 @@ export const MOVE = 'FLOCS.MOVE';
 export const INTERPRETATION_STARTED = 'FLOCS.INTERPRETATION_STARTED';
 export const TASK_ATTEMPTED = 'FLOCS.TASK_ATTEMPTED';
 export const CHANGE_GAME_PANEL_WIDTH = 'FLOCS.CHANGE_GAME_PANEL_WIDTH';
+export const SET_EDITOR_TYPE = 'FLOCS.SET_EDITOR_TYPE';
 
 
 export function createTaskEnvironment(taskEnvironmentId) {
@@ -194,5 +195,13 @@ export function changeGamePanelWidth(taskEnvironmentId, gamePanelWidth) {
   return {
     type: CHANGE_GAME_PANEL_WIDTH,
     payload: { taskEnvironmentId, gamePanelWidth },
+  };
+}
+
+
+export function setEditorType(taskEnvironmentId, editorType) {
+  return {
+    type: SET_EDITOR_TYPE,
+    payload: { taskEnvironmentId, editorType },
   };
 }

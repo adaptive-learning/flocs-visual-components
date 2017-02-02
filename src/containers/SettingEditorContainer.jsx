@@ -1,9 +1,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SettingEditor from '../components/SettingEditor';
-import { changeSetting, importTask, exportTask } from '../actions/taskEnvironment';
+import { changeSetting, importTask, exportTask, setEditorType } from '../actions/taskEnvironment';
 import { switchVimMode } from '../actions/taskEditor';
-import { getSpaceWorldText, isSpaceWorldTextValid, getTask } from '../selectors/taskEnvironment';
+import { getSpaceWorldText,
+         isSpaceWorldTextValid,
+         getTask,
+         getEditorType } from '../selectors/taskEnvironment';
 import { isVimModeEnabled } from '../selectors/taskEditor';
 
 
@@ -43,6 +46,11 @@ class SettingEditorWrapper extends React.Component {
       this.props.changeSetting(this.props.taskEnvironmentId, { actionsLimit });
     };
 
+    this.handleEditorTypeChange = () => {
+      const newEditorType = (this.props.editorType === 'blockly') ? 'code' : 'blockly';
+      this.props.setEditorType(this.props.taskEnvironmentId, newEditorType);
+    };
+
     this.handleSwitchMode = this.props.switchVimMode.bind(this);
     this.exportTask = this.props.exportTask.bind(this, this.props.taskEnvironmentId);
     this.importTask = this.props.importTask.bind(this, this.props.taskEnvironmentId);
@@ -66,6 +74,8 @@ class SettingEditorWrapper extends React.Component {
         onSwitchMode={this.handleSwitchMode}
         onImport={this.importTask}
         onExport={this.exportTask}
+        blocklyEditorType={this.props.editorType === 'blockly'}
+        onEditorTypeChange={this.handleEditorTypeChange}
       />
     );
   }
@@ -84,6 +94,8 @@ SettingEditorWrapper.propTypes = {
   switchVimMode: PropTypes.func.isRequired,
   importTask: PropTypes.func.isRequired,
   exportTask: PropTypes.func.isRequired,
+  editorType: PropTypes.oneOf(['code', 'blockly']).isRequired,
+  setEditorType: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -92,6 +104,7 @@ function mapStateToProps(state, props) {
   const { energy, actionsLimit } = setting;
   const spaceWorldText = getSpaceWorldText(state, taskEnvironmentId);
   const isValid = isSpaceWorldTextValid(state, taskEnvironmentId);
+  const editorType = getEditorType(state, taskEnvironmentId);
   const vimMode = isVimModeEnabled(state);
   return {
     taskEnvironmentId,
@@ -102,9 +115,10 @@ function mapStateToProps(state, props) {
     spaceWorldText,
     isValid,
     vimMode,
+    editorType,
   };
 }
 
-const actionCreators = { changeSetting, switchVimMode, importTask, exportTask };
+const actionCreators = { changeSetting, switchVimMode, importTask, exportTask, setEditorType };
 const SettingEditorContainer = connect(mapStateToProps, actionCreators)(SettingEditorWrapper);
 export default SettingEditorContainer;

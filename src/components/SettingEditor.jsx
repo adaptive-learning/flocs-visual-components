@@ -22,6 +22,8 @@ export default function SettingEditor({
   onSwitchMode,
   onImport,
   onExport,
+  blocklyEditorType,
+  onEditorTypeChange,
 }) {
   const annotations = [];
   if (!isValid) {
@@ -114,6 +116,14 @@ export default function SettingEditor({
       <button onClick={onExport}>
         Export
       </button>
+      <div>
+        <input
+          type="checkbox"
+          checked={blocklyEditorType}
+          onChange={onEditorTypeChange}
+        />
+        Blockly editor
+      </div>
     </div>
   );
 }
@@ -134,4 +144,6 @@ SettingEditor.propTypes = {
   onSwitchMode: PropTypes.func.isRequired,
   onImport: PropTypes.func.isRequired,
   onExport: PropTypes.func.isRequired,
+  blocklyEditorType: PropTypes.bool.isRequired,
+  onEditorTypeChange: PropTypes.func.isRequired,
 };
