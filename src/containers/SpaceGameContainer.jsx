@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SpaceGame from '../components/SpaceGame';
 import { runProgram, resetGame, doActionMove } from '../actions/taskEnvironment';
 import { getGameState } from '../selectors/gameState';
-import { getTaskId, getActionsLimit } from '../selectors/taskEnvironment';
+import { getTaskId, getActionsLimit, getGamePanelWidth } from '../selectors/taskEnvironment';
 
 
 class SpaceGameWrapper extends React.Component {
@@ -19,7 +19,8 @@ class SpaceGameWrapper extends React.Component {
       case 'left':
       case 'right':
       case 'shoot':
-        this.props.doActionMove(this.props.taskEnvironmentId, control); break;
+        this.props.doActionMove(this.props.taskEnvironmentId, control);
+        break;
       case 'run':
         this.props.runProgram(this.props.taskEnvironmentId);
         break;
@@ -37,6 +38,7 @@ class SpaceGameWrapper extends React.Component {
         taskId={this.props.taskId}
         gameState={this.props.gameState}
         actionsLimit={this.props.actionsLimit}
+        width={this.props.width}
         showCommandControls={this.props.showCommandControls}
         onControlClicked={this.handleControlClicked}
       />
@@ -51,6 +53,7 @@ SpaceGameWrapper.propTypes = {
   showCommandControls: PropTypes.bool,
   gameState: PropTypes.object.isRequired,
   actionsLimit: PropTypes.object.isRequired,
+  width: PropTypes.number.isRequired,
   runProgram: PropTypes.func.isRequired,
   resetGame: PropTypes.func.isRequired,
   doActionMove: PropTypes.func.isRequired,
@@ -61,7 +64,8 @@ function mapStateToProps(state, props) {
   const gameState = getGameState(state, taskEnvironmentId);
   const actionsLimit = getActionsLimit(state, taskEnvironmentId);
   const taskId = getTaskId(state, taskEnvironmentId);
-  return { taskEnvironmentId, taskId, gameState, actionsLimit, showCommandControls };
+  const width = getGamePanelWidth(state, taskEnvironmentId);
+  return { taskEnvironmentId, taskId, gameState, actionsLimit, width, showCommandControls };
 }
 
 function mapDispatchToProps(dispatch) {

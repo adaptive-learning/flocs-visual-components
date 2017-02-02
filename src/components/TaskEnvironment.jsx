@@ -5,31 +5,33 @@ import BlocklyEditorContainer from '../containers/BlocklyEditorContainer';
 import SpaceGameContainer from '../containers/SpaceGameContainer';
 
 
-export default function TaskEnvironment({ taskEnvironmentId, editorType, showCommandControls }) {
+export default function TaskEnvironment({ taskEnvironmentId,
+                                          editorType,
+                                          gamePanelWidth,
+                                          showCommandControls,
+                                          changeGamePanelWidth }) {
   return (
     <SplitPane
       split="vertical"
-      minSize={280}
-      defaultSize={280}
+      minSize={200}
+      maxSize={-400}
+      size={gamePanelWidth}
       resizerStyle={{
-        backgroundColor: '#ddd',
-        width: 1,
+        backgroundColor: '#aaa',
+        width: 4,
         cursor: 'col-resize',
       }}
+      onChange={changeGamePanelWidth}
     >
       <span
         style={{
           display: 'inline-block',
           position: 'absolute',
           left: 0,
-          width: '280px',
+          right: 0,
           top: 0,
           bottom: 0,
           backgroundColor: '#eee',
-          borderRightStyle: 'solid',
-          borderRightWidth: '1px',
-          borderColor: '#777',
-          boxSizing: 'border-box',
         }}
       >
         <SpaceGameContainer
@@ -62,9 +64,12 @@ TaskEnvironment.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
   editorType: PropTypes.oneOf(['code', 'blockly']).isRequired,
   showCommandControls: PropTypes.bool,
+  gamePanelWidth: PropTypes.number.isRequired,
+  changeGamePanelWidth: PropTypes.func,
 };
 
 
 TaskEnvironment.defaultProps = {
   showCommandControls: false,
+  gamePanelWidth: 280,
 };

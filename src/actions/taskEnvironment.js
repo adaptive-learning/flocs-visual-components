@@ -20,6 +20,7 @@ export const DO_ACTION = 'FLOCS.DO_ACTION';
 export const MOVE = 'FLOCS.MOVE';
 export const INTERPRETATION_STARTED = 'FLOCS.INTERPRETATION_STARTED';
 export const TASK_ATTEMPTED = 'FLOCS.TASK_ATTEMPTED';
+export const CHANGE_GAME_PANEL_WIDTH = 'FLOCS.CHANGE_GAME_PANEL_WIDTH';
 
 
 export function createTaskEnvironment(taskEnvironmentId) {
@@ -185,5 +186,13 @@ export function resetGame(taskEnvironmentId) {
   return {
     type: RESET_GAME,
     payload: { taskEnvironmentId },
+  };
+}
+
+
+export function changeGamePanelWidth(taskEnvironmentId, gamePanelWidth) {
+  return {
+    type: CHANGE_GAME_PANEL_WIDTH,
+    payload: { taskEnvironmentId, gamePanelWidth },
   };
 }

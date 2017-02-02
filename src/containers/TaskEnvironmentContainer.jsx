@@ -1,11 +1,17 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TaskEnvironment from '../components/TaskEnvironment';
-import { createTaskEnvironment } from '../actions/taskEnvironment';
-import { getEditorType } from '../selectors/taskEnvironment';
+import { createTaskEnvironment, changeGamePanelWidth } from '../actions/taskEnvironment';
+import { getEditorType, getGamePanelWidth } from '../selectors/taskEnvironment';
 
 
 class TaskEnvironmentWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+    const { taskEnvironmentId } = this.props;
+    this.changeGamePanelWidth = this.props.changeGamePanelWidth.bind(this, taskEnvironmentId);
+  }
+
   componentWillMount() {
     this.props.createTaskEnvironment(this.props.taskEnvironmentId);
   }
@@ -16,6 +22,8 @@ class TaskEnvironmentWrapper extends React.Component {
         taskEnvironmentId={this.props.taskEnvironmentId}
         editorType={this.props.editorType}
         showCommandControls={this.props.showCommandControls}
+        gamePanelWidth={this.props.gamePanelWidth}
+        changeGamePanelWidth={this.changeGamePanelWidth}
       />
     );
   }
@@ -26,6 +34,8 @@ TaskEnvironmentWrapper.propTypes = {
   createTaskEnvironment: PropTypes.func.isRequired,
   showCommandControls: PropTypes.bool.isRequired,
   editorType: PropTypes.oneOf(['code', 'blockly']).isRequired,
+  gamePanelWidth: PropTypes.number.isRequired,
+  changeGamePanelWidth: PropTypes.func.isRequired,
 };
 
 
@@ -38,11 +48,11 @@ function mapStateToProps(state, props) {
   return {
     taskEnvironmentId: props.taskEnvironmentId,
     editorType: getEditorType(state, props.taskEnvironmentId),
+    gamePanelWidth: getGamePanelWidth(state, props.taskEnvironmentId),
   };
 }
 
 
-const TaskEnvironmentContainer = connect(
-  mapStateToProps,
-  { createTaskEnvironment })(TaskEnvironmentWrapper);
+const actionCreators = { createTaskEnvironment, changeGamePanelWidth };
+const TaskEnvironmentContainer = connect(mapStateToProps, actionCreators)(TaskEnvironmentWrapper);
 export default TaskEnvironmentContainer;

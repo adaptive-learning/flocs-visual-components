@@ -2,10 +2,9 @@ import React, { PropTypes } from 'react';
 import GameObject from './GameObject';
 import SpaceBackgroundGrid from './SpaceBackgroundGrid';
 
-export default function SpaceWorld({ fields }) {
-  const width = 280;
+export default function SpaceWorld({ fields, width }) {
   const { cols, backgrounds, objects } = prepareFields(fields);
-  const fieldSize = Math.floor(width / cols);
+  const fieldSize = width / cols;
   // const height = fieldSize * rows;
   const worldStyle = {
     display: 'block',
@@ -33,6 +32,12 @@ export default function SpaceWorld({ fields }) {
 
 SpaceWorld.propTypes = {
   fields: PropTypes.array.isRequired,
+  width: PropTypes.number,
+};
+
+
+SpaceWorld.defaultProps = {
+  width: 280,
 };
 
 

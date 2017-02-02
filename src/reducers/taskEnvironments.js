@@ -26,6 +26,8 @@ export default function reduceTaskEnvironments(state = {}, action) {
       return updateTaskEnvironment(state, startInterpretation, action.payload);
     case actions.TASK_ATTEMPTED:
       return updateTaskEnvironment(state, endInterpretation, action.payload);
+    case actions.CHANGE_GAME_PANEL_WIDTH:
+      return updateTaskEnvironment(state, changeGamePanelWidth, action.payload);
     default:
       return state;
   }
@@ -51,6 +53,7 @@ const initialTaskEnvironment = {
   interpreting: false,
   pastActions: [],
   currentAction: null,
+  gamePanelWidth: 280,
 };
 
 
@@ -197,4 +200,9 @@ function startInterpretation(taskEnvironment) {
 
 function endInterpretation(taskEnvironment) {
   return { ...taskEnvironment, interpreting: false };
+}
+
+
+function changeGamePanelWidth(taskEnvironment, { gamePanelWidth }) {
+  return { ...taskEnvironment, gamePanelWidth };
 }

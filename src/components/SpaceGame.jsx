@@ -8,6 +8,7 @@ export default function SpaceGame({
     taskId,
     gameState,
     actionsLimit,
+    width,
     showCommandControls,
     onControlClicked,
   }) {
@@ -30,7 +31,10 @@ export default function SpaceGame({
         solved={stage === 'solved'}
         dead={stage === 'dead'}
       />
-      <SpaceWorld fields={fields} />
+      <SpaceWorld
+        fields={fields}
+        width={width}
+      />
       <GameControls controls={controls} onClick={onControlClicked} />
     </span>
   );
@@ -42,12 +46,14 @@ SpaceGame.propTypes = {
   actionsLimit: PropTypes.object,
   onControlClicked: PropTypes.func.isRequired,
   showCommandControls: PropTypes.bool,
+  width: PropTypes.number,
 };
 
 SpaceGame.defaultProps = {
   taskId: 'nameless-task',
   actionsLimit: { limit: null },
   showCommandControls: false,
+  width: 280,
 };
 
 

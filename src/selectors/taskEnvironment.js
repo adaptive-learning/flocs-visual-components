@@ -116,6 +116,12 @@ export function getEditorType(state, taskEnvironmentId) {
 }
 
 
+export function getGamePanelWidth(state, taskEnvironmentId) {
+  const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
+  return taskEnvironment.gamePanelWidth;
+}
+
+
 // FIXME: not a selector function, should be somewhere else
 export function getInitialFieldsFromTaskEnvironment(taskEnvironment) {
   return taskEnvironment.task.setting.fields;
