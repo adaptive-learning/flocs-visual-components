@@ -16,9 +16,14 @@ class TaskEnvironmentWrapper extends React.Component {
     this.props.createTaskEnvironment(this.props.taskEnvironmentId);
   }
 
+  resize() {
+    this.taskEnvironment.resize();
+  }
+
   render() {
     return (
       <TaskEnvironment
+        ref={ref => { this.taskEnvironment = ref; }}
         taskEnvironmentId={this.props.taskEnvironmentId}
         editorType={this.props.editorType}
         showCommandControls={this.props.showCommandControls}
@@ -54,5 +59,8 @@ function mapStateToProps(state, props) {
 
 
 const actionCreators = { createTaskEnvironment, changeGamePanelWidth };
-const TaskEnvironmentContainer = connect(mapStateToProps, actionCreators)(TaskEnvironmentWrapper);
+const TaskEnvironmentContainer = connect(mapStateToProps,
+                                         actionCreators,
+                                         null,
+                                         { withRef: true })(TaskEnvironmentWrapper);
 export default TaskEnvironmentContainer;

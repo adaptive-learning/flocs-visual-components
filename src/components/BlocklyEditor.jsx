@@ -40,6 +40,10 @@ export default class BlocklyEditor extends React.Component {
     this.blocklyEditor.importFromXml(xml);
   }
 
+  resize() {
+    this.blocklyEditor.resize();
+  }
+
   // TODO: unhack
   checkActionsLimit(roboAst) {
     if (this.blocklyEditor == null) {

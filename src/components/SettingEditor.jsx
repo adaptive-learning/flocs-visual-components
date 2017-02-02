@@ -29,61 +29,64 @@ export default function SettingEditor({
   }
 
   return (
-    <span style={{ display: 'inline-block' }}>
-      <div style={{ display: 'table-row' }}>
-        <span style={{ display: 'table-cell' }}>
-          taskId:
-        </span>
-        <input
-          style={{ display: 'table-cell' }}
-          type="text"
-          value={taskId}
-          onChange={onTaskIdChange}
-        />
+    <div style={{ overflowX: 'hidden' }}>
+      <div style={{ display: 'table' }}>
+        <div style={{ display: 'table-row' }}>
+          <span style={{ display: 'table-cell' }}>
+            taskId:
+          </span>
+          <input
+            style={{ display: 'table-cell' }}
+            type="text"
+            value={taskId}
+            onChange={onTaskIdChange}
+          />
+        </div>
+        <div style={{ display: 'table-row' }}>
+          <span style={{ display: 'table-cell' }}>
+            category:
+          </span>
+          <input
+            style={{ display: 'table-cell' }}
+            type="text"
+            value={category}
+            onChange={onCategoryChange}
+          />
+        </div>
+        <div style={{ display: 'table-row' }}>
+          <span style={{ display: 'table-cell' }}>
+            energy:
+          </span>
+          <input
+            style={{ display: 'table-cell' }}
+            type="text"
+            value={energy || ''}
+            onChange={onEnergyChange}
+          />
+        </div>
+        <div style={{ display: 'table-row' }}>
+          <span style={{ display: 'table-cell' }}>
+            actionsLimit:
+          </span>
+          <input
+            style={{ display: 'table-cell' }}
+            type="text"
+            value={actionsLimit || ''}
+            onChange={onActionsLimitChange}
+          />
+        </div>
       </div>
-      <div style={{ display: 'table-row' }}>
-        <span style={{ display: 'table-cell' }}>
-          category:
-        </span>
-        <input
-          style={{ display: 'table-cell' }}
-          type="text"
-          value={category}
-          onChange={onCategoryChange}
-        />
-      </div>
-      <div style={{ display: 'table-row' }}>
-        <span style={{ display: 'table-cell' }}>
-          energy:
-        </span>
-        <input
-          style={{ display: 'table-cell' }}
-          type="text"
-          value={energy || ''}
-          onChange={onEnergyChange}
-        />
-      </div>
-      <div style={{ display: 'table-row' }}>
-        <span style={{ display: 'table-cell' }}>
-          actionsLimit:
-        </span>
-        <input
-          style={{ display: 'table-cell' }}
-          type="text"
-          value={actionsLimit || ''}
-          onChange={onActionsLimitChange}
-        />
-      </div>
-
       <AceEditor
         value={spaceWorldText}
         onChange={onChange}
         mode="spaceworld"
         theme="solarized_light"
-        fontSize={16}
+        fontSize={18}
         keyboardHandler={vimMode ? 'vim' : null}
         annotations={annotations}
         editorProps={{ $blockScrolling: true }}
+        width="100%"
+        height="300px"
         style={{ display: 'block' }}
       />
       <span style={{ display: 'block' }}>
@@ -111,7 +114,7 @@ export default function SettingEditor({
       <button onClick={onExport}>
         Export
       </button>
-    </span>
+    </div>
   );
 }
 

@@ -11,9 +11,14 @@ class BlocklyEditorWrapper extends React.Component {
     this.changeRoboAst = this.props.changeRoboAst.bind(this, this.props.taskEnvironmentId);
   }
 
+  resize() {
+    this.blocklyEditor.resize();
+  }
+
   render() {
     return (
       <BlocklyEditor
+        ref={ref => { this.blocklyEditor = ref; }}
         roboAst={this.props.roboAst}
         actionsLimit={this.props.actionsLimit}
         editorSessionId={this.props.editorSessionId}
@@ -41,5 +46,8 @@ function mapStateToProps(state, props) {
 
 
 const actionCreators = { changeRoboAst };
-const BlocklyEditorContainer = connect(mapStateToProps, actionCreators)(BlocklyEditorWrapper);
+const BlocklyEditorContainer = connect(mapStateToProps,
+                                       actionCreators,
+                                       null,
+                                       { withRef: true })(BlocklyEditorWrapper);
 export default BlocklyEditorContainer;
