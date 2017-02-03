@@ -20,7 +20,7 @@ Corresponds to:
 - starts with a lower-case letter denoting background
   - colors: `r`ed, `g`reen, `b`lue, `y`ellow, `m`agenta
 - followed by a series of upper-case letters denoting objects
-  - objects: `S`paceship, `D`iamond, `M`eteoroid, `A`steroid
+  - objects: `S`paceship, `D`iamond, `M`eteoroid, `A`steroid, `W`ormhole
 - for example, `bD` is a blue field with a diamond
 
 ## Conventions

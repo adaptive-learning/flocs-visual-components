@@ -46,6 +46,7 @@ const IMAGE_TYPES = {
   A: 'asteroid',
   M: 'meteoroid',
   D: 'diamond',
+  W: 'wormhole',
   explosion: 'explosion',
   laser: 'laser',
   'laser-start': 'laser-start',
