@@ -1,3 +1,15 @@
+import { CREATE_TASK_ENVIRONMENT,
+         SET_TASK,
+         CHANGE_SETTING,
+         CHANGE_CODE,
+         CHANGE_ROBO_AST,
+         RESET_GAME,
+         DO_ACTION,
+         MOVE,
+         INTERPRETATION_STARTED,
+         TASK_ATTEMPTED,
+         CHANGE_GAME_PANEL_WIDTH,
+         SET_EDITOR_TYPE } from '../actionTypes';
 import { getTaskId,
          getRoboAst,
          getCode,
@@ -8,20 +20,6 @@ import { getColor, getPosition, isSolved, isDead, getGameStage } from '../select
 import { interpretRoboAst, interpretRoboCode, InterpreterError } from '../core/roboCodeInterpreter';
 import { parseTaskSourceText } from '../core/taskSourceParser';
 import { downloadTextFile, loadTextFile } from '../utils/files';
-
-
-export const CREATE_TASK_ENVIRONMENT = 'FLOCS.CREATE_TASK_ENVIRONMENT';
-export const SET_TASK = 'FLOCS.SET_TASK';
-export const CHANGE_SETTING = 'FLOCS.CHANGE_SETTING';
-export const CHANGE_CODE = 'FLOCS.CHANGE_CODE';
-export const CHANGE_ROBO_AST = 'FLOCS.CHANGE_ROBO_AST';
-export const RESET_GAME = 'FLOCS.RESET_GAME';
-export const DO_ACTION = 'FLOCS.DO_ACTION';
-export const MOVE = 'FLOCS.MOVE';
-export const INTERPRETATION_STARTED = 'FLOCS.INTERPRETATION_STARTED';
-export const TASK_ATTEMPTED = 'FLOCS.TASK_ATTEMPTED';
-export const CHANGE_GAME_PANEL_WIDTH = 'FLOCS.CHANGE_GAME_PANEL_WIDTH';
-export const SET_EDITOR_TYPE = 'FLOCS.SET_EDITOR_TYPE';
 
 
 export function createTaskEnvironment(taskEnvironmentId) {
@@ -205,3 +203,5 @@ export function setEditorType(taskEnvironmentId, editorType) {
     payload: { taskEnvironmentId, editorType },
   };
 }
+
+export const hello = 'ahoj';

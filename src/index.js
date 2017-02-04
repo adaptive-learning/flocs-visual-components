@@ -10,7 +10,8 @@ import TaskEnvironmentContainer from './containers/TaskEnvironmentContainer';
 import TaskEditorContainer from './containers/TaskEditorContainer';
 import { flocsComponentsReducer } from './reducers';
 import { flocsSelector } from './selectors';
-import { flocsActionCreators, flocsActions } from './actions';
+import flocsActionCreators from './actionCreators';
+import * as flocsActionTypes from './actionTypes';
 import { parseSpaceWorld } from './core/spaceWorldDescription';
 import { initGlobalBlockly } from './core/blockly';
 import { initGlobalTheme } from './theme';
@@ -19,6 +20,7 @@ import FlocsProvider from './FlocsProvider';
 // global initializations
 initGlobalTheme();
 initGlobalBlockly();
+
 
 export {
   // context provider (store, theme, localization)
@@ -42,7 +44,7 @@ export {
   flocsSelector,
   flocsComponentsReducer,
   flocsActionCreators,
-  flocsActions,
+  flocsActionTypes,
 
   // core functions and objects
   parseSpaceWorld,

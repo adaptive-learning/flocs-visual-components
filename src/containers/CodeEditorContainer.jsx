@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CodeEditor from '../components/CodeEditor';
-import { changeCode } from '../actions/taskEnvironment';
+import { changeCode } from '../actionCreators/taskEnvironment';
 
 
 class CodeEditorWrapper extends React.Component {

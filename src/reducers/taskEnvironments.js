@@ -1,4 +1,15 @@
-import { flocsActions as actions } from '../actions';
+import { CREATE_TASK_ENVIRONMENT,
+         SET_TASK,
+         CHANGE_SETTING,
+         CHANGE_CODE,
+         CHANGE_ROBO_AST,
+         RESET_GAME,
+         DO_ACTION,
+         MOVE,
+         INTERPRETATION_STARTED,
+         TASK_ATTEMPTED,
+         CHANGE_GAME_PANEL_WIDTH,
+         SET_EDITOR_TYPE } from '../actionTypes';
 import { parseSpaceWorld } from '../core/spaceWorldDescription';
 import { parseRoboCode, RoboCodeSyntaxError } from '../core/roboCodeParser';
 import { generateRoboCode } from '../core/roboCodeGenerator';
@@ -6,29 +17,29 @@ import { generateRoboCode } from '../core/roboCodeGenerator';
 
 export default function reduceTaskEnvironments(state = {}, action) {
   switch (action.type) {
-    case actions.CREATE_TASK_ENVIRONMENT:
+    case CREATE_TASK_ENVIRONMENT:
       return createTaskEnvironment(state, action.payload.taskEnvironmentId);
-    case actions.SET_TASK:
+    case SET_TASK:
       return updateTaskEnvironment(state, setTask, action.payload);
-    case actions.CHANGE_SETTING:
+    case CHANGE_SETTING:
       return updateTaskEnvironment(state, changeSetting, action.payload);
-    case actions.DO_ACTION:
+    case DO_ACTION:
       return updateTaskEnvironment(state, doAction, action.payload);
-    case actions.MOVE:
+    case MOVE:
       return updateTaskEnvironment(state, move, action.payload);
-    case actions.RESET_GAME:
+    case RESET_GAME:
       return updateTaskEnvironment(state, resetGame, action.payload);
-    case actions.CHANGE_CODE:
+    case CHANGE_CODE:
       return updateTaskEnvironment(state, changeCode, action.payload);
-    case actions.CHANGE_ROBO_AST:
+    case CHANGE_ROBO_AST:
       return updateTaskEnvironment(state, changeRoboAst, action.payload);
-    case actions.INTERPRETATION_STARTED:
+    case INTERPRETATION_STARTED:
       return updateTaskEnvironment(state, startInterpretation, action.payload);
-    case actions.TASK_ATTEMPTED:
+    case TASK_ATTEMPTED:
       return updateTaskEnvironment(state, endInterpretation, action.payload);
-    case actions.CHANGE_GAME_PANEL_WIDTH:
+    case CHANGE_GAME_PANEL_WIDTH:
       return updateTaskEnvironment(state, changeGamePanelWidth, action.payload);
-    case actions.SET_EDITOR_TYPE:
+    case SET_EDITOR_TYPE:
       return updateTaskEnvironment(state, setEditorType, action.payload);
     default:
       return state;
@@ -36,6 +47,7 @@ export default function reduceTaskEnvironments(state = {}, action) {
 }
 
 
+// TODO: freeze?
 const emptyTask = {
   taskId: '',
   setting: {
@@ -45,6 +57,9 @@ const emptyTask = {
   },
 };
 
+
+// TODO: freeze?
+// export const initialTaskEnvironment = {
 const initialTaskEnvironment = {
   task: emptyTask,
   editorType: 'blockly',
@@ -213,3 +228,5 @@ function changeGamePanelWidth(taskEnvironment, { gamePanelWidth }) {
 function setEditorType(taskEnvironment, { editorType }) {
   return { ...taskEnvironment, editorType };
 }
+
+export { initialTaskEnvironment };

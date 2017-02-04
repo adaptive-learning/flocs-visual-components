@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import BlocklyEditor from '../components/BlocklyEditor';
 import { getRoboAst, getEditorSessionId, getActionsLimit } from '../selectors/taskEnvironment';
-import { changeRoboAst } from '../actions/taskEnvironment';
+import { changeRoboAst } from '../actionCreators/taskEnvironment';
 
 
 class BlocklyEditorWrapper extends React.Component {

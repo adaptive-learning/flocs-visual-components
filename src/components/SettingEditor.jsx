@@ -122,7 +122,6 @@ export default function SettingEditor({
               target="_blank"
               rel="noreferrer noopener"
               primaryText="Open SpaceWorld desription"
-              secondary={true}
               leftIcon={<IconDescription />}
             />
           </List>

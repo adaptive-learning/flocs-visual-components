@@ -8,7 +8,7 @@ import { FlocsProvider,
          TaskEnvironmentContainer,
          flocsComponentsReducer,
          flocsActionCreators,
-         flocsActions,
+         flocsActionTypes,
          flocsSelector,
          parseSpaceWorld } from 'flocs-visual-components';
 
@@ -54,8 +54,8 @@ function createAppComponent() {
   const tasks = [task1, task2];
   let currentTaskIndex = 0;
   const taskEnvId = 'single';
-  // set first task into a task environment
-  store.dispatch(flocsActionCreators.setTask(taskEnvId, task1));
+  // simulate that the task is set only after some time
+  setTimeout(() => store.dispatch(flocsActionCreators.setTask(taskEnvId, task1)), 500);
 
   // for our demo, we will simply loop over the two tasks
   function nextTask() {
@@ -104,10 +104,10 @@ function createAppComponent() {
 // you can make your reducer respond to actions dispatch by flocsComponents
 function myAppReducer(state = { attempted: false }, action) {
   switch (action.type) {
-    case flocsActions.SET_TASK:
+    case flocsActionTypes.SET_TASK:
       console.log('myAppReducer responding to new task:', action.payload);
       return { attempted: false };
-    case flocsActions.TASK_ATTEMPTED:
+    case flocsActionTypes.TASK_ATTEMPTED:
       console.log('myAppReducer responding to attempted task:', action.payload);
       return { attempted: true };
     default:

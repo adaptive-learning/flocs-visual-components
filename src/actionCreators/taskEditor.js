@@ -1,5 +1,4 @@
-export const SWITCH_VIM_MODE = 'FLOCS.SWITCH_VIM_MODE';
-
+import { SWITCH_VIM_MODE } from '../actionTypes';
 
 export function switchVimMode() {
   return {

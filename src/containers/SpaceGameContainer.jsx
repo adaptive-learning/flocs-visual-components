@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SpaceGame from '../components/SpaceGame';
-import { runProgram, resetGame, doActionMove } from '../actions/taskEnvironment';
+import { createTaskEnvironment,
+         runProgram,
+         resetGame,
+         doActionMove } from '../actionCreators/taskEnvironment';
 import { getGameState } from '../selectors/gameState';
 import { getTaskId, getActionsLimit, getGamePanelWidth } from '../selectors/taskEnvironment';
 
@@ -11,6 +13,7 @@ class SpaceGameWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.handleControlClicked = this.handleControlClicked.bind(this);
+    this.props.createTaskEnvironment(this.props.taskEnvironmentId);
   }
 
   handleControlClicked(control) {
@@ -57,6 +60,7 @@ SpaceGameWrapper.propTypes = {
   runProgram: PropTypes.func.isRequired,
   resetGame: PropTypes.func.isRequired,
   doActionMove: PropTypes.func.isRequired,
+  createTaskEnvironment: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -68,11 +72,9 @@ function mapStateToProps(state, props) {
   return { taskEnvironmentId, taskId, gameState, actionsLimit, width, showCommandControls };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ runProgram, resetGame, doActionMove }, dispatch);
-}
 
-const SpaceGameContainer = connect(mapStateToProps, mapDispatchToProps)(SpaceGameWrapper);
+const actionCreators = { createTaskEnvironment, runProgram, resetGame, doActionMove };
+const SpaceGameContainer = connect(mapStateToProps, actionCreators)(SpaceGameWrapper);
 SpaceGameContainer.defaultProps = {
   showCommandControls: false,
 };

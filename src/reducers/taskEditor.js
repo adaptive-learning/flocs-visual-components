@@ -1,4 +1,4 @@
-import { flocsActions as actions } from '../actions';
+import { SWITCH_VIM_MODE } from '../actionTypes';
 
 const initialState = {
   vimMode: false,
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function reduceTaskEditor(state = initialState, action) {
   switch (action.type) {
-    case actions.SWITCH_VIM_MODE:
+    case SWITCH_VIM_MODE:
       return { ...state, vimMode: !state.vimMode };
     default:
       return state;

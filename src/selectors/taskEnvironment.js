@@ -1,9 +1,14 @@
 import { countActions } from '../core/roboCodeSyntaxChecker';
 import { generateSpaceWorldText } from '../core/spaceWorldDescription';
 import { stripIndentation } from '../utils/text';
+import { initialTaskEnvironment } from '../reducers/taskEnvironments';
 
 export function getTaskEnvironment(state, taskEnvironmentId) {
-  return state.flocsComponents.taskEnvironments[taskEnvironmentId];
+  const taskEnvironment = state.flocsComponents.taskEnvironments[taskEnvironmentId];
+  if (taskEnvironment === undefined) {
+    return initialTaskEnvironment;
+  }
+  return taskEnvironment;
 }
 
 

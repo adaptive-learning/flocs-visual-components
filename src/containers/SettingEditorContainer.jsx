@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SettingEditor from '../components/SettingEditor';
-import { changeSetting, importTask, exportTask, setEditorType } from '../actions/taskEnvironment';
-import { switchVimMode } from '../actions/taskEditor';
+import { changeSetting,
+         importTask,
+         exportTask,
+         setEditorType } from '../actionCreators/taskEnvironment';
+import { switchVimMode } from '../actionCreators/taskEditor';
 import { getSpaceWorldText,
          isSpaceWorldTextValid,
          getTask,

@@ -28,6 +28,9 @@ export default class TaskEditor extends React.Component {
           width: 4,
           cursor: 'col-resize',
         }}
+        pane2Style={{
+          overflowY: 'auto',
+        }}
         onChange={this.handleSplitChange}
       >
         <TaskEnvironmentContainer

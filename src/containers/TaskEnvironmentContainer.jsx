@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TaskEnvironment from '../components/TaskEnvironment';
-import { createTaskEnvironment, changeGamePanelWidth } from '../actions/taskEnvironment';
+import { createTaskEnvironment, changeGamePanelWidth } from '../actionCreators/taskEnvironment';
 import { getEditorType, getGamePanelWidth } from '../selectors/taskEnvironment';
 
 
@@ -10,10 +10,7 @@ class TaskEnvironmentWrapper extends React.Component {
     super(props);
     const { taskEnvironmentId } = this.props;
     this.changeGamePanelWidth = this.props.changeGamePanelWidth.bind(this, taskEnvironmentId);
-  }
-
-  componentWillMount() {
-    this.props.createTaskEnvironment(this.props.taskEnvironmentId);
+    this.props.createTaskEnvironment(taskEnvironmentId);
   }
 
   resize() {
