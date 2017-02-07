@@ -4,7 +4,7 @@ import { getSyntaxCheckInfo } from './roboCodeSyntaxChecker';
 import { generateRoboJavaScript } from './roboJavaScriptGenerator';
 
 const defaultSettings = {
-  pauseLength: 500,
+  pauseLength: 600,
 };
 
 

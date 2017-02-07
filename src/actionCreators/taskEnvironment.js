@@ -6,6 +6,7 @@ import { CREATE_TASK_ENVIRONMENT,
          RESET_GAME,
          DO_ACTION,
          MOVE,
+         EVOLVE_WORLD,
          INTERPRETATION_STARTED,
          TASK_ATTEMPTED,
          CHANGE_GAME_PANEL_WIDTH,
@@ -15,7 +16,8 @@ import { getTaskId,
          getCode,
          getActionsLimit,
          getEditorType,
-         getTaskSourceText } from '../selectors/taskEnvironment';
+         getTaskSourceText,
+         isInterpreting } from '../selectors/taskEnvironment';
 import { getColor, getPosition, isSolved, isDead, getGameStage } from '../selectors/gameState';
 import { interpretRoboAst, interpretRoboCode, InterpreterError } from '../core/roboCodeInterpreter';
 import { parseTaskSourceText } from '../core/taskSourceParser';
@@ -151,14 +153,24 @@ export function interpretationStarted(taskEnvironmentId) {
 
 
 export function doActionMove(taskEnvironmentId, action) {
-  const pauseLength = 300;
-  return (dispatch) => {
+  return (dispatch, getState) => {
     const actionMovePromise = new Promise(resolve => {
-      dispatch(doAction(taskEnvironmentId, action));
-      setTimeout(() => {
-        dispatch(move(taskEnvironmentId));
+      if (!isInterpreting(getState(), taskEnvironmentId)) {
         resolve();
-      }, pauseLength);
+      } else {
+        dispatch(doAction(taskEnvironmentId, action));
+        setTimeout(resolve, 200);
+      }
+    }).then(() => {
+      if (!isInterpreting(getState(), taskEnvironmentId)) {
+        return Promise.resolve('stopped');
+      }
+      dispatch(move(taskEnvironmentId));
+      return new Promise(resolve => setTimeout(resolve, 200));
+    }).then(() => {
+      if (isInterpreting(getState(), taskEnvironmentId)) {
+        dispatch(evolveWorld(taskEnvironmentId));
+      }
     });
     return actionMovePromise;
   };
@@ -176,6 +188,14 @@ export function doAction(taskEnvironmentId, action) {
 export function move(taskEnvironmentId) {
   return {
     type: MOVE,
+    payload: { taskEnvironmentId },
+  };
+}
+
+
+export function evolveWorld(taskEnvironmentId) {
+  return {
+    type: EVOLVE_WORLD,
     payload: { taskEnvironmentId },
   };
 }

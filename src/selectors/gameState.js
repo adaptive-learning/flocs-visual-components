@@ -139,6 +139,9 @@ function doActionMove(state, action) {
 function computeFieldsAfterMove(fields, action) {
   let direction = null;
   switch (action) {
+    case 'world-evolution': {
+      return fields;
+    }
     case 'left': {
       direction = 'left';
       break;
@@ -180,6 +183,10 @@ function doAction(state, action) {
       nextFields = performShot(fields);
       break;
     }
+    case 'world-evolution': {
+      nextFields = evolveWorld(fields);
+      break;
+    }
     default: {
       throw new Error(`Undefined action ${action}`);
     }
@@ -196,6 +203,45 @@ function doAction(state, action) {
 
 function energyCost(action) {
   return (action === 'shoot') ? 1 : 0;
+}
+
+
+function evolveWorld(fields) {
+  const spaceshipPosition = findSpaceshipPosition(fields);
+  const objects = fields[spaceshipPosition[0]][spaceshipPosition[1]][1];
+  let newFields = fields;
+  for (const object of objects) {
+    if (object === 'W') {
+      newFields = applyWormholeEffect(fields, spaceshipPosition);
+    }
+  }
+  return newFields;
+}
+
+
+function applyWormholeEffect(fields, position) {
+  const wormholePositions = getWormholePositions(fields);
+  const newSpaceshipPosition = selectNewPosition(wormholePositions, position);
+  const newFields = fields.map((row, i) => row.map((field, j) => {
+    if (i === position[0] && j === position[1]) {
+      return [field[0], removeSpaceship(field[1])];
+    } else if (i === newSpaceshipPosition[0] && j === newSpaceshipPosition[1]) {
+      return [field[0], [...field[1], 'S']];
+    }
+    return field;
+  }));
+  return newFields;
+}
+
+
+function selectNewPosition(possiblePositions, currentPosition) {
+  const n = possiblePositions.length;
+  const i = Math.floor(Math.random() * (n - 1));
+  const newPosition = possiblePositions[i];
+  if (newPosition[0] === currentPosition[0] && newPosition[1] === currentPosition[1]) {
+    return possiblePositions[n - 1];
+  }
+  return newPosition;
 }
 
 
@@ -241,7 +287,7 @@ function performMove(fields, direction) {
         const border = (j === 0) ? 'left' : 'right';
         newObjects = [`spaceship-out-${border}`];
       } else {
-        newObjects = [];
+        newObjects = removeSpaceship(oldObjects);
       }
     }
     if (i === newSpaceshipPosition[0] && j === newSpaceshipPosition[1]) {
@@ -254,6 +300,11 @@ function performMove(fields, direction) {
     return [background, newObjects];
   }));
   return newFields;
+}
+
+
+function removeSpaceship(objects) {
+  return objects.filter(object => object !== 'S');
 }
 
 
@@ -300,6 +351,21 @@ function findSpaceshipPosition(fields) {
     }
   }
   return null;
+}
+
+
+function getWormholePositions(fields) {
+  // TODO: rewrite: unnest fields -> simple filter + don't use magic literals
+  const positions = [];
+  for (let i = 0; i < fields.length; i++) {
+    for (let j = 0; j < fields[i].length; j++) {
+      const objects = fields[i][j][1];
+      if (objects.some(obj => obj === 'W')) {
+        positions.push([i, j]);
+      }
+    }
+  }
+  return positions;
 }
 
 

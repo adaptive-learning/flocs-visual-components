@@ -6,6 +6,7 @@ import { CREATE_TASK_ENVIRONMENT,
          RESET_GAME,
          DO_ACTION,
          MOVE,
+         EVOLVE_WORLD,
          INTERPRETATION_STARTED,
          TASK_ATTEMPTED,
          CHANGE_GAME_PANEL_WIDTH,
@@ -27,6 +28,8 @@ export default function reduceTaskEnvironments(state = {}, action) {
       return updateTaskEnvironment(state, doAction, action.payload);
     case MOVE:
       return updateTaskEnvironment(state, move, action.payload);
+    case EVOLVE_WORLD:
+      return updateTaskEnvironment(state, evolveWorld, action.payload);
     case RESET_GAME:
       return updateTaskEnvironment(state, resetGame, action.payload);
     case CHANGE_CODE:
@@ -195,6 +198,15 @@ function move(taskEnvironment) {
     ...taskEnvironment,
     pastActions: augmentedPastActions,
     currentAction: null,
+  };
+  return updatedTaskEnvironment;
+}
+
+
+function evolveWorld(taskEnvironment) {
+  const updatedTaskEnvironment = {
+    ...taskEnvironment,
+    pastActions: [...taskEnvironment.pastActions, 'world-evolution'],
   };
   return updatedTaskEnvironment;
 }

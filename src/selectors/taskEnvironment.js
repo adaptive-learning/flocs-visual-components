@@ -127,6 +127,12 @@ export function getGamePanelWidth(state, taskEnvironmentId) {
 }
 
 
+export function isInterpreting(state, taskEnvironmentId) {
+  const taskEnvironment = getTaskEnvironment(state, taskEnvironmentId);
+  return taskEnvironment.interpreting;
+}
+
+
 // FIXME: not a selector function, should be somewhere else
 export function getInitialFieldsFromTaskEnvironment(taskEnvironment) {
   return taskEnvironment.task.setting.fields;
