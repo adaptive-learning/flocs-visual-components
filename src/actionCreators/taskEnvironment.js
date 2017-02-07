@@ -152,23 +152,23 @@ export function interpretationStarted(taskEnvironmentId) {
 }
 
 
-export function doActionMove(taskEnvironmentId, action) {
+export function doActionMove(taskEnvironmentId, action, interruptible = true) {
   return (dispatch, getState) => {
     const actionMovePromise = new Promise(resolve => {
-      if (!isInterpreting(getState(), taskEnvironmentId)) {
+      if (interruptible && !isInterpreting(getState(), taskEnvironmentId)) {
         resolve();
       } else {
         dispatch(doAction(taskEnvironmentId, action));
         setTimeout(resolve, 200);
       }
     }).then(() => {
-      if (!isInterpreting(getState(), taskEnvironmentId)) {
+      if (interruptible && !isInterpreting(getState(), taskEnvironmentId)) {
         return Promise.resolve('stopped');
       }
       dispatch(move(taskEnvironmentId));
       return new Promise(resolve => setTimeout(resolve, 200));
     }).then(() => {
-      if (isInterpreting(getState(), taskEnvironmentId)) {
+      if (!interruptible || isInterpreting(getState(), taskEnvironmentId)) {
         dispatch(evolveWorld(taskEnvironmentId));
       }
     });

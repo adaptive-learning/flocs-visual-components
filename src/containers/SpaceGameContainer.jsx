@@ -22,7 +22,7 @@ class SpaceGameWrapper extends React.Component {
       case 'left':
       case 'right':
       case 'shoot':
-        this.props.doActionMove(this.props.taskEnvironmentId, control);
+        this.props.doActionMove(this.props.taskEnvironmentId, control, false);
         break;
       case 'run':
         this.props.runProgram(this.props.taskEnvironmentId);
