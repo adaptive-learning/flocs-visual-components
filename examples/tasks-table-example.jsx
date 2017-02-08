@@ -4,14 +4,14 @@ import { Router, Route, browserHistory } from 'react-router';
 import { FlocsProvider, TasksTable } from 'flocs-visual-components';
 
 const task1 = {
-  taskId: 'first',
+  taskId: 'one-step-forward',
   setting: {
     fields: [[['b', []], ['b', []], ['b', []], ['b', []], ['b', []]],
               [['k', []], ['k', []], ['k', ['S']], ['k', []], ['k', []]]],
   },
 };
 const task2 = {
-  taskId: 'second',
+  taskId: 'ladder',
   setting: {
     fields: [[['b', []], ['b', ['A']], ['b', ['M']], ['b', ['A']], ['b', []]],
             [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],

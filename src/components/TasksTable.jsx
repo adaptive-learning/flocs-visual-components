@@ -41,7 +41,9 @@ function TaskTableRow({ urlBase, task }) {
   return (
     <TableRow>
       <TableRowColumn>
-        <Link to={`${urlBase}${task.taskId}`}>{ task.taskId }</Link>
+        <Link to={`${urlBase}${task.taskId}`}>
+          <FormattedMessage id={`TASK.${task.taskId}`} />
+        </Link>
       </TableRowColumn>
     </TableRow>
   );
