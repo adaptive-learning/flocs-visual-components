@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import { translate } from '../localization';
 
 export default function GameControls({ controls, onClick }) {
   const GROUP = {
@@ -45,7 +46,7 @@ export default function GameControls({ controls, onClick }) {
           {conditionallyRenderControlButton('shoot', '★')}
         </span>
       }
-      {conditionallyRenderControlButton('run', 'Run', true, 88)}
+      {conditionallyRenderControlButton('run', translate('Run'), true, 88)}
       {conditionallyRenderControlButton('reset', 'Reset', true, 88)}
     </span>
   );

@@ -124,7 +124,6 @@ export function runProgram(taskEnvironmentId) {
     const editorType = getEditorType(getState(), taskEnvironmentId);
     if (editorType === 'code') {
       const roboCode = getCode(getState(), taskEnvironmentId);
-      console.log('code', roboCode);
       interpret = () => interpretRoboCode(roboCode, context);
     }
     const interpretingPromise = startingInterpretation()

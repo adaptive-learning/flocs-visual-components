@@ -17,7 +17,7 @@ export default function TaskTable({ urlBase, tasks }) {
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
           <TableHeaderColumn>
-            <FormattedMessage id="task" />
+            <FormattedMessage id="Task" />
           </TableHeaderColumn>
         </TableRow>
       </TableHeader>

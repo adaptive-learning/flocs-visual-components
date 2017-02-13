@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Provider, intlReducer } from 'react-intl-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 import { getLocalizationSetting } from './localization';
 import FlocsThemeProvider from './theme/FlocsThemeProvider';
 import { flocsComponentsReducer } from './reducers';
@@ -18,8 +20,9 @@ export default function FlocsProvider({ children, reducers }) {
     flocsComponents: flocsComponentsReducer,
     intl: intlReducer,
   });
-
-  const store = createStore(reducer, initialState);
+  const logger = createLogger();
+  const middleware = applyMiddleware(thunk, logger);
+  const store = createStore(reducer, initialState, middleware);
 
   return (
     <Provider store={store}>

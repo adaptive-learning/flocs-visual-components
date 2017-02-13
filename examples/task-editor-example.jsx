@@ -1,28 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import createLogger from 'redux-logger';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
 import { FlocsProvider,
-         TaskEditorContainer,
-         flocsComponentsReducer } from 'flocs-visual-components';
+         TaskEditorContainer } from 'flocs-visual-components';
 
 
 function createAppComponent() {
-  const rootReducer = combineReducers({
-    flocsComponents: flocsComponentsReducer,
-  });
-  const logger = createLogger();
-  const middleware = applyMiddleware(thunk, logger);
-  const store = createStore(rootReducer, middleware);
-
   const appComponent = (
-    <Provider store={store}>
-      <FlocsProvider>
-        <TaskEditorContainer />
-      </FlocsProvider>
-    </Provider>
+    <FlocsProvider>
+      <TaskEditorContainer />
+    </FlocsProvider>
   );
   return appComponent;
 }

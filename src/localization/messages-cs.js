@@ -1,10 +1,12 @@
 /* eslint-disable quote-props */
 export default {
-  'task': 'Úkol',
+  'Run': 'Spusť program',
+  'Task': 'Úkol',
 
   'task.ladder': 'Žebřík',
   'task.nameless-task': 'Nepojmenovaná úloha',
   'task.one-step-forward': 'Jeden krok vpřed',
+  'task.two-steps-forward': 'Dva kroky vpřed',
   'task.three-steps-forward': 'Tři kroky vpřed',
   'task.zig-zag': 'Cik cak',
 

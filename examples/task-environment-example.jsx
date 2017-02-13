@@ -1,38 +1,27 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 import { FlocsProvider,
          TaskEnvironmentContainer,
-         flocsComponentsReducer,
          flocsActionCreators,
+         flocsActionTypes,
+         flocsSelector,
          parseSpaceWorld } from 'flocs-visual-components';
 
-
 function createAppComponent() {
-  // combine your app reducers with flocsComponentsReducer
-  const rootReducer = combineReducers({
-    myApp: myAppReducer,
-    flocsComponents: flocsComponentsReducer,
-  });
+  // definiton of two example tasks
+  const task1 = {
+    taskId: 'two-steps-forward',
+    category: 'actions',
+    setting: {
+      fields: parseSpaceWorld(`
+        |g |g |g |g |g |
+        |b |b |b |b |b |
+        |b |b |bS|b |b |`),
+    },
+  };
 
-  // create store with thunk middleware
-  const middleware = applyMiddleware(thunk);
-  const store = createStore(rootReducer, middleware);
-
-  // create your app component with task environment
-  const taskEnvId = 'single';
-  const appComponent = (
-    <Provider store={store}>
-      <FlocsProvider>
-        <TaskEnvironmentContainer taskEnvironmentId={taskEnvId} />
-      </FlocsProvider>
-    </Provider>
-  );
-
-  // set a task in a task environment
-  const task = {
+  const task2 = {
     taskId: 'ladder',
     setting: {
       fields: parseSpaceWorld(`
@@ -45,17 +34,87 @@ function createAppComponent() {
         |b |bA|bM|bA|b |
         |b |bA|b |bA|b |
         |b |bA|bS|bA|b |`),
+      energy: 4,
+      actionsLimit: 2,
     },
   };
-  store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
+  const tasks = [task1, task2];
+  const taskEnvId = 'single';
 
+  // component for task environment with next-task button
+  class PracticeEnvironment extends React.Component {
+    constructor(props) {
+      super(props);
+      this.setNextTask = this.setNextTask.bind(this);
+      this.setNextTask();
+    }
+
+    setNextTask() {
+      // for our demo, we will simply loop over the two tasks
+      const task = tasks[this.props.taskIndex % 2];
+      this.props.setTask(taskEnvId, task);
+    }
+
+    render() {
+      const { taskSolved } = this.props;
+      return (
+        <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }} >
+          <TaskEnvironmentContainer taskEnvironmentId={taskEnvId} />
+          {taskSolved &&
+            <div style={{ position: 'fixed', bottom: 10, left: 10 }} >
+              <button onClick={this.setNextTask}>Next task</button>
+            </div>
+          }
+        </div>
+      );
+    }
+  }
+  PracticeEnvironment.propTypes = {
+    taskSolved: PropTypes.bool.isRequired,
+    taskIndex: PropTypes.number.isRequired,
+    setTask: PropTypes.func.isRequired,
+  };
+
+  // create redux container for your environment subscribing to store
+  function mapStateToProps(state) {
+    const gameState = flocsSelector.getGameState(state, taskEnvId);
+    const taskSolved = gameState.stage === 'solved';
+    const taskIndex = state.myApp.taskIndex;
+    return { taskSolved, taskIndex };
+  }
+  const actionCreators = { setTask: flocsActionCreators.setTask };
+  const PracticeEnvironmentContainer = connect(mapStateToProps,
+                                               actionCreators)(PracticeEnvironment);
+  // create your root app component
+  const appComponent = (
+    <FlocsProvider reducers={{ myApp: myAppReducer }}>
+      <PracticeEnvironmentContainer />
+    </FlocsProvider>
+  );
   return appComponent;
 }
 
-function myAppReducer(state = {}, action) {
-  console.log('myApp reducer listening to action:', action);
-  return state;
+
+// you can make your reducer respond to actions dispatch by flocsComponents
+function myAppReducer(state = { taskIndex: 0, attempted: false }, action) {
+  switch (action.type) {
+    case flocsActionTypes.SET_TASK:
+      console.log('myAppReducer responding to new task');
+      return {
+        taskIndex: state.taskIndex + 1,
+        attempted: false,
+      };
+    case flocsActionTypes.TASK_ATTEMPTED:
+      console.log('myAppReducer responding to attempted task');
+      return {
+        ...state,
+        attempted: true,
+      };
+    default:
+      return state;
+  }
 }
+
 
 const mountElement = document.getElementById('taskEnvironmentExample');
 if (mountElement !== null) {

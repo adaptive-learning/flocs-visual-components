@@ -1,10 +1,13 @@
 /* eslint-disable quote-props */
 export default {
-  'task': 'Task',
+  'Run': 'Run',
+  'Task': 'Task',
+
 
   'task.ladder': 'Ladder',
   'task.nameless-task': 'Nameless task',
   'task.one-step-forward': 'One step forward',
+  'task.two-steps-forward': 'Two steps forward',
   'task.three-steps-forward': 'Three steps forward',
   'task.zig-zag': 'Zig zag',
 
