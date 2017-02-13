@@ -1,12 +1,10 @@
 import React, { PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { toTitle } from '../utils/text';
 
 export default function TaskName({ taskId }) {
-  // TODO: localization
   return (
-    <span>
-      {toTitle(taskId)}
-    </span>
+    <FormattedMessage id={`task.${taskId}`} defaultMessage={toTitle(taskId)} />
   );
 }
 

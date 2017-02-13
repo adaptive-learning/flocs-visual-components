@@ -1,6 +1,12 @@
 /* eslint-disable quote-props */
 export default {
-  TASK: 'Task',
+  'task': 'Task',
+
+  'task.ladder': 'Ladder',
+  'task.nameless-task': 'Nameless task',
+  'task.one-step-forward': 'One step forward',
+  'task.three-steps-forward': 'Three steps forward',
+  'task.zig-zag': 'Zig zag',
 
   'blockly.start': 'start',
   'blockly.fly': 'fly',

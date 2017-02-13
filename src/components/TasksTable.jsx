@@ -7,6 +7,7 @@ import { Table,
          TableRowColumn } from 'material-ui/Table';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import TaskName from './TaskName';
 
 
 export default function TaskTable({ urlBase, tasks }) {
@@ -16,7 +17,7 @@ export default function TaskTable({ urlBase, tasks }) {
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
           <TableHeaderColumn>
-            <FormattedMessage id="TASK" />
+            <FormattedMessage id="task" />
           </TableHeaderColumn>
         </TableRow>
       </TableHeader>
@@ -42,7 +43,7 @@ function TaskTableRow({ urlBase, task }) {
     <TableRow>
       <TableRowColumn>
         <Link to={`${urlBase}${task.taskId}`}>
-          <FormattedMessage id={`TASK.${task.taskId}`} />
+          <TaskName taskId={task.taskId} />
         </Link>
       </TableRowColumn>
     </TableRow>
