@@ -2,24 +2,37 @@ import csLocaleData from 'react-intl/locale-data/cs.js';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import messagesCs from './messages-cs';
 import messagesEn from './messages-en';
+import { getDomainLabels } from '../utils/url';
+
 
 addLocaleData(csLocaleData);
-
-const messages = {
+const availableDomains = ['cs', 'en'];
+const defaultLocale = 'cs';
+const allMessages = {
   cs: messagesCs,
   en: messagesEn,
 };
 
-export function getLocalizationSetting(locale) {
-  return {
-    locale,
-    messages: messages[locale],
-  };
+
+export function getLocale() {
+  const labels = getDomainLabels();
+  const firstLabel = labels[0];
+  const domainIndex = availableDomains.indexOf(firstLabel);
+  const locale = (domainIndex >= 0) ? availableDomains[domainIndex] : defaultLocale;
+  return locale;
 }
+
+
+export function getLocalizationSetting() {
+  const locale = getLocale();
+  const messages = allMessages[locale];
+  return { locale, messages };
+}
+
 
 // temporary hack to allow easily localizing non-component messages in 3rd
 // party librarires (Blockly), TODO: unhack
-const { intl } = new IntlProvider(getLocalizationSetting('cs'), {}).getChildContext();
+const { intl } = new IntlProvider(getLocalizationSetting(), {}).getChildContext();
 export function translate(id, values = {}) {
   return intl.formatMessage({ id, values });
 }

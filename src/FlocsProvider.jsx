@@ -11,7 +11,7 @@ import { flocsComponentsReducer } from './reducers';
  */
 export default function FlocsProvider({ children, reducers }) {
   const initialState = {
-    intl: getLocalizationSetting('cs'),
+    intl: getLocalizationSetting(),
   };
   const reducer = combineReducers({
     ...reducers,
