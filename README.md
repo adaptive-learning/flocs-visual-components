@@ -37,76 +37,19 @@ module.exports = {
 ## Usage
 
 You can either use just standalone React presentational components,
-or you can employ Redux containers communicating via store, together with provided reducer and actions.
+or you can employ Redux containers communicating via shared application store.
+To provide flocs components with needed context (store, localization and theme),
+wrap your app component into `FlocsProvider`:
 
-### React Presentational Components
-
-Just import one of the provided presentational components (from `flocs-visual-components`),
-then create a component providing props and render it using React. Example in JSX follows:
-
-
-```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { SpaceGame } from 'flocs-visual-components';
-
-function handleControlClicked(control) {
-  console.log('control:', control);
-}
-
-const gameState= {
-  fields: [[["b", []], ["b", []], ["b", []]], [["k", ["A"]], ["k", ["S"]], ["k", []]]],
-  stage: 'initial'
-}
-const component = (
-  <SpaceGame
-    gameState={gameState}
-    showCommandControls={true}
-    onControlClicked={handleControlClicked}
-  />
-);
-
-const mountElement = document.getElementById('spaceGameExample');
-ReactDOM.render(component, mountElement);
+```
+<FlocsProvider reducers={{ myApp: myAppReducer }}>
+  <MyAppContainer>
+    <TaskEditorContainer />
+  </MyAppContainer>
+</FlocsProvider>
 ```
 
+You can make your app reducers respond to actions dispatched by flocs components.
+You can also access data in the flocs store using provided selector functions.
 
-### Redux Containers
-
-If you want more components to communicate with each other, the simplest way is to use provided containers and reducer inside a redux app.
-What you need to do:
-
-* Connect dedicated `flocsComponentsReducer` to your root reducer on the `'flocsComponents'` key.
-* Apply `thunk` middleware (if you haven't already).
-* Create desired container components and give them same `taskEnvironmentId`.
-
-```javascript
-// combine your app reducers with flocsComponentsReducer
-const rootReducer = combineReducers({
-  myApp: myAppReducer,
-  flocsComponents: flocsComponentsReducer
-});
-
-// create store with thunk middleware
-const middleware = applyMiddleware(thunk);
-const store = createStore(rootReducer, middleware);
-
-// set a task in a task environment
-const task = { /* ... */ }
-const taskEnvId = "single";
-store.dispatch(flocsActionCreators.createTaskEnvironment(taskEnvId));
-store.dispatch(flocsActionCreators.setTask(taskEnvId, task));
-
-// create your app component giving paired components same taskEnvironmentId
-const appComponent = (
-  <Provider store={store}>
-    <div>
-      <SpaceGameContainer taskEnvironmentId={taskEnvId}/>
-      <CodeEditorContainer taskEnvironmentId={taskEnvId}/>
-    </div>
-  </Provider>
-);
-```
-
-If you want, you can make your app reducers to respond on actions dispatched by the containers.
-You can also use data in the created substate, preferably via provided selector functions.
+See more [examples](/examples).
