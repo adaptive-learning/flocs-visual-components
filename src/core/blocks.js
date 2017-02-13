@@ -1,6 +1,7 @@
 /**
  * Defines Blockly blocks
  */
+import { translate } from '../localization';
 
 const colors = {
   header: 45,
@@ -14,7 +15,7 @@ const colors = {
 const blocks = [
   {
     id: 'start',
-    message0: 'start',
+    message0: translate('blockly.start'),
     args0: [],
     nextStatement: null,
     colour: colors.header,
@@ -23,15 +24,15 @@ const blocks = [
   },
   {
     id: 'fly',
-    message0: 'fly %1',
+    message0: `${translate('blockly.fly')} %1`,
     args0: [
       {
         type: 'field_dropdown',
         name: 'direction',
         options: [
-          ['ahead', 'ahead'],
-          ['left', 'left'],
-          ['right', 'right'],
+          [translate('blockly.ahead'), 'ahead'],
+          [translate('blockly.left'), 'left'],
+          [translate('blockly.right'), 'right'],
         ],
       },
     ],
@@ -43,7 +44,7 @@ const blocks = [
   },
   {
     id: 'shoot',
-    message0: 'shoot',
+    message0: translate('blockly.shoot'),
     args0: [],
     previousStatement: null,
     nextStatement: null,
@@ -53,7 +54,7 @@ const blocks = [
   },
   {
     id: 'color',
-    message0: 'color %1 %2',
+    message0: `${translate('blockly.color')} %1 %2`,
     args0: [
       {
         type: 'field_dropdown',
@@ -67,11 +68,11 @@ const blocks = [
         type: 'field_dropdown',
         name: 'value',
         options: [
-          ['green', 'g'],
-          ['blue', 'b'],
-          ['red', 'r'],
-          ['yellow', 'y'],
-          ['magenta', 'm'],
+          [translate('blockly.blue'), 'b'],
+          [translate('blockly.green'), 'g'],
+          [translate('blockly.red'), 'r'],
+          [translate('blockly.yellow'), 'y'],
+          [translate('blockly.black'), 'k'],
         ],
       },
     ],
@@ -115,7 +116,7 @@ const blocks = [
   },
   {
     id: 'repeat',
-    message0: 'repeat %1 : %2 %3',
+    message0: `${translate('blockly.repeat')} %1: %2 %3`,
     args0: [
       {
         type: 'field_dropdown',
@@ -148,7 +149,7 @@ const blocks = [
   },
   {
     id: 'while',
-    message0: 'while %1 : %2 %3',
+    message0: `${translate('blockly.while')} %1: %2 %3`,
     args0: [
       {
         type: 'input_value',
@@ -171,7 +172,7 @@ const blocks = [
   },
   {
     id: 'if',
-    message0: 'if %1 : %2 %3',
+    message0: `${translate('blockly.if')} %1: %2 %3`,
     args0: [
       {
         type: 'input_value',
@@ -194,7 +195,7 @@ const blocks = [
   },
   {
     id: 'if-else',
-    message0: 'if %1 : %2 %3 else: %4 %5',
+    message0: `${translate('blockly.if')} %1: %2 %3 ${translate('blockly.else')}: %4 %5`,
     args0: [
       {
         type: 'input_value',
