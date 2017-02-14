@@ -5,11 +5,11 @@ Space World is a simple grid world used in (currently the only one) game in Robo
 Example:
 
 ```
-|g |gM|g |g |g |
-|b |b |b |bA|b |
-|bA|b |b |b |bD|
 |b |bM|b |b |b |
-|b |b |bS|b |bM|
+|k |k |k |kA|k |
+|kA|k |k |k |kD|
+|k |kM|k |k |k |
+|k |k |kS|k |kM|
 ```
 
 Corresponds to:
@@ -18,13 +18,13 @@ Corresponds to:
 
 ## Field
 - starts with a lower-case letter denoting background
-  - colors: `r`ed, `g`reen, `b`lue, `y`ellow, `m`agenta
+  - colors: `r`ed, `g`reen, `b`lue, `y`ellow, blac`k`
 - followed by a series of upper-case letters denoting objects
   - objects: `S`paceship, `D`iamond, `M`eteoroid, `A`steroid, `W`ormhole
 - for example, `bD` is a blue field with a diamond
 
 ## Conventions
-- use blue as a basic background colour, green for the top row, other colours for specific meaning (decisions or just hints)
+- use black as a basic background colour, blue for the top row, other colours for specific meaning (decisions or just hints)
 
 ## Links
 

@@ -15,9 +15,9 @@ function createAppComponent() {
     category: 'actions',
     setting: {
       fields: parseSpaceWorld(`
-        |g |g |g |g |g |
         |b |b |b |b |b |
-        |b |b |bS|b |b |`),
+        |k |k |k |k |k |
+        |k |k |kS|k |k |`),
     },
   };
 
@@ -25,15 +25,15 @@ function createAppComponent() {
     taskId: 'ladder',
     setting: {
       fields: parseSpaceWorld(`
-        |g |gA|gM|gA|g |
-        |b |bA|b |bA|b |
         |b |bA|bM|bA|b |
-        |b |bA|b |bA|b |
-        |b |bA|bM|bA|b |
-        |b |bA|b |bA|b |
-        |b |bA|bM|bA|b |
-        |b |bA|b |bA|b |
-        |b |bA|bS|bA|b |`),
+        |k |kA|k |kA|k |
+        |k |kA|kM|kA|k |
+        |k |kA|k |kA|k |
+        |k |kA|kM|kA|k |
+        |k |kA|k |kA|k |
+        |k |kA|kM|kA|k |
+        |k |kA|k |kA|k |
+        |k |kA|kS|kA|k |`),
       energy: 4,
       actionsLimit: 2,
     },
