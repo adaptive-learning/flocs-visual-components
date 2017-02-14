@@ -30,11 +30,11 @@ const defaultInitialTask = {
   taskId: 'nameless-task',
   setting: {
     fields: parseSpaceWorld(`\
-      |g |g |g |g |g |
       |b |b |b |b |b |
-      |b |b |b |b |b |
-      |b |b |b |b |b |
-      |b |b |bS|b |b |`),
+      |k |k |k |k |k |
+      |k |k |k |k |k |
+      |k |k |k |k |k |
+      |k |k |kS|k |k |`),
   },
 };
 

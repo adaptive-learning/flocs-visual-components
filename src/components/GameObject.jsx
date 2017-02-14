@@ -4,10 +4,10 @@ import Image from './Image';
 export default function GameObject({ imageId, width, height, position, bottom, left }) {
   const imageStyle = {
     position,
-    width: `${width}px`,
-    height: `${height}px`,
-    bottom: `${bottom}px`,
-    left: `${left}px`,
+    width,
+    height,
+    bottom,
+    left,
   };
   return (
     <Image imageId={imageId} style={imageStyle} />

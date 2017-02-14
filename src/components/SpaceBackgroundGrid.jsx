@@ -1,11 +1,14 @@
 import React, { PropTypes } from 'react';
 import FieldBackground from './FieldBackground';
-import spaceBackroundPath from '../../assets/images/space.png';
+import spaceBackgroundPath from '../../assets/images/background-space.png';
 
 export default function SpaceBackgroundGrid({ backgroundColors, fieldSize }) {
   const backgroundGridStyle = {
     display: 'table',
-    backgroundImage: `url(${spaceBackroundPath})`,
+    borderCollapse: 'collapse',
+    backgroundImage: `url(${spaceBackgroundPath})`,
+    backgroundSize: '100% auto',
+    backgroundColor: '#112',
   };
   return (
     <span style={backgroundGridStyle} >

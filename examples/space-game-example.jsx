@@ -8,11 +8,11 @@ function handleControlClicked(control) {
 
 const gameState = {
   fields: parseSpaceWorld(`\
-    |g |gM|gS|g |g |
-    |b |b |b |bA|b |
-    |bA|b |b |b |b |
-    |b |bM|b |b |b |
-    |b |b |b |b |bM|`),
+    |b |bM|bS|b |b |
+    |k |k |k |kA|k |
+    |kA|k |k |k |k |
+    |k |kM|k |k |k |
+    |k |k |k |k |kM|`),
   stage: 'solved',
   diamonds: { taken: 2, total: 2 },
   energy: { current: 1, full: 2 },
