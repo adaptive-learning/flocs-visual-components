@@ -18,7 +18,8 @@
     "react-intl": "^2.2.3",
     "react-intl-redux": "^0.3.0",
     "react-split-pane": "^0.1.57",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-tap-event-plugin": "^2.0.1",
+    "redux-promise-middleware": "^4.2.0"
   },
   "peerDependencies": {
     "react": "^15.4.2",
