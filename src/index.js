@@ -8,11 +8,11 @@ import SpaceGameContainer from './containers/SpaceGameContainer';
 import CodeEditorContainer from './containers/CodeEditorContainer';
 import TaskEnvironmentContainer from './containers/TaskEnvironmentContainer';
 import TaskEditorContainer from './containers/TaskEditorContainer';
-import { flocsComponentsReducer } from './reducers';
 import { flocsSelector } from './selectors';
 import flocsActionCreators from './actionCreators';
 import * as flocsActionTypes from './actionTypes';
 import { parseSpaceWorld } from './core/spaceWorldDescription';
+import { parseTaskSourceText } from './core/taskSourceParser';
 import { initGlobalBlockly } from './core/blockly';
 import { initGlobalTheme } from './theme';
 import FlocsProvider from './FlocsProvider';
@@ -21,10 +21,11 @@ import FlocsProvider from './FlocsProvider';
 initGlobalTheme();
 initGlobalBlockly();
 
-
 export {
-  // context provider (store, theme, localization)
   FlocsProvider,
+  flocsSelector,
+  flocsActionCreators,
+  flocsActionTypes,
 
   // components
   SpaceGame,
@@ -40,12 +41,7 @@ export {
   TaskEnvironmentContainer,
   TaskEditorContainer,
 
-  // selectors, reducers and actions
-  flocsSelector,
-  flocsComponentsReducer,
-  flocsActionCreators,
-  flocsActionTypes,
-
   // core functions and objects
   parseSpaceWorld,
+  parseTaskSourceText,
 };

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Provider, intlReducer } from 'react-intl-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import createPromiseMiddleware from 'redux-promise-middleware'
+import createPromiseMiddleware from 'redux-promise-middleware';
 import createLoggerMiddleware from 'redux-logger';
 import { getLocalizationSetting } from './localization';
 import FlocsThemeProvider from './theme/FlocsThemeProvider';

@@ -2,11 +2,14 @@ var webpack = require("webpack");
 var nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: __dirname + '/src/index.js',
+  entry: {
+    'flocs-visual-components': __dirname + '/src/index.js',
+    'flocs-node': __dirname + '/src/node-index.js',
+  },
   devtool: "source-map",
   output: {
     path: __dirname + '/lib',
-    filename: 'flocs-visual-components.js',
+    filename: '[name].js',
     library: 'flocsVisualComponents',
     libraryTarget: 'umd',
     umdNamedDefine: true
