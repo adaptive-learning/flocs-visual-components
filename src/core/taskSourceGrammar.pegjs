@@ -79,7 +79,8 @@ Value
 
 
 Integer
-  = digits:[0-9]+
+  = digits:[0-9]+ & WS
+  // require a whitespace to follow to distinguish texts starting with some digits
   { return parseInt(digits.join(""), 10); }
 
 
