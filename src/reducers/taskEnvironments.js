@@ -121,7 +121,7 @@ function addDefaults(task) {
     ...task.setting,
   };
   const taskWithDefaults = {
-    category: null,
+    categoryId: null,
     ...task,
     setting,
   };
@@ -131,7 +131,7 @@ function addDefaults(task) {
 
 function changeSetting(taskEnvironment, { taskSource }) {
   const { task, invalidSpaceWorldText } = taskEnvironment;
-  const { taskId, category, energy, actionsLimit, spaceWorldText } = taskSource;
+  const { taskId, categoryId, energy, actionsLimit, spaceWorldText } = taskSource;
   let newInvalidSpaceWorldText = invalidSpaceWorldText;
   let newFields = null;
   if (spaceWorldText !== undefined) {
@@ -145,7 +145,7 @@ function changeSetting(taskEnvironment, { taskSource }) {
   }
   const updatedTask = {
     taskId: (taskId !== undefined) ? taskId : task.taskId,
-    category: (category !== undefined) ? category : task.category,
+    categoryId: (categoryId !== undefined) ? categoryId : task.categoryId,
     setting: {
       fields: (newFields !== null) ? newFields : task.setting.fields,
       energy: (energy !== undefined) ? energy : task.setting.energy,

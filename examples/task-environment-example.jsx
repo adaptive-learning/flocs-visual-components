@@ -12,7 +12,7 @@ function createAppComponent() {
   // definiton of two example tasks
   const task1 = {
     taskId: 'two-steps-forward',
-    category: 'actions',
+    categoryId: 'moves',
     setting: {
       fields: parseSpaceWorld(`
         |b |b |b |b |b |
@@ -23,6 +23,7 @@ function createAppComponent() {
 
   const task2 = {
     taskId: 'ladder',
+    categoryId: 'repeat',
     setting: {
       fields: parseSpaceWorld(`
         |b |bA|bM|bA|b |

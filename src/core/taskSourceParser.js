@@ -7,8 +7,15 @@ import { parseSpaceWorld } from './spaceWorldDescription';
  * task
  */
 export function parseTaskSourceText(sourceText) {
-  const task = pegTaskSourceParser.parse(sourceText);
-  task.setting.fields = parseSpaceWorld(task.setting.fields);
-  task.solution = parseRoboCode(task.solution);
+  const chunkedTaskSource = pegTaskSourceParser.parse(sourceText);
+  const task = {
+    taskId: chunkedTaskSource.taskId,
+    categoryId: chunkedTaskSource.category || 'uncategorized',
+    setting: {
+      ...chunkedTaskSource.setting,
+      fields: parseSpaceWorld(chunkedTaskSource.setting.fields),
+    },
+    solution: parseRoboCode(chunkedTaskSource.solution),
+  };
   return task;
 }

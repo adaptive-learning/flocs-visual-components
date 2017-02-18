@@ -28,11 +28,11 @@ class SettingEditorWrapper extends React.Component {
     };
 
     this.handleCategoryChange = event => {
-      let category = event.target.value;
-      if (category.length === 0) {
-        category = null;
+      let categoryId = event.target.value;
+      if (categoryId.length === 0) {
+        categoryId = null;
       }
-      this.props.changeSetting(this.props.taskEnvironmentId, { category });
+      this.props.changeSetting(this.props.taskEnvironmentId, { categoryId });
     };
 
     this.handleEnergyChange = event => {
@@ -67,7 +67,7 @@ class SettingEditorWrapper extends React.Component {
         onChange={this.handleChangeSetting}
         taskId={this.props.taskId}
         onTaskIdChange={this.handleTaskIdChange}
-        category={this.props.category || ''}
+        category={this.props.categoryId || ''}
         onCategoryChange={this.handleCategoryChange}
         energy={this.props.energy}
         onEnergyChange={this.handleEnergyChange}
@@ -90,7 +90,7 @@ SettingEditorWrapper.propTypes = {
   isValid: PropTypes.bool.isRequired,
   changeSetting: PropTypes.func.isRequired,
   taskId: PropTypes.string.isRequired,
-  category: PropTypes.string,
+  categoryId: PropTypes.string,
   energy: PropTypes.number,
   actionsLimit: PropTypes.number,
   vimMode: PropTypes.bool.isRequired,
@@ -103,7 +103,7 @@ SettingEditorWrapper.propTypes = {
 
 function mapStateToProps(state, props) {
   const { taskEnvironmentId } = props;
-  const { taskId, category, setting } = getTask(state, taskEnvironmentId);
+  const { taskId, categoryId, setting } = getTask(state, taskEnvironmentId);
   const { energy, actionsLimit } = setting;
   const spaceWorldText = getSpaceWorldText(state, taskEnvironmentId);
   const isValid = isSpaceWorldTextValid(state, taskEnvironmentId);
@@ -112,7 +112,7 @@ function mapStateToProps(state, props) {
   return {
     taskEnvironmentId,
     taskId,
-    category,
+    categoryId,
     energy,
     actionsLimit,
     spaceWorldText,
