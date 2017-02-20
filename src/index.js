@@ -4,6 +4,7 @@ import BlocklyEditor from './components/BlocklyEditor';
 import TasksTable from './components/TasksTable';
 import TaskEnvironment from './components/TaskEnvironment';
 import TaskEditor from './components/TaskEditor';
+import TaskName from './components/TaskName';
 import SpaceGameContainer from './containers/SpaceGameContainer';
 import CodeEditorContainer from './containers/CodeEditorContainer';
 import TaskEnvironmentContainer from './containers/TaskEnvironmentContainer';
@@ -34,6 +35,7 @@ export {
   TasksTable,
   TaskEnvironment,
   TaskEditor,
+  TaskName,
 
   // containers
   SpaceGameContainer,
