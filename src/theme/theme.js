@@ -1,8 +1,8 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
-  cyan700,
-  grey600,
-  amberA100, amberA200, amberA400,
+  grey400, grey600, grey700,
+  amber500, amber700, amber100,
+  cyan500, cyan700, cyan100,
   fullWhite,
 } from 'material-ui/styles/colors';
 import { fade } from 'material-ui/utils/colorManipulator';
@@ -12,12 +12,12 @@ const theme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
   borderRadius: 2,
   palette: {
-    primary1Color: cyan700,
+    primary1Color: cyan500,
     primary2Color: cyan700,
-    primary3Color: grey600,
-    accent1Color: amberA200,
-    accent2Color: amberA400,
-    accent3Color: amberA100,
+    primary3Color: cyan100,
+    accent1Color: amber500,
+    accent2Color: amber700,
+    accent3Color: amber100,
     textColor: fullWhite,
     secondaryTextColor: fade(fullWhite, 0.7),
     alternateTextColor: '#303030',
@@ -27,6 +27,14 @@ const theme = getMuiTheme({
     pickerHeaderColor: fade(fullWhite, 0.12),
     clockCircleColor: fade(fullWhite, 0.12),
   },
+  raisedButton: {
+    color: grey700,
+  },
+  toggle: {
+    thumbOffColor: grey400,
+    trackOffColor: grey600,
+  },
 });
+
 
 export default theme;

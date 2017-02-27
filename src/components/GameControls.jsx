@@ -20,7 +20,7 @@ export default function GameControls({ controls, onClick }) {
     return controls[controlGroup] === 'passive';
   }
 
-  function conditionallyRenderControlButton(name, label, primary = false, minWidth = 50) {
+  function conditionallyRenderControlButton(name, label, emph = null, minWidth = 50) {
     const controlGroup = GROUP[name];
     if (!(visible(controlGroup))) {
       return null;
@@ -29,7 +29,8 @@ export default function GameControls({ controls, onClick }) {
       <RaisedButton
         label={label}
         disabled={disabled(controlGroup)}
-        primary={primary}
+        primary={emph === 'primary'}
+        secondary={emph === 'accent'}
         style={{ margin: 2, minWidth }}
         onClick={() => onClick(name)}
       />
@@ -46,8 +47,8 @@ export default function GameControls({ controls, onClick }) {
           {conditionallyRenderControlButton('shoot', '★')}
         </span>
       }
-      {conditionallyRenderControlButton('run', translate('Run'), true, 88)}
-      {conditionallyRenderControlButton('reset', 'Reset', true, 88)}
+      {conditionallyRenderControlButton('run', translate('Run'), 'primary', 88)}
+      {conditionallyRenderControlButton('reset', 'Reset', 'accent', false, 88)}
     </span>
   );
 }
