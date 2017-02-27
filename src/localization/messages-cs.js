@@ -17,6 +17,7 @@ export default {
   'blockly.right': 'vpravo',
   'blockly.shoot': 'vystřel',
   'blockly.color': 'barva',
+  'blockly.position': 'pozice',
   'blockly.while': 'dokud',
   'blockly.repeat': 'opakuj',
   'blockly.if': 'pokud',

@@ -18,6 +18,7 @@ export default {
   'blockly.right': 'right',
   'blockly.shoot': 'shoot',
   'blockly.color': 'color',
+  'blockly.position': 'position',
   'blockly.while': 'while',
   'blockly.repeat': 'repeat',
   'blockly.if': 'if',

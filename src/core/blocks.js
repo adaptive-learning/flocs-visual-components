@@ -83,7 +83,7 @@ const blocks = [
   },
   {
     id: 'position',
-    message0: 'x %1 %2',
+    message0: `${translate('blockly.position')} %1 %2`,
     args0: [
       {
         type: 'field_dropdown',
