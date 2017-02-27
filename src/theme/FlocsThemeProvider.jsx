@@ -1,19 +1,11 @@
 import React, { PropTypes } from 'react';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { cyan500 } from 'material-ui/styles/colors';
-
-
-const flocsTheme = getMuiTheme({
-  palette: {
-    textColor: cyan500,
-  },
-});
+import theme from '../theme';
 
 
 export default function FlocsThemeProvider({ children }) {
   return (
-    <MuiThemeProvider muiTheme={flocsTheme}>
+    <MuiThemeProvider muiTheme={theme}>
       {children}
     </MuiThemeProvider>
   );

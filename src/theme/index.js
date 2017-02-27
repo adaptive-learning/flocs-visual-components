@@ -1,8 +1,11 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
 // include global css styles
 import 'normalize.css';
 import './styles.css';
+
+import theme from './theme';
+
+export { theme };
 
 export function initGlobalTheme() {
   // Needed for material-ui onTouchTap

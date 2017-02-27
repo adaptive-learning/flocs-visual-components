@@ -3,6 +3,7 @@ import SplitPane from 'react-split-pane';
 import CodeEditorContainer from '../containers/CodeEditorContainer';
 import BlocklyEditorContainer from '../containers/BlocklyEditorContainer';
 import SpaceGameContainer from '../containers/SpaceGameContainer';
+import { theme } from '../theme';
 
 
 export default class TaskEnvironment extends React.Component {
@@ -49,7 +50,8 @@ export default class TaskEnvironment extends React.Component {
             right: 0,
             top: 0,
             bottom: 0,
-            backgroundColor: '#eee',
+            backgroundColor: theme.palette.canvasColor,
+            color: theme.palette.textColor,
           }}
         >
           <SpaceGameContainer
