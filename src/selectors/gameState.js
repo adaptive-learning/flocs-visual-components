@@ -87,12 +87,14 @@ function getInitialGameState(taskEnvironment) {
 function decideGameStage(fields, spaceship, interpreting, someActionsTaken) {
   let stage = 'preparing';
   if (spaceship !== null) {
+    // the order of cases is important, e.g. game can only be solved once the
+    // program ends
     if (isSpaceshipDead(fields, spaceship)) {
       stage = 'dead';
-    } else if (gameSolved(fields, spaceship)) {
-      stage = 'solved';
     } else if (interpreting) {
       stage = 'running';
+    } else if (gameSolved(fields, spaceship)) {
+      stage = 'solved';
     } else if (someActionsTaken) {
       stage = 'stopped';
     } else {
@@ -284,7 +286,14 @@ function performMove(fields, direction) {
     let newObjects = oldObjects;
     if (i === oldSpaceshipPosition[0] && j === oldSpaceshipPosition[1]) {
       if (outsideWorld(fields, newSpaceshipPosition)) {
-        const border = (j === 0) ? 'left' : 'right';
+        let border = null;
+        if (i === 0) {
+          border = 'top';
+        } else if (j === 0) {
+          border = 'left';
+        } else {
+          border = 'right';
+        }
         newObjects = [`spaceship-out-${border}`];
       } else {
         newObjects = removeSpaceship(oldObjects);
@@ -345,8 +354,17 @@ function findSpaceshipPosition(fields) {
   for (let i = 0; i < fields.length; i++) {
     for (let j = 0; j < fields[i].length; j++) {
       const objects = fields[i][j][1];
-      if (objects.some(obj => obj === 'S' || obj.startsWith('spaceship'))) {
+      if (objects.some(obj => obj === 'S')) {
         return [i, j];
+      }
+      if (objects.some(obj => obj === 'spaceship-out-top')) {
+        return [i - 1, j];
+      }
+      if (objects.some(obj => obj === 'spaceship-out-left')) {
+        return [i, j - 1];
+      }
+      if (objects.some(obj => obj === 'spaceship-out-right')) {
+        return [i, j + 1];
       }
     }
   }

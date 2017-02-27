@@ -54,6 +54,7 @@ const IMAGE_TYPES = {
   'spaceship-broken': 'spaceship-broken',
   'spaceship-out-left': 'spaceship-out-left',
   'spaceship-out-right': 'spaceship-out-right',
+  'spaceship-out-top': 'spaceship-out-top',
 };
 
 
