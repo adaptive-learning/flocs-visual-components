@@ -2,7 +2,7 @@
  * Global styles needed for flocs-visual-components
  */
 
-html {
+* {
   box-sizing: border-box;
 }
 
