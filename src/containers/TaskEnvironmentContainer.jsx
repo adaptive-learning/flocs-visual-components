@@ -10,7 +10,10 @@ class TaskEnvironmentWrapper extends React.Component {
     super(props);
     const { taskEnvironmentId } = this.props;
     this.changeGamePanelWidth = this.props.changeGamePanelWidth.bind(this, taskEnvironmentId);
-    this.props.createTaskEnvironment(taskEnvironmentId);
+  }
+
+  componentWillMount() {
+    this.props.createTaskEnvironment(this.props.taskEnvironmentId);
   }
 
   resize() {

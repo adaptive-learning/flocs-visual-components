@@ -13,6 +13,9 @@ class SpaceGameWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.handleControlClicked = this.handleControlClicked.bind(this);
+  }
+
+  componentWillMount() {
     this.props.createTaskEnvironment(this.props.taskEnvironmentId);
   }
 
