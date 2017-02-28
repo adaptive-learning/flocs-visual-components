@@ -354,9 +354,6 @@ function findSpaceshipPosition(fields) {
   for (let i = 0; i < fields.length; i++) {
     for (let j = 0; j < fields[i].length; j++) {
       const objects = fields[i][j][1];
-      if (objects.some(obj => obj === 'S')) {
-        return [i, j];
-      }
       if (objects.some(obj => obj === 'spaceship-out-top')) {
         return [i - 1, j];
       }
@@ -365,6 +362,9 @@ function findSpaceshipPosition(fields) {
       }
       if (objects.some(obj => obj === 'spaceship-out-right')) {
         return [i, j + 1];
+      }
+      if (objects.some(obj => obj === 'S' || obj.startsWith('spaceship'))) {
+        return [i, j];
       }
     }
   }
