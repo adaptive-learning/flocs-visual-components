@@ -7,16 +7,40 @@ import TaskName from './TaskName';
 import { theme } from '../theme';
 
 // TODO: unhardcode categories
+/* eslint-disable quote-props */
 const categories = {
   moves: {
     categoryId: 'moves',
     levelId: 1,
   },
+  world: {
+    categoryId: 'world',
+    levelId: 2,
+  },
   repeat: {
     categoryId: 'repeat',
     levelId: 3,
   },
-  // TODO ... other categories
+  'while': {
+    categoryId: 'while',
+    levelId: 4,
+  },
+  loops: {
+    categoryId: 'loops',
+    levelId: 5,
+  },
+  'if': {
+    categoryId: 'if',
+    levelId: 6,
+  },
+  comparing: {
+    categoryId: 'comparing',
+    levelId: 7,
+  },
+  'final-challenge': {
+    categoryId: 'final-challenge',
+    levelId: 8,
+  },
 };
 
 export default function TaskTable({ urlBase, tasks }) {
