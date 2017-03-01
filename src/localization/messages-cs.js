@@ -35,6 +35,7 @@ export default {
   'category.loops': 'Zákeřné cykly',
   'category.if': 'Podmíněné příkazy',
   'category.comparing': 'Porovnávání',
-  'category.else': 'Pokud-jinak',
+  'category.if-else': 'Pokud-jinak',
   'category.final-challenge': 'Závěrečná výzva',
+  'category.uncategorized': 'Nezařazené úlohy',
 };

@@ -37,9 +37,17 @@ const categories = {
     categoryId: 'comparing',
     levelId: 7,
   },
+  'if-else': {
+    categoryId: 'if-else',
+    levelId: 8,
+  },
   'final-challenge': {
     categoryId: 'final-challenge',
-    levelId: 8,
+    levelId: 9,
+  },
+  uncategorized: {
+    categoryId: 'uncategorized',
+    levelId: 10,
   },
 };
 
@@ -72,6 +80,9 @@ TaskTable.defaultProps = {
 
 
 function CategoryTasks({ category, tasks, urlBase }) {
+  if (tasks.length === 0) {
+    return null;
+  }
   return (
     <Card style={{ margin: 10 }}>
       <CardTitle
@@ -81,16 +92,15 @@ function CategoryTasks({ category, tasks, urlBase }) {
       <CardText>
         <GridList
           cellHeight={120}
-          cols={Math.floor(window.innerWidth / 300)}
+          cols={Math.min(5, Math.floor(window.innerWidth / 300))}
           style={{
             display: 'flex',
             flexWrap: 'wrap',
           }}
         >
           {tasks.map((task) => (
-            <Link to={`${urlBase}${task.taskId}`}>
+            <Link key={task.taskId} to={`${urlBase}${task.taskId}`}>
               <GridTile
-                key={task.taskId}
                 title={<TaskName taskId={task.taskId} />}
                 subtitle={'2:30'}
               >
