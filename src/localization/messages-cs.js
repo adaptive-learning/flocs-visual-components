@@ -27,4 +27,14 @@ export default {
   'blockly.red': 'červená',
   'blockly.yellow': 'žlutá',
   'blockly.black': 'černá',
+
+  'category.moves': 'Základní kroky',
+  'category.world': 'Tajemný vesmír',
+  'category.repeat': 'Opakuj N-krát',
+  'category.while': 'Opakuj dokud',
+  'category.loops': 'Zákeřné cykly',
+  'category.if': 'Podmíněné příkazy',
+  'category.comparing': 'Porovnávání',
+  'category.else': 'Pokud-jinak',
+  'category.final-challenge': 'Závěrečná výzva',
 };

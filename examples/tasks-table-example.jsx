@@ -3,28 +3,48 @@ import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import { FlocsProvider, TasksTable } from 'flocs-visual-components';
 
-const task1 = {
-  taskId: 'one-step-forward',
-  setting: {
-    fields: [[['b', []], ['b', []], ['b', []], ['b', []], ['b', []]],
-              [['k', []], ['k', []], ['k', ['S']], ['k', []], ['k', []]]],
+const tasks = [
+  {
+    taskId: 'one-step-forward',
+    categoryId: 'moves',
+    setting: {},
   },
-};
-const task2 = {
-  taskId: 'ladder',
-  setting: {
-    fields: [[['b', []], ['b', ['A']], ['b', ['M']], ['b', ['A']], ['b', []]],
-            [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-            [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
-            [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-            [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
-            [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-            [['k', []], ['k', ['A']], ['k', ['M']], ['k', ['A']], ['k', []]],
-            [['k', []], ['k', ['A']], ['k', []], ['k', ['A']], ['k', []]],
-            [['k', []], ['k', ['A']], ['k', ['S']], ['k', ['A']], ['k', []]]],
+  {
+    taskId: 'two-steps-forward',
+    categoryId: 'moves',
+    setting: {},
   },
-};
-const tasks = { first: task1, second: task2 };
+  {
+    taskId: 'three-steps-forward',
+    categoryId: 'moves',
+    setting: {},
+  },
+  {
+    taskId: 'turning-left',
+    categoryId: 'moves',
+    setting: {},
+  },
+  {
+    taskId: 'turning-right',
+    categoryId: 'moves',
+    setting: {},
+  },
+  {
+    taskId: 'turning-left-and-right',
+    categoryId: 'moves',
+    setting: {},
+  },
+  {
+    taskId: 'ladder',
+    categoryId: 'repeat',
+    setting: {},
+  },
+  {
+    taskId: 'zig-zag',
+    categoryId: 'repeat',
+    setting: {},
+  },
+];
 
 
 function TasksTableContainer() {

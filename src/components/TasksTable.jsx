@@ -1,36 +1,45 @@
 import React, { PropTypes } from 'react';
-import { Table,
-         TableBody,
-         TableHeader,
-         TableHeaderColumn,
-         TableRow,
-         TableRowColumn } from 'material-ui/Table';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import { Card, CardTitle, CardText } from 'material-ui/Card';
+import { GridList, GridTile } from 'material-ui/GridList';
 import TaskName from './TaskName';
+import { theme } from '../theme';
 
+// TODO: unhardcode categories
+const categories = {
+  moves: {
+    categoryId: 'moves',
+    levelId: 1,
+  },
+  repeat: {
+    categoryId: 'repeat',
+    levelId: 3,
+  },
+  // TODO ... other categories
+};
 
 export default function TaskTable({ urlBase, tasks }) {
-  const sortedIds = Object.keys(tasks).sort();
+  const allCategoryIds = Object.keys(categories);
+  const compareCategoryIds = (a, b) => categories[a].levelId - categories[b].levelId;
+  const sortedCategoryIds = allCategoryIds.sort(compareCategoryIds);
   return (
-    <Table>
-      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <TableRow>
-          <TableHeaderColumn>
-            <FormattedMessage id="Task" />
-          </TableHeaderColumn>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        { sortedIds.map(id => <TaskTableRow key={id} urlBase={urlBase} task={tasks[id]} />) }
-      </TableBody>
-    </Table>
+    <div>
+      { sortedCategoryIds.map(categoryId =>
+        <CategoryTasks
+          key={categoryId}
+          urlBase={urlBase}
+          category={categories[categoryId]}
+          tasks={tasks.filter(task => task.categoryId === categoryId)}
+        />)
+      }
+    </div>
   );
 }
 
 TaskTable.propTypes = {
   urlBase: PropTypes.string,
-  tasks: PropTypes.object.isRequired,
+  tasks: PropTypes.array.isRequired,
 };
 
 TaskTable.defaultProps = {
@@ -38,20 +47,48 @@ TaskTable.defaultProps = {
 };
 
 
-function TaskTableRow({ urlBase, task }) {
+function CategoryTasks({ category, tasks, urlBase }) {
   return (
-    <TableRow>
-      <TableRowColumn>
-        <Link to={`${urlBase}${task.taskId}`}>
-          <TaskName taskId={task.taskId} />
-        </Link>
-      </TableRowColumn>
-    </TableRow>
+    <Card style={{ margin: 10 }}>
+      <CardTitle
+        title={<FormattedMessage id={`category.${category.categoryId}`} />}
+        subtitle={`Level ${category.levelId}`}
+      />
+      <CardText>
+        <GridList
+          cellHeight={120}
+          cols={Math.floor(window.innerWidth / 300)}
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+          }}
+        >
+          {tasks.map((task) => (
+            <Link to={`${urlBase}${task.taskId}`}>
+              <GridTile
+                key={task.taskId}
+                title={<TaskName taskId={task.taskId} />}
+                subtitle={'2:30'}
+              >
+                <div
+                  style={{
+                    backgroundColor: theme.palette.primary3Color,
+                    width: '100%',
+                    height: '100%',
+                  }}
+                />
+              </GridTile>
+            </Link>
+          ))}
+        </GridList>
+      </CardText>
+    </Card>
   );
 }
 
 
-TaskTableRow.propTypes = {
+CategoryTasks.propTypes = {
+  category: PropTypes.object.isRequired,
+  tasks: PropTypes.array.isRequired,
   urlBase: PropTypes.string,
-  task: PropTypes.object.isRequired,
 };
