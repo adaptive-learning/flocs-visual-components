@@ -17,12 +17,24 @@ export default function SpaceGame({
   const initialStage = (stage === 'initial');
   const preparing = (stage === 'preparing');
   const controlsSetting = {
-    fly: evaluateVisibility(controls.indexOf('fly') < 0 || preparing, gameOver),
-    left: evaluateVisibility(controls.indexOf('left') < 0 || preparing, gameOver),
-    right: evaluateVisibility(controls.indexOf('right') < 0 || preparing, gameOver),
-    shoot: evaluateVisibility(controls.indexOf('shoot') < 0 || preparing, gameOver),
-    run: evaluateVisibility(controls.indexOf('run') < 0 || preparing || !(initialStage), false),
-    reset: evaluateVisibility(controls.indexOf('reset') < 0 || preparing || initialStage, false),
+    fly: evaluateVisibility(
+      controls.indexOf('fly') < 0 || preparing,
+      gameOver),
+    left: evaluateVisibility(
+      controls.indexOf('left') < 0 || preparing,
+      gameOver),
+    right: evaluateVisibility(
+      controls.indexOf('right') < 0 || preparing,
+      gameOver),
+    shoot: evaluateVisibility(
+      controls.indexOf('shoot') < 0 || preparing,
+      gameOver),
+    run: evaluateVisibility(
+      controls.indexOf('run') < 0 || preparing || !(initialStage),
+      false),
+    reset: evaluateVisibility(
+      controls.indexOf('reset') < 0 || preparing || (initialStage && controls.indexOf('run') >= 0),
+      initialStage),
   };
   return (
     <span style={{ display: 'inline-block', verticalAlign: 'top' }}>
