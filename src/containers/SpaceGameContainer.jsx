@@ -45,7 +45,7 @@ class SpaceGameWrapper extends React.Component {
         gameState={this.props.gameState}
         actionsLimit={this.props.actionsLimit}
         width={this.props.width}
-        showCommandControls={this.props.showCommandControls}
+        controls={this.props.controls}
         onControlClicked={this.handleControlClicked}
       />
     );
@@ -56,7 +56,7 @@ class SpaceGameWrapper extends React.Component {
 SpaceGameWrapper.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
   taskId: PropTypes.string,
-  showCommandControls: PropTypes.bool,
+  controls: PropTypes.array,
   gameState: PropTypes.object.isRequired,
   actionsLimit: PropTypes.object.isRequired,
   width: PropTypes.number.isRequired,
@@ -67,18 +67,15 @@ SpaceGameWrapper.propTypes = {
 };
 
 function mapStateToProps(state, props) {
-  const { taskEnvironmentId, showCommandControls } = props;
+  const { taskEnvironmentId, controls } = props;
   const gameState = getGameState(state, taskEnvironmentId);
   const actionsLimit = getActionsLimit(state, taskEnvironmentId);
   const taskId = getTaskId(state, taskEnvironmentId);
   const width = getGamePanelWidth(state, taskEnvironmentId);
-  return { taskEnvironmentId, taskId, gameState, actionsLimit, width, showCommandControls };
+  return { taskEnvironmentId, taskId, gameState, actionsLimit, width, controls };
 }
 
 
 const actionCreators = { createTaskEnvironment, runProgram, resetGame, doActionMove };
 const SpaceGameContainer = connect(mapStateToProps, actionCreators)(SpaceGameWrapper);
-SpaceGameContainer.defaultProps = {
-  showCommandControls: false,
-};
 export default SpaceGameContainer;

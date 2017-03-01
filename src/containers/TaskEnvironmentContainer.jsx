@@ -26,7 +26,7 @@ class TaskEnvironmentWrapper extends React.Component {
         ref={ref => { this.taskEnvironment = ref; }}
         taskEnvironmentId={this.props.taskEnvironmentId}
         editorType={this.props.editorType}
-        showCommandControls={this.props.showCommandControls}
+        controls={this.props.controls}
         gamePanelWidth={this.props.gamePanelWidth}
         changeGamePanelWidth={this.changeGamePanelWidth}
       />
@@ -37,15 +37,10 @@ class TaskEnvironmentWrapper extends React.Component {
 TaskEnvironmentWrapper.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
   createTaskEnvironment: PropTypes.func.isRequired,
-  showCommandControls: PropTypes.bool.isRequired,
+  controls: PropTypes.array,
   editorType: PropTypes.oneOf(['code', 'blockly']).isRequired,
   gamePanelWidth: PropTypes.number.isRequired,
   changeGamePanelWidth: PropTypes.func.isRequired,
-};
-
-
-TaskEnvironmentWrapper.defaultProps = {
-  showCommandControls: false,
 };
 
 

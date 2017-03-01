@@ -28,7 +28,7 @@ export default class TaskEnvironment extends React.Component {
     const { taskEnvironmentId,
             editorType,
             gamePanelWidth,
-            showCommandControls } = this.props;
+            controls } = this.props;
     return (
       <SplitPane
         split="vertical"
@@ -56,7 +56,7 @@ export default class TaskEnvironment extends React.Component {
         >
           <SpaceGameContainer
             taskEnvironmentId={taskEnvironmentId}
-            showCommandControls={showCommandControls}
+            controls={controls}
           />
         </span>
         <span
@@ -87,13 +87,13 @@ export default class TaskEnvironment extends React.Component {
 TaskEnvironment.propTypes = {
   taskEnvironmentId: PropTypes.string.isRequired,
   editorType: PropTypes.oneOf(['code', 'blockly']).isRequired,
-  showCommandControls: PropTypes.bool,
+  controls: PropTypes.array,
   gamePanelWidth: PropTypes.number.isRequired,
   changeGamePanelWidth: PropTypes.func,
 };
 
 
 TaskEnvironment.defaultProps = {
-  showCommandControls: false,
+  controls: ['run', 'reset'],
   gamePanelWidth: 280,
 };

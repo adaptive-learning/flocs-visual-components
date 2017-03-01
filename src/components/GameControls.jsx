@@ -3,32 +3,22 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { translate } from '../localization';
 
 export default function GameControls({ controls, onClick }) {
-  const GROUP = {
-    fly: 'commands',
-    left: 'commands',
-    right: 'commands',
-    shoot: 'commands',
-    run: 'run',
-    reset: 'reset',
-  };
-
-  function visible(controlGroup) {
-    return controls[controlGroup] === 'active' || controls[controlGroup] === 'passive';
+  function visible(controlName) {
+    return controls[controlName] === 'active' || controls[controlName] === 'passive';
   }
 
-  function disabled(controlGroup) {
-    return controls[controlGroup] === 'passive';
+  function disabled(controlName) {
+    return controls[controlName] === 'passive';
   }
 
   function conditionallyRenderControlButton(name, label, emph = null, minWidth = 50) {
-    const controlGroup = GROUP[name];
-    if (!(visible(controlGroup))) {
+    if (!(visible(name))) {
       return null;
     }
     return (
       <RaisedButton
         label={label}
-        disabled={disabled(controlGroup)}
+        disabled={disabled(name)}
         primary={emph === 'primary'}
         secondary={emph === 'accent'}
         style={{ margin: 2, minWidth }}
@@ -39,12 +29,12 @@ export default function GameControls({ controls, onClick }) {
 
   return (
     <span style={{ display: 'block', margin: '5px 4px' }}>
-      {visible('commands') &&
+      {(visible('fly') || visible('left') || visible('right') || visible('shoot')) &&
         <span style={{ display: 'block', marginBottom: '2px' }}>
-          {conditionallyRenderControlButton('fly', '↑')}
-          {conditionallyRenderControlButton('left', '↖')}
-          {conditionallyRenderControlButton('right', '↗')}
-          {conditionallyRenderControlButton('shoot', '★')}
+          {conditionallyRenderControlButton('left', '↖', 'primary')}
+          {conditionallyRenderControlButton('fly', '↑', 'primary')}
+          {conditionallyRenderControlButton('right', '↗', 'primary')}
+          {conditionallyRenderControlButton('shoot', '★', 'primary')}
         </span>
       }
       {conditionallyRenderControlButton('run', translate('Run'), 'primary', 88)}

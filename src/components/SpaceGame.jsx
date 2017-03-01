@@ -9,17 +9,20 @@ export default function SpaceGame({
     gameState,
     actionsLimit,
     width,
-    showCommandControls,
+    controls,
     onControlClicked,
   }) {
   const { fields, stage, diamonds, energy } = gameState;
   const gameOver = (stage === 'solved' || stage === 'dead');
   const initialStage = (stage === 'initial');
   const preparing = (stage === 'preparing');
-  const controls = {
-    commands: getVisibility((!showCommandControls) || preparing, gameOver),
-    run: (initialStage) ? 'active' : 'hidden',
-    reset: (!initialStage && !preparing) ? 'active' : 'hidden',
+  const controlsSetting = {
+    fly: evaluateVisibility(controls.indexOf('fly') < 0 || preparing, gameOver),
+    left: evaluateVisibility(controls.indexOf('left') < 0 || preparing, gameOver),
+    right: evaluateVisibility(controls.indexOf('right') < 0 || preparing, gameOver),
+    shoot: evaluateVisibility(controls.indexOf('shoot') < 0 || preparing, gameOver),
+    run: evaluateVisibility(controls.indexOf('run') < 0 || preparing || !(initialStage), false),
+    reset: evaluateVisibility(controls.indexOf('reset') < 0 || preparing || initialStage, false),
   };
   return (
     <span style={{ display: 'inline-block', verticalAlign: 'top' }}>
@@ -35,7 +38,7 @@ export default function SpaceGame({
         fields={fields}
         width={width}
       />
-      <GameControls controls={controls} onClick={onControlClicked} />
+      <GameControls controls={controlsSetting} onClick={onControlClicked} />
     </span>
   );
 }
@@ -45,19 +48,19 @@ SpaceGame.propTypes = {
   gameState: PropTypes.object.isRequired,
   actionsLimit: PropTypes.object,
   onControlClicked: PropTypes.func.isRequired,
-  showCommandControls: PropTypes.bool,
+  controls: PropTypes.array,
   width: PropTypes.number,
 };
 
 SpaceGame.defaultProps = {
   taskId: 'nameless-task',
   actionsLimit: { limit: null },
-  showCommandControls: false,
+  controls: [],
   width: 280,
 };
 
 
-function getVisibility(hiddenCondition, passiveCondition) {
+function evaluateVisibility(hiddenCondition, passiveCondition) {
   if (hiddenCondition) {
     return 'hidden';
   }

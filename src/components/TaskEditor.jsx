@@ -35,7 +35,7 @@ export default class TaskEditor extends React.Component {
       >
         <TaskEnvironmentContainer
           taskEnvironmentId={taskEnvironmentId}
-          showCommandControls={true}
+          controls={['fly', 'left', 'right', 'shoot', 'run', 'reset']}
           ref={ref => { this.taskEnvironment = ref.getWrappedInstance(); }}
         />
         <SettingEditorContainer

@@ -31,7 +31,7 @@ function createAppComponent() {
         <div>
           <SpaceGameContainer
             taskEnvironmentId="demo"
-            showCommandControls={true}
+            controls={['fly', 'left', 'right', 'reset']}
           />
           {taskSolved &&
             <p>Task solved!</p>
