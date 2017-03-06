@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Provider, intlReducer } from 'react-intl-redux';
+import { Router, browserHistory } from 'react-router';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createPromiseMiddleware from 'redux-promise-middleware';
@@ -12,7 +14,7 @@ import { flocsComponentsReducer } from './reducers';
 /**
  * Provides context for flocs components (store, localization, theme)
  */
-export default function FlocsProvider({ children, reducers }) {
+export default function FlocsProvider({ children, router, reducers }) {
   const initialState = {
     intl: getLocalizationSetting(),
   };
@@ -20,16 +22,26 @@ export default function FlocsProvider({ children, reducers }) {
     ...reducers,
     flocsComponents: flocsComponentsReducer,
     intl: intlReducer,
+    routing: routerReducer,
   });
   const promise = createPromiseMiddleware();
   const logger = createLoggerMiddleware();
   const middleware = applyMiddleware(promise, thunk, logger);
   const store = createStore(reducer, initialState, middleware);
+  let routedChildren = children;
+  if (router) {
+    const history = syncHistoryWithStore(browserHistory, store);
+    routedChildren = (
+      <Router history={history}>
+        {children}
+      </Router>
+    );
+  }
 
   return (
     <Provider store={store}>
       <FlocsThemeProvider>
-        {children}
+        {routedChildren}
       </FlocsThemeProvider>
     </Provider>
   );
@@ -37,10 +49,12 @@ export default function FlocsProvider({ children, reducers }) {
 
 FlocsProvider.propTypes = {
   children: PropTypes.node,
+  router: PropTypes.bool,
   reducers: PropTypes.object,
 };
 
 FlocsProvider.defaultProps = {
   children: null,
   reducers: {},
+  router: false,
 };

@@ -17,13 +17,14 @@
     "react-blockly-component": "^2.0.1",
     "react-intl": "^2.2.3",
     "react-intl-redux": "^0.3.0",
+    "react-redux": "^4.4.5",
+    "react-router-redux": "^4.0.8",
     "react-split-pane": "^0.1.57",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.5.2",
     "redux-logger": "^2.7.4",
-    "redux-thunk": "^2.1.0",
     "redux-promise-middleware": "^4.2.0",
-    "react-redux": "^4.4.5"
+    "redux-thunk": "^2.1.0"
   },
   "peerDependencies": {
     "react": "^15.4.2",
@@ -72,8 +73,8 @@
     "generate-robocode-parser": "pegjs -o src/core/pegRoboCodeParser.js src/core/roboCodeGrammar.pegjs && sed -i '1i\\'\"/* eslint-disable */\" src/core/pegRoboCodeParser.js",
     "generate-task-parser": "pegjs -o src/core/pegTaskSourceParser.js src/core/taskSourceGrammar.pegjs && sed -i '1i\\'\"/* eslint-disable */\" src/core/pegTaskSourceParser.js"
   },
-  "bin" : {
-    "parseTask" : "./tools/parseTask.js"
+  "bin": {
+    "parseTask": "./tools/parseTask.js"
   },
   "repository": {
     "type": "git",
