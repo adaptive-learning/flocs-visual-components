@@ -9,6 +9,7 @@ import SpaceGameContainer from './containers/SpaceGameContainer';
 import CodeEditorContainer from './containers/CodeEditorContainer';
 import TaskEnvironmentContainer from './containers/TaskEnvironmentContainer';
 import TaskEditorContainer from './containers/TaskEditorContainer';
+import { translate, Text } from './localization';
 import { flocsSelector } from './selectors';
 import flocsActionCreators from './actionCreators';
 import * as flocsActionTypes from './actionTypes';
@@ -46,4 +47,8 @@ export {
   // core functions and objects
   parseSpaceWorld,
   parseTaskSourceText,
+
+  // localization
+  translate,
+  Text,
 };

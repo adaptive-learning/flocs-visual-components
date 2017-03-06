@@ -1,8 +1,9 @@
 import csLocaleData from 'react-intl/locale-data/cs.js';
 import { addLocaleData, IntlProvider } from 'react-intl';
+import { getDomainLabels } from '../utils/url';
 import messagesCs from './messages-cs';
 import messagesEn from './messages-en';
-import { getDomainLabels } from '../utils/url';
+import Text from './Text';
 
 
 addLocaleData(csLocaleData);
@@ -36,3 +37,4 @@ const { intl } = new IntlProvider(getLocalizationSetting(), {}).getChildContext(
 export function translate(id, values = {}) {
   return intl.formatMessage({ id, values });
 }
+export { Text };
