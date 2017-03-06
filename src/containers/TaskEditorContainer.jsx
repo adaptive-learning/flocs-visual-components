@@ -8,6 +8,9 @@ import { setTask } from '../actionCreators/taskEnvironment';
 class TaskEditorWrapper extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
     this.props.setTask(this.props.taskEnvironmentId, this.props.initialTask);
   }
 
