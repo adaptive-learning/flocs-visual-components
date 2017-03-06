@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import SplitPane from 'react-split-pane';
+import { Scrollbars } from 'react-custom-scrollbars';
 import CodeEditorContainer from '../containers/CodeEditorContainer';
 import BlocklyEditorContainer from '../containers/BlocklyEditorContainer';
 import SpaceGameContainer from '../containers/SpaceGameContainer';
@@ -42,7 +43,7 @@ export default class TaskEnvironment extends React.Component {
         }}
         onChange={this.onGamePanelWidthChange}
       >
-        <span
+        <Scrollbars
           style={{
             display: 'inline-block',
             position: 'absolute',
@@ -58,7 +59,7 @@ export default class TaskEnvironment extends React.Component {
             taskEnvironmentId={taskEnvironmentId}
             controls={controls}
           />
-        </span>
+        </Scrollbars>
         <span
           style={{
             display: 'inline-block',

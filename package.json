@@ -15,6 +15,7 @@
     "react": "^15.4.2",
     "react-ace": "^4.0.0",
     "react-blockly-component": "^2.0.1",
+    "react-custom-scrollbars": "^4.0.2",
     "react-intl": "^2.2.3",
     "react-intl-redux": "^0.3.0",
     "react-redux": "^4.4.5",
