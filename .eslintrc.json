@@ -25,6 +25,7 @@
       "no-underscore-dangle": 0,
       "no-alert": 0,
       "no-console": 0,
+      "quote-props": 0,
       "react/require-extension": 0,
       "react/jsx-boolean-value": 0,
       "import/prefer-default-export": 0,

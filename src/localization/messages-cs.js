@@ -1,4 +1,4 @@
-/* eslint-disable quote-props */
+/* eslint-disable quote-props, max-len */
 export default {
   'I understand': 'Rozumím',
   'Overview': 'Přehled',
@@ -89,4 +89,7 @@ export default {
   'category.if-else': 'Pokud-jinak',
   'category.final-challenge': 'Závěrečná výzva',
   'category.uncategorized': 'Nezařazené úlohy',
+
+  'instruction.space-world': 'Tvým úkolem je dostat vesmírnou loď na druhou stranu vesmírného světa',
+  'instruction.controls': 'Tvůj program spustíš kliknutím na toto tlačítko',
 };

@@ -11,6 +11,7 @@ import { createTaskEnvironment,
          doActionMove,
          resetGame,
          setEditorType } from './taskEnvironment';
+import { showInstructions } from './instructions';
 
 // TODO: merge them automatically
 const flocsActionCreators = {
@@ -27,6 +28,7 @@ const flocsActionCreators = {
   resetGame,
   switchVimMode,
   setEditorType,
+  showInstructions,
 };
 
 export default flocsActionCreators;
