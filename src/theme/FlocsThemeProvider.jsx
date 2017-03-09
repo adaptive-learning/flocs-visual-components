@@ -6,7 +6,9 @@ import theme from './theme';
 export default function FlocsThemeProvider({ children }) {
   return (
     <MuiThemeProvider muiTheme={theme}>
-      {children}
+      <div>
+        {children}
+      </div>
     </MuiThemeProvider>
   );
 }

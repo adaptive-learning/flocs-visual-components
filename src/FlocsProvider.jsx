@@ -9,6 +9,7 @@ import createLoggerMiddleware from 'redux-logger';
 import { getLocalizationSetting } from './localization';
 import FlocsThemeProvider from './theme/FlocsThemeProvider';
 import { flocsComponentsReducer } from './reducers';
+import InstructionsContainer from './containers/InstructionsContainer';
 
 
 /**
@@ -41,6 +42,7 @@ export default function FlocsProvider({ children, router, reducers }) {
   return (
     <Provider store={store}>
       <FlocsThemeProvider>
+        <InstructionsContainer />
         {routedChildren}
       </FlocsThemeProvider>
     </Provider>

@@ -1,11 +1,13 @@
 /* eslint-disable quote-props */
 export default {
+  'I understand': 'Rozumím',
   'Overview': 'Přehled',
   'Run': 'Spusť program',
   'Task': 'Úkol',
   'Tasks': 'Úkoly',
   'Task Editor': 'Editor úloh',
   'Practice': 'Trénink',
+  'Previous': 'Předchozí',
 
   'task.arrow': 'Šipka',
   'task.beware-of-asteroid': 'Pozor na asteroid',
