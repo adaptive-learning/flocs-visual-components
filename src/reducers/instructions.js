@@ -17,20 +17,22 @@ export function reduceInstructionLayer(state = initialState, action) {
           // 'space-world',
           // 'controls',
           // 'energy-status',
+          'env.toolbox',
+          'env.snapping',
           // 'action-limit',
           // 'object.asteroid',
           // 'object.meteoroid',
           // 'object.diamond',
           // 'diamonds-status',
           // 'object.wormhole',
-          'block.fly',
-          'block.shoot',
-          'block.repeat',
-          'block.while',
-          'block.color',
-          'block.position',
-          'block.if',
-          'block.if-else',
+          // 'block.fly',
+          // 'block.shoot',
+          // 'block.repeat',
+          // 'block.while',
+          // 'block.color',
+          // 'block.position',
+          // 'block.if',
+          // 'block.if-else',
         ],
       };
     default:
@@ -41,6 +43,16 @@ export function reduceInstructionLayer(state = initialState, action) {
 
 export function reduceInstructions() {
   return {
+    'env.toolbox': {
+      instructionId: 'env.toolbox',
+      selector: '.blocklyFlyout',
+      position: 'right',
+    },
+    'env.snapping': {
+      instructionId: 'env.snapping',
+      selector: '.instructionable-env-snapping',
+      position: 'bottom-left',
+    },
     'space-world': {
       instructionId: 'space-world',
       selector: '.instructionable-space-world',

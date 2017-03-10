@@ -90,6 +90,8 @@ export default {
   'category.final-challenge': 'Závěrečná výzva',
   'category.uncategorized': 'Nezařazené úlohy',
 
+  'instruction.env.toolbox': 'Tohle je sada příkazů k ovládání vesmírné lodi. Příkazy můžeš ve svém programu používat opakovaně.',
+  'instruction.env.snapping': 'Tady vytváříš svůj program. Všimni si, že bloky mají malé zobáčky, kterými je lze zapojovat do sebe. Raketka bude vykonávat pouze příkazy zapojené pod startovní blok.',
   'instruction.space-world': 'Tvým úkolem je dostat vesmírnou loď na druhou stranu vesmírného světa.',
   'instruction.controls': 'Program spustíš kliknutím na toto tlačítko.',
   'instruction.action-limit': 'Ve svém programu můžeš použít pouze omezený počet akcí. Akce jsou modré bloky - let a střelba.',

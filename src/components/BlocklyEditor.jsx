@@ -46,13 +46,20 @@ export default class BlocklyEditor extends React.Component {
 
   registerInstructables() {
     // TODO: move to a separate decorator (currently violates SRP)
-    const blocks = this.blocklyToolbox.getAllBlocks();
-    for (const block of blocks) {
+    const toolboxBlocks = this.blocklyToolbox.getAllBlocks();
+    for (const block of toolboxBlocks) {
       const svgElement = block.getSvgRoot();
       const instructionableClassName = `instructionable-block-${block.type}`;
       // TODO: addClass only working in modern browsers -> include polyfill
       // (alternatively, use Blockly.utils.addClass)
       svgElement.classList.add(instructionableClassName);
+    }
+    const programBlocks = this.blocklyWorkspace.getAllBlocks();
+    for (const block of programBlocks) {
+      if (block.type === 'start') {
+        const svgElement = block.getSvgRoot();
+        svgElement.classList.add('instructionable-env-snapping');
+      }
     }
   }
 
