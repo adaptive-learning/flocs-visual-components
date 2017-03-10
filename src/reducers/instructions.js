@@ -4,6 +4,27 @@ import { SHOW_INSTRUCTIONS } from '../actionTypes';
 const initialState = {
   activeInstruction: null,
   scheduledInstructions: [],
+  ordering: [
+    'env.space-world',
+    'env.toolbox',
+    'env.snapping',
+    'env.controls',
+    'object.asteroid',
+    'object.meteoroid',
+    'object.diamond',
+    'object.wormhole',
+    'diamonds-status',
+    'energy-status',
+    'action-limit',
+    'block.fly',
+    'block.shoot',
+    'block.repeat',
+    'block.while',
+    'block.color',
+    'block.position',
+    'block.if',
+    'block.if-else',
+  ],
 };
 
 
@@ -13,27 +34,7 @@ export function reduceInstructionLayer(state = initialState, action) {
       return {
         ...state,
         activeInstruction: 'space-world',
-        scheduledInstructions: [
-          // 'space-world',
-          // 'controls',
-          // 'energy-status',
-          'env.toolbox',
-          'env.snapping',
-          // 'action-limit',
-          // 'object.asteroid',
-          // 'object.meteoroid',
-          // 'object.diamond',
-          // 'diamonds-status',
-          // 'object.wormhole',
-          // 'block.fly',
-          // 'block.shoot',
-          // 'block.repeat',
-          // 'block.while',
-          // 'block.color',
-          // 'block.position',
-          // 'block.if',
-          // 'block.if-else',
-        ],
+        scheduledInstructions: state.ordering,  // for testing
       };
     default:
       return state;
@@ -43,6 +44,11 @@ export function reduceInstructionLayer(state = initialState, action) {
 
 export function reduceInstructions() {
   return {
+    'env.space-world': {
+      instructionId: 'env.space-world',
+      selector: '.instructionable-env-space-world',
+      position: 'bottom',
+    },
     'env.toolbox': {
       instructionId: 'env.toolbox',
       selector: '.blocklyFlyout',
@@ -53,14 +59,9 @@ export function reduceInstructions() {
       selector: '.instructionable-env-snapping',
       position: 'bottom-left',
     },
-    'space-world': {
-      instructionId: 'space-world',
-      selector: '.instructionable-space-world',
-      position: 'bottom',
-    },
-    'controls': {
-      instructionId: 'controls',
-      selector: '.instructionable-controls',
+    'env.controls': {
+      instructionId: 'env.controls',
+      selector: '.instructionable-env-controls',
       position: 'bottom-left',
     },
     'object.wormhole': {

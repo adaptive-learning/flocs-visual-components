@@ -28,7 +28,7 @@ export default function GameControls({ controls, onClick }) {
   }
 
   return (
-    <span className="instructionable-controls" style={{ display: 'block', margin: '5px 4px' }}>
+    <span className="instructionable-env-controls" style={{ display: 'block', margin: '5px 4px' }}>
       {(visible('fly') || visible('left') || visible('right') || visible('shoot')) &&
         <span style={{ display: 'block', marginBottom: '2px' }}>
           {conditionallyRenderControlButton('left', '↖', 'primary')}

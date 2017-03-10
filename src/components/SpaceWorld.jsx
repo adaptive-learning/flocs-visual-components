@@ -11,7 +11,7 @@ export default function SpaceWorld({ fields, width }) {
     position: 'relative',
   };
   return (
-    <span className="instructionable-space-world" style={worldStyle}>
+    <span className="instructionable-env-space-world" style={worldStyle}>
       <SpaceBackgroundGrid backgroundColors={backgrounds} fieldSize={fieldSize} />
       <span>
         {objects.map((object, index) =>
