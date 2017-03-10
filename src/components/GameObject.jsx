@@ -9,8 +9,9 @@ export default function GameObject({ imageId, width, height, position, bottom, l
     bottom,
     left,
   };
+  const instructionableClassName = `instructionable-object-${imageId}`;
   return (
-    <Image imageId={imageId} style={imageStyle} />
+    <Image imageId={imageId} className={instructionableClassName} style={imageStyle} />
   );
 }
 

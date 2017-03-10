@@ -90,6 +90,13 @@ export default {
   'category.final-challenge': 'Závěrečná výzva',
   'category.uncategorized': 'Nezařazené úlohy',
 
-  'instruction.space-world': 'Tvým úkolem je dostat vesmírnou loď na druhou stranu vesmírného světa',
-  'instruction.controls': 'Tvůj program spustíš kliknutím na toto tlačítko',
+  'instruction.space-world': 'Tvým úkolem je dostat vesmírnou loď na druhou stranu vesmírného světa.',
+  'instruction.controls': 'Program spustíš kliknutím na toto tlačítko.',
+  'instruction.action-limit': 'Ve svém programu můžeš použít pouze omezený počet akcí. Akce jsou modré bloky - let a střelba.',
+  'instruction.diamonds-status': 'Tohle je počítadlo diamantů. Zobrazuje, kolik diamantů raketka posbírala a kolik jich musí posbírat celkem.',
+  'instruction.energy-status': 'Tohle je ukazatel energie. Každý výstřel odebere raketce 1 jednotku energie.',
+  'instruction.object.diamond': 'Raketka musí po cestě posbírat všechny diamanty.',
+  'instruction.object.asteroid': 'Pokud raketka narazí do asteroidu, tak se rozbije.',
+  'instruction.object.meteoroid': 'Pokud raketka narazí do meteoroidu, tak se rozbije. Naštěstí jsou meteoroidy malé a raketka je tak může rozstřelit.',
+  'instruction.object.wormhole': 'Pokud raketka vletí do červí díry, okamžitě se objeví v druhé červí díře.',
 };

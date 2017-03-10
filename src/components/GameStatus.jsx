@@ -12,13 +12,19 @@ export default function GameStatus({ taskId, solved, dead, diamonds, energy, act
       </span>
       <span style={{ display: 'block' }}>
         { diamonds.total > 0 &&
-          <span><Icon name="diamond" /> {diamonds.taken}/{diamonds.total}&nbsp;&nbsp;</span>
+          <span className="instructionable-diamonds-status">
+            <Icon name="diamond" /> {diamonds.taken}/{diamonds.total}&nbsp;&nbsp;
+          </span>
         }
         { energy.full !== null &&
-          <span><Icon name="energy" /> {energy.current}/{energy.full}&nbsp;&nbsp;</span>
+          <span className="instructionable-energy-status">
+            <Icon name="energy" /> {energy.current}/{energy.full}&nbsp;&nbsp;
+          </span>
         }
         { actions.limit !== null &&
-          <span><Icon name="actions" /> {actions.used}/{actions.limit}&nbsp;&nbsp;</span>
+          <span className="instructionable-action-limit">
+            <Icon name="actions" /> {actions.used}/{actions.limit}&nbsp;&nbsp;
+          </span>
         }
       </span>
     </span>

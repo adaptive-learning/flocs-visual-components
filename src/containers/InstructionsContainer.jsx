@@ -67,6 +67,7 @@ class InstructionsContainer extends React.Component {
           run={this.steps.length > 0}
           autoStart={this.steps.length > 0}
           debug={false}
+          holePadding={2}
           locale={{
             back: translate('Previous'),
             close: translate('I understand'),
