@@ -99,4 +99,12 @@ export default {
   'instruction.object.asteroid': 'Pokud raketka narazí do asteroidu, tak se rozbije.',
   'instruction.object.meteoroid': 'Pokud raketka narazí do meteoroidu, tak se rozbije. Naštěstí jsou meteoroidy malé a raketka je tak může rozstřelit.',
   'instruction.object.wormhole': 'Pokud raketka vletí do červí díry, okamžitě se objeví v druhé červí díře.',
+  'instruction.block.fly': 'Příkaz pro let o jedno políčko vpřed.',
+  'instruction.block.shoot': 'Raketka vystřelí a pak se posune o jedno políčko vpřed.',
+  'instruction.block.repeat': 'Tento blok říká raketce, aby N-krát zopakovala zadanou posloupnost příkazů.',
+  'instruction.block.while': 'Tento blok říká raketce, aby opakovala zadanou posloupnost příkazů, dokud nezačne platit nějaká podmínka.',
+  'instruction.block.color': 'Testování barvy pod raketkou.',
+  'instruction.block.position': 'Test na aktuální sloupec, ve kterém se raketka nachází. Sloupce jsou číslovány zleva 1, 2, 3, ...',
+  'instruction.block.if': 'Podmíněný příkaz. Umožňuje nám říct, že chceme vykonat nějaké příkazy, pouze pokud platí určitá podmínka.',
+  'instruction.block.if-else': 'Úplný podmíněný příkaz. Umožňuje nám říct, že chceme vykonat nějaké příkazy, pokud platí určitá podmínka, a jiné příkazy, pokud podmínka neplatí.',
 };

@@ -14,6 +14,9 @@ const workspaceConfiguration = {
 // Blockly editor requires global Blockly object
 // It fills the parent div completely and resize on dimensions change
 export default class BlocklyEditor extends React.Component {
+  componentDidMount() {
+    this.registerInstructables();
+  }
 
   // Sometimes, we need to set a new program, e.g. when a new task is set.
   // However, ReactBlocklyComponent only sets an initial XML.
@@ -26,6 +29,7 @@ export default class BlocklyEditor extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.editorSessionId !== this.props.editorSessionId) {
       this.setRoboAst(this.props.roboAst);
+      this.registerInstructables();
     }
     this.checkActionsLimit(this.props.roboAst);
   }
@@ -38,6 +42,18 @@ export default class BlocklyEditor extends React.Component {
   setXml(xml) {
     this.blocklyWorkspace.clear();
     this.blocklyEditor.importFromXml(xml);
+  }
+
+  registerInstructables() {
+    // TODO: move to a separate decorator (currently violates SRP)
+    const blocks = this.blocklyToolbox.getAllBlocks();
+    for (const block of blocks) {
+      const svgElement = block.getSvgRoot();
+      const instructionableClassName = `instructionable-block-${block.type}`;
+      // TODO: addClass only working in modern browsers -> include polyfill
+      // (alternatively, use Blockly.utils.addClass)
+      svgElement.classList.add(instructionableClassName);
+    }
   }
 
   resize() {
@@ -65,6 +81,11 @@ export default class BlocklyEditor extends React.Component {
     }
   }
 
+  // Return Blockly.Toolbox
+  // (node_modules/node-blockly/blockly/core/toolbox.js)
+  get blocklyToolbox() {
+    return this.blocklyWorkspace.getFlyout_().workspace_;
+  }
 
   // Return Blockly.Workspace
   // (node_modules/node-blockly/blockly/core/workspace.js)
