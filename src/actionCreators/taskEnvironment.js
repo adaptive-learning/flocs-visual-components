@@ -1,5 +1,6 @@
 import { CREATE_TASK_ENVIRONMENT,
          SET_TASK,
+         SET_TASK_SESSION,
          CHANGE_SETTING,
          CHANGE_CODE,
          CHANGE_ROBO_AST,
@@ -28,6 +29,14 @@ export function createTaskEnvironment(taskEnvironmentId) {
   return {
     type: CREATE_TASK_ENVIRONMENT,
     payload: { taskEnvironmentId },
+  };
+}
+
+
+export function setTaskSession(taskEnvironmentId, taskSession) {
+  return {
+    type: SET_TASK_SESSION,
+    payload: { taskEnvironmentId, taskSession },
   };
 }
 

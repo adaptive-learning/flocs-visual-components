@@ -1,41 +1,50 @@
-import { SHOW_INSTRUCTIONS } from '../actionTypes';
+import {
+  SET_TASK,
+//  SET_TASK_SESSION,
+  SHOW_INSTRUCTIONS,
+  SEEN_INSTRUCTION } from '../actionTypes';
+import { getInstructions } from '../core/instructions';
 
 
 const initialState = {
-  activeInstruction: null,
+  activeInstructionIndex: null,
   scheduledInstructions: [],
-  ordering: [
-    'env.space-world',
-    'env.toolbox',
-    'env.snapping',
-    'env.controls',
-    'object.asteroid',
-    'object.meteoroid',
-    'object.diamond',
-    'object.wormhole',
-    'diamonds-status',
-    'energy-status',
-    'action-limit',
-    'block.fly',
-    'block.shoot',
-    'block.repeat',
-    'block.while',
-    'block.color',
-    'block.position',
-    'block.if',
-    'block.if-else',
-  ],
+  allInstructions: [],
 };
 
 
 export function reduceInstructionLayer(state = initialState, action) {
   switch (action.type) {
-    case SHOW_INSTRUCTIONS:
+    case SET_TASK:
       return {
         ...state,
-        activeInstruction: 'space-world',
-        scheduledInstructions: state.ordering,  // for testing
+        allInstructions: getInstructions(action.payload.task),
+        scheduledInstructions: getInstructions(action.payload.task),
       };
+    /*
+    case SET_TASK_SESSION:
+      return {
+        ...state,
+        allInstructions: getInstructions(action.payload.taskSession.task),
+        scheduledInstructions: getNewInstructions(task?, student?),
+      };
+    */
+    case SHOW_INSTRUCTIONS: {
+      return {
+        ...state,
+        activeInstructionIndex: state.activeInstructionIndex ? state.activeInstructionIndex : 0,
+      };
+    }
+    case SEEN_INSTRUCTION: {
+      let nextInstructionIndex = action.payload.index + 1;
+      if (nextInstructionIndex >= state.scheduledInstructions.length) {
+        nextInstructionIndex = null;
+      }
+      return {
+        ...state,
+        activeInstructionIndex: nextInstructionIndex,
+      };
+    }
     default:
       return state;
   }

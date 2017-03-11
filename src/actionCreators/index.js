@@ -1,6 +1,7 @@
 import { switchVimMode } from './taskEditor';
 import { createTaskEnvironment,
          setTask,
+         setTaskSession,
          changeSetting,
          exportTask,
          changeCode,
@@ -17,6 +18,7 @@ import { showInstructions } from './instructions';
 const flocsActionCreators = {
   createTaskEnvironment,
   setTask,
+  setTaskSession,
   changeSetting,
   exportTask,
   changeCode,

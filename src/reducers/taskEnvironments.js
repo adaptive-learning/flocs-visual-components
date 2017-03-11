@@ -1,5 +1,6 @@
 import { CREATE_TASK_ENVIRONMENT,
          SET_TASK,
+         SET_TASK_SESSION,
          CHANGE_SETTING,
          CHANGE_CODE,
          CHANGE_ROBO_AST,
@@ -22,6 +23,8 @@ export default function reduceTaskEnvironments(state = {}, action) {
       return createTaskEnvironment(state, action.payload.taskEnvironmentId);
     case SET_TASK:
       return updateTaskEnvironment(state, setTask, action.payload);
+    case SET_TASK_SESSION:
+      return updateTaskEnvironment(state, setTask, { task: action.payload.taskSession.task });
     case CHANGE_SETTING:
       return updateTaskEnvironment(state, changeSetting, action.payload);
     case DO_ACTION:
