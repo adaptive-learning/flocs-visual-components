@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import HelpIcon from 'material-ui/svg-icons/action/help';
+import IconButton from 'material-ui/IconButton';
 import Joyride from 'react-joyride';
 import 'react-joyride/lib/react-joyride-compiled.css';
 import { translate } from '../localization';
@@ -58,6 +59,7 @@ class InstructionsContainer extends React.Component {
   }
 
   render() {
+    const blocklyTrashcanColor = '#576065';
     return (
       <div>
         <Joyride
@@ -76,17 +78,24 @@ class InstructionsContainer extends React.Component {
             skip: 'Skip',
           }}
         />
-        <FloatingActionButton
+        <IconButton
           onClick={this.showInstructions}
           style={{
             position: 'fixed',
-            bottom: 34,
+            bottom: 31,
             right: 110,
             zIndex: 100,
+            width: 60,
+            height: 60,
+            padding: 0,
+          }}
+          iconStyle={{
+            width: 60,
+            height: 60,
           }}
         >
-          <span style={{ fontSize: 25 }}>?</span>
-        </FloatingActionButton>
+          <HelpIcon color={blocklyTrashcanColor} hoverColor="#fff" />
+        </IconButton>
       </div>
     );
   }
