@@ -13,6 +13,7 @@ import { createTaskEnvironment,
          resetGame,
          setEditorType } from './taskEnvironment';
 import { showInstructions } from './instructions';
+import { setStudent } from './student';
 
 // TODO: merge them automatically
 const flocsActionCreators = {
@@ -31,6 +32,7 @@ const flocsActionCreators = {
   switchVimMode,
   setEditorType,
   showInstructions,
+  setStudent,
 };
 
 export default flocsActionCreators;
